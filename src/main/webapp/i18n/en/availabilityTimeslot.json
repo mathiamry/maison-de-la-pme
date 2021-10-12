@@ -1,0 +1,30 @@
+{
+  "maisondelapmeApp": {
+    "availabilityTimeslot": {
+      "home": {
+        "title": "Availability Timeslots",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Availability Timeslot",
+        "createOrEditLabel": "Create or edit a Availability Timeslot",
+        "notFound": "No Availability Timeslots found"
+      },
+      "created": "A new Availability Timeslot is created with identifier {{ param }}",
+      "updated": "A Availability Timeslot is updated with identifier {{ param }}",
+      "deleted": "A Availability Timeslot is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Availability Timeslot {{ id }}?"
+      },
+      "detail": {
+        "title": "Availability Timeslot"
+      },
+      "id": "ID",
+      "startHour": "Start Hour",
+      "startMin": "Start Min",
+      "endHour": "End Hour",
+      "endMin": "End Min",
+      "day": "Day",
+      "advisor": "Advisor",
+      "partnerRepresentative": "Partner Representative"
+    }
+  }
+}

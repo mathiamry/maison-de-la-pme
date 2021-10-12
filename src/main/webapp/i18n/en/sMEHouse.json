@@ -1,0 +1,33 @@
+{
+  "maisondelapmeApp": {
+    "sMEHouse": {
+      "home": {
+        "title": "SME Houses",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new SME House",
+        "createOrEditLabel": "Create or edit a SME House",
+        "notFound": "No SME Houses found"
+      },
+      "created": "A new SME House is created with identifier {{ param }}",
+      "updated": "A SME House is updated with identifier {{ param }}",
+      "deleted": "A SME House is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete SME House {{ id }}?"
+      },
+      "detail": {
+        "title": "SME House"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "address": "Address",
+      "email": "Email",
+      "phone": "Phone",
+      "country": "Country",
+      "administrator": "Administrator",
+      "advisors": "Advisors",
+      "partners": "Partners",
+      "smes": "Smes"
+    }
+  }
+}

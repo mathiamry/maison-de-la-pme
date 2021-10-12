@@ -1,0 +1,126 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="sme">
+      <h2 data-cy="smeDetailsHeading"><span jhiTranslate="maisondelapmeApp.sme.detail.title">Sme</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ sme.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.name">Name</span></dt>
+        <dd>
+          <span>{{ sme.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.email">Email</span></dt>
+        <dd>
+          <span>{{ sme.email }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.phone">Phone</span></dt>
+        <dd>
+          <span>{{ sme.phone }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.phone2">Phone 2</span></dt>
+        <dd>
+          <span>{{ sme.phone2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.logo">Logo</span></dt>
+        <dd>
+          <span>{{ sme.logo }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.address">Address</span></dt>
+        <dd>
+          <span>{{ sme.address }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.latitude">Latitude</span></dt>
+        <dd>
+          <span>{{ sme.latitude }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.longitude">Longitude</span></dt>
+        <dd>
+          <span>{{ sme.longitude }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.webSite">Web Site</span></dt>
+        <dd>
+          <span>{{ sme.webSite }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.smeImmatriculationNumber">Sme Immatriculation Number</span></dt>
+        <dd>
+          <span>{{ sme.smeImmatriculationNumber }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.isClient">Is Client</span></dt>
+        <dd>
+          <span>{{ sme.isClient }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.isAuthorized">Is Authorized</span></dt>
+        <dd>
+          <span>{{ sme.isAuthorized }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.termsOfUse">Terms Of Use</span></dt>
+        <dd>
+          <span>{{ sme.termsOfUse }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.isValid">Is Valid</span></dt>
+        <dd>
+          <span>{{ sme.isValid }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.activityArea">Activity Area</span></dt>
+        <dd>
+          <div *ngIf="sme.activityArea">
+            <a [routerLink]="['/activity-area', sme.activityArea?.id, 'view']">{{ sme.activityArea?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.need">Need</span></dt>
+        <dd>
+          <div *ngIf="sme.need">
+            <a [routerLink]="['/need', sme.need?.id, 'view']">{{ sme.need?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.smeHouse">Sme House</span></dt>
+        <dd>
+          <div *ngIf="sme.smeHouse">
+            <a [routerLink]="['/sme-house', sme.smeHouse?.id, 'view']">{{ sme.smeHouse?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.turnover">Turnover</span></dt>
+        <dd>
+          <div *ngIf="sme.turnover">
+            <a [routerLink]="['/turnover', sme.turnover?.id, 'view']">{{ sme.turnover?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.experience">Experience</span></dt>
+        <dd>
+          <div *ngIf="sme.experience">
+            <a [routerLink]="['/experience', sme.experience?.id, 'view']">{{ sme.experience?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.size">Size</span></dt>
+        <dd>
+          <div *ngIf="sme.size">
+            <a [routerLink]="['/size', sme.size?.id, 'view']">{{ sme.size?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sme.bank">Bank</span></dt>
+        <dd>
+          <div *ngIf="sme.bank">
+            <a [routerLink]="['/bank', sme.bank?.id, 'view']">{{ sme.bank?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/sme', sme.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

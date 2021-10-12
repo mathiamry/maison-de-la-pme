@@ -1,0 +1,86 @@
+<div>
+  <h2 id="page-heading" data-cy="EventHeading">
+    <span jhiTranslate="maisondelapmeApp.event.home.title">Events</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="maisondelapmeApp.event.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-event"
+        [routerLink]="['/event/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="maisondelapmeApp.event.home.createLabel"> Create a new Event </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="events?.length === 0">
+    <span jhiTranslate="maisondelapmeApp.event.home.notFound">No events found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="events && events.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.event.title">Title</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.event.description">Description</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.event.location">Location</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.event.startDate">Start Date</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.event.endDate">End Date</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.event.isPublished">Is Published</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.event.author">Author</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.event.participants">Participants</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of events; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/event', event.id, 'view']">{{ event.id }}</a>
+          </td>
+          <td>{{ event.title }}</td>
+          <td>{{ event.description }}</td>
+          <td>{{ event.location }}</td>
+          <td>{{ event.startDate | formatMediumDatetime }}</td>
+          <td>{{ event.endDate | formatMediumDatetime }}</td>
+          <td>{{ event.isPublished }}</td>
+          <td>
+            {{ event.author?.id }}
+          </td>
+          <td>
+            <span *ngFor="let participants of event.participants; let last = last"> {{ participants.id }}{{ last ? '' : ', ' }} </span>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/event', event.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/event', event.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(event)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+{
+  "name": "Size",
+  "fields": [
+    {
+      "fieldName": "min",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "max",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "sme",
+      "otherEntityRelationshipName": "size",
+      "relationshipName": "smes"
+    }
+  ],
+  "entityTableName": "size",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211012102618"
+}

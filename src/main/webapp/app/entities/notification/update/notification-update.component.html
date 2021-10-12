@@ -1,0 +1,121 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-notification-heading"
+        data-cy="NotificationCreateUpdateHeading"
+        jhiTranslate="maisondelapmeApp.notification.home.createOrEditLabel"
+      >
+        Create or edit a Notification
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.notification.title" for="field_title">Title</label>
+          <input type="text" class="form-control" name="title" id="field_title" data-cy="title" formControlName="title" />
+          <div *ngIf="editForm.get('title')!.invalid && (editForm.get('title')!.dirty || editForm.get('title')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('title')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.notification.broadcast" for="field_broadcast">Broadcast</label>
+          <input type="checkbox" class="form-check" name="broadcast" id="field_broadcast" data-cy="broadcast" formControlName="broadcast" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.notification.description" for="field_description"
+            >Description</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.notification.createdAt" for="field_createdAt">Created At</label>
+          <div class="d-flex">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="datetime-local"
+              class="form-control"
+              name="createdAt"
+              formControlName="createdAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.notification.event" for="field_event">Event</label>
+          <select class="form-control" id="field_event" data-cy="event" name="event" formControlName="event">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="eventOption.id === editForm.get('event')!.value?.id ? editForm.get('event')!.value : eventOption"
+              *ngFor="let eventOption of eventsSharedCollection; trackBy: trackEventById"
+            >
+              {{ eventOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.notification.news" for="field_news">News</label>
+          <select class="form-control" id="field_news" data-cy="news" name="news" formControlName="news">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="newsOption.id === editForm.get('news')!.value?.id ? editForm.get('news')!.value : newsOption"
+              *ngFor="let newsOption of newsSharedCollection; trackBy: trackNewsById"
+            >
+              {{ newsOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.notification.tender" for="field_tender">Tender</label>
+          <select class="form-control" id="field_tender" data-cy="tender" name="tender" formControlName="tender">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="tenderOption.id === editForm.get('tender')!.value?.id ? editForm.get('tender')!.value : tenderOption"
+              *ngFor="let tenderOption of tendersSharedCollection; trackBy: trackTenderById"
+            >
+              {{ tenderOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

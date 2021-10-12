@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="sMEHouse">
+      <h2 data-cy="sMEHouseDetailsHeading"><span jhiTranslate="maisondelapmeApp.sMEHouse.detail.title">SME House</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ sMEHouse.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sMEHouse.name">Name</span></dt>
+        <dd>
+          <span>{{ sMEHouse.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sMEHouse.description">Description</span></dt>
+        <dd>
+          <span>{{ sMEHouse.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sMEHouse.address">Address</span></dt>
+        <dd>
+          <span>{{ sMEHouse.address }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sMEHouse.email">Email</span></dt>
+        <dd>
+          <span>{{ sMEHouse.email }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sMEHouse.phone">Phone</span></dt>
+        <dd>
+          <span>{{ sMEHouse.phone }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sMEHouse.country">Country</span></dt>
+        <dd>
+          <div *ngIf="sMEHouse.country">
+            <a [routerLink]="['/country', sMEHouse.country?.id, 'view']">{{ sMEHouse.country?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sMEHouse.administrator">Administrator</span></dt>
+        <dd>
+          <div *ngIf="sMEHouse.administrator">
+            <a [routerLink]="['/administrator', sMEHouse.administrator?.id, 'view']">{{ sMEHouse.administrator?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/sme-house', sMEHouse.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

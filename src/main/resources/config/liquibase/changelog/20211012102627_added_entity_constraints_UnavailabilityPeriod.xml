@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <!--
+        Added the constraints for entity UnavailabilityPeriod.
+    -->
+    <changeSet id="20211012102627-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="unavailability_period_id"
+                                 baseTableName="rel_unavailability_period__advisor"
+                                 constraintName="fk_rel_unavailability_period__a__unavailability_period_0a_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="unavailability_period"/>
+
+        <addForeignKeyConstraint baseColumnNames="advisor_id"
+                                 baseTableName="rel_unavailability_period__advisor"
+                                 constraintName="fk_rel_unavailability_period__advisor__advisor_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="advisor"/>
+
+        <addForeignKeyConstraint baseColumnNames="unavailability_period_id"
+                                 baseTableName="rel_unavailability_period__partner_representative"
+                                 constraintName="fk_rel_unavailability_period__p__unavailability_period_d2_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="unavailability_period"/>
+
+        <addForeignKeyConstraint baseColumnNames="partner_representative_id"
+                                 baseTableName="rel_unavailability_period__partner_representative"
+                                 constraintName="fk_rel_unavailability_period__p__partner_representative_bd_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="partner_representative"/>
+    </changeSet>
+</databaseChangeLog>

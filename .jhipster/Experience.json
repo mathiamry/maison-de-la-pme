@@ -1,0 +1,35 @@
+{
+  "name": "Experience",
+  "fields": [
+    {
+      "fieldName": "min",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "max",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "sme",
+      "otherEntityRelationshipName": "experience",
+      "relationshipName": "smes"
+    }
+  ],
+  "entityTableName": "experience",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211012102619"
+}

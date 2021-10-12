@@ -1,0 +1,46 @@
+{
+  "maisondelapmeApp": {
+    "sme": {
+      "home": {
+        "title": "Smes",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Sme",
+        "createOrEditLabel": "Créer ou éditer un Sme",
+        "notFound": "Aucun Sme trouvé"
+      },
+      "created": "Un nouveau Sme a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Sme avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Sme avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Sme {{ id }} ?"
+      },
+      "detail": {
+        "title": "Sme"
+      },
+      "id": "ID",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "phone2": "Phone 2",
+      "logo": "Logo",
+      "address": "Address",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "webSite": "Web Site",
+      "smeImmatriculationNumber": "Sme Immatriculation Number",
+      "isClient": "Is Client",
+      "isAuthorized": "Is Authorized",
+      "termsOfUse": "Terms Of Use",
+      "isValid": "Is Valid",
+      "activityArea": "Activity Area",
+      "need": "Need",
+      "smeHouse": "Sme House",
+      "turnover": "Turnover",
+      "experience": "Experience",
+      "size": "Size",
+      "bank": "Bank",
+      "representatives": "Representatives",
+      "files": "Files"
+    }
+  }
+}

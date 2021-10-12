@@ -1,0 +1,27 @@
+{
+  "maisondelapmeApp": {
+    "history": {
+      "home": {
+        "title": "Histories",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau History",
+        "createOrEditLabel": "Créer ou éditer un History",
+        "notFound": "Aucun History trouvé"
+      },
+      "created": "Un nouveau History a été créé avec l'identifiant {{ param }}",
+      "updated": "Le History avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le History avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le History {{ id }} ?"
+      },
+      "detail": {
+        "title": "History"
+      },
+      "id": "ID",
+      "origin": "Origin",
+      "action": "Action",
+      "actionDate": "Action Date",
+      "author": "Author"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+id;job_title;is_admin;is_manager;person_id;sme_id
+1;b b Manager;true;false;1;1
+2;c a Analyste;false;false;2;2
+3;b b Directeur;false;true;3;3
+4;a a Specialiste;true;true;4;4
+5;b b Executif;true;true;5;5
+6;a b Agent;true;false;6;6
+7;a a Agent;false;false;7;7
+8;c a Assistant;true;true;8;8
+9;a b Coordinateur;false;true;9;9
+10;a a Superviseur;false;true;10;10

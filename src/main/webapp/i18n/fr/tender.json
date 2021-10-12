@@ -1,0 +1,33 @@
+{
+  "maisondelapmeApp": {
+    "tender": {
+      "home": {
+        "title": "Tenders",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Tender",
+        "createOrEditLabel": "Créer ou éditer un Tender",
+        "notFound": "Aucun Tender trouvé"
+      },
+      "created": "Un nouveau Tender a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Tender avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Tender avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Tender {{ id }} ?"
+      },
+      "detail": {
+        "title": "Tender"
+      },
+      "id": "ID",
+      "title": "Title",
+      "description": "Description",
+      "publishDate": "Publish Date",
+      "expiryDate": "Expiry Date",
+      "isValid": "Is Valid",
+      "isArchived": "Is Archived",
+      "isPublished": "Is Published",
+      "author": "Author",
+      "files": "Files",
+      "notification": "Notification"
+    }
+  }
+}

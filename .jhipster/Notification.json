@@ -1,0 +1,52 @@
+{
+  "name": "Notification",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "broadcast",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "event",
+      "otherEntityRelationshipName": "notification",
+      "relationshipName": "event"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "news",
+      "otherEntityRelationshipName": "notification",
+      "relationshipName": "news"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "tender",
+      "otherEntityRelationshipName": "notification",
+      "relationshipName": "tender"
+    }
+  ],
+  "entityTableName": "notification",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211012102616"
+}

@@ -1,0 +1,73 @@
+{
+  "name": "SMEHouse",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "address",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "pattern"],
+      "fieldValidateRulesPattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+    },
+    {
+      "fieldName": "phone",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "smeHouses",
+      "relationshipValidateRules": "required",
+      "relationshipName": "country"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "administrator",
+      "otherEntityRelationshipName": "houseSmes",
+      "relationshipValidateRules": "required",
+      "relationshipName": "administrator"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "advisor",
+      "otherEntityRelationshipName": "smeHouse",
+      "relationshipName": "advisors"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "partner",
+      "otherEntityRelationshipName": "smeHouse",
+      "relationshipName": "partners"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "sme",
+      "otherEntityRelationshipName": "smeHouse",
+      "relationshipName": "smes"
+    }
+  ],
+  "entityTableName": "sme_house",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211012102624"
+}

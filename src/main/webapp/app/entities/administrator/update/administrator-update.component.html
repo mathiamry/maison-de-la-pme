@@ -1,0 +1,103 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-administrator-heading"
+        data-cy="AdministratorCreateUpdateHeading"
+        jhiTranslate="maisondelapmeApp.administrator.home.createOrEditLabel"
+      >
+        Create or edit a Administrator
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.administrator.jobTitle" for="field_jobTitle">Job Title</label>
+          <input type="text" class="form-control" name="jobTitle" id="field_jobTitle" data-cy="jobTitle" formControlName="jobTitle" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.administrator.description" for="field_description"
+            >Description</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.administrator.internalUser" for="field_internalUser"
+            >Internal User</label
+          >
+          <select class="form-control" id="field_internalUser" data-cy="internalUser" name="internalUser" formControlName="internalUser">
+            <option *ngIf="!editForm.get('internalUser')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="userOption.id === editForm.get('internalUser')!.value?.id ? editForm.get('internalUser')!.value : userOption"
+              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
+            >
+              {{ userOption.id }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['internalUser'])!.invalid && (editForm.get(['internalUser'])!.dirty || editForm.get(['internalUser'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['internalUser'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.administrator.person" for="field_person">Person</label>
+          <select class="form-control" id="field_person" data-cy="person" name="person" formControlName="person">
+            <option *ngIf="editForm.get(['person'])!.value == null" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="personOption.id === editForm.get('person')!.value?.id ? editForm.get('person')!.value : personOption"
+              *ngFor="let personOption of peopleCollection; trackBy: trackPersonById"
+            >
+              {{ personOption.id }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['person'])!.invalid && (editForm.get(['person'])!.dirty || editForm.get(['person'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['person'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

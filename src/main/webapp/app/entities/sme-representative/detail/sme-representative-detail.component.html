@@ -1,0 +1,58 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="smeRepresentative">
+      <h2 data-cy="smeRepresentativeDetailsHeading">
+        <span jhiTranslate="maisondelapmeApp.smeRepresentative.detail.title">Sme Representative</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ smeRepresentative.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.smeRepresentative.jobTitle">Job Title</span></dt>
+        <dd>
+          <span>{{ smeRepresentative.jobTitle }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.smeRepresentative.isAdmin">Is Admin</span></dt>
+        <dd>
+          <span>{{ smeRepresentative.isAdmin }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.smeRepresentative.isManager">Is Manager</span></dt>
+        <dd>
+          <span>{{ smeRepresentative.isManager }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.smeRepresentative.internalUser">Internal User</span></dt>
+        <dd>
+          <span>{{ smeRepresentative.internalUser?.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.smeRepresentative.person">Person</span></dt>
+        <dd>
+          <div *ngIf="smeRepresentative.person">
+            <a [routerLink]="['/person', smeRepresentative.person?.id, 'view']">{{ smeRepresentative.person?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.smeRepresentative.sme">Sme</span></dt>
+        <dd>
+          <div *ngIf="smeRepresentative.sme">
+            <a [routerLink]="['/sme', smeRepresentative.sme?.id, 'view']">{{ smeRepresentative.sme?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/sme-representative', smeRepresentative.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

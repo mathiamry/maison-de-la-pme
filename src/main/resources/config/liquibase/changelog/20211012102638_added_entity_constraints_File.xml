@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <!--
+        Added the constraints for entity File.
+    -->
+    <changeSet id="20211012102638-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="tender_id"
+                                 baseTableName="file"
+                                 constraintName="fk_file__tender_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tender"/>
+
+        <addForeignKeyConstraint baseColumnNames="sme_id"
+                                 baseTableName="file"
+                                 constraintName="fk_file__sme_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sme"/>
+    </changeSet>
+</databaseChangeLog>

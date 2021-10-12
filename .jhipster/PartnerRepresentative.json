@@ -1,0 +1,68 @@
+{
+  "name": "PartnerRepresentative",
+  "fields": [
+    {
+      "fieldName": "jobTitle",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "partnerRepresentative",
+      "relationshipValidateRules": "required",
+      "relationshipName": "internalUser",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "person",
+      "otherEntityRelationshipName": "partnerRepresentative",
+      "relationshipValidateRules": "required",
+      "relationshipName": "person",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "partner",
+      "otherEntityRelationshipName": "representings",
+      "relationshipValidateRules": "required",
+      "relationshipName": "partner"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "appointment",
+      "otherEntityRelationshipName": "partnerRepresentative",
+      "relationshipName": "appointmnents"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "availabilityTimeslot",
+      "otherEntityRelationshipName": "partnerRepresentative",
+      "relationshipName": "availabilityTimeslot",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "unavailabilityPeriod",
+      "otherEntityRelationshipName": "partnerRepresentative",
+      "relationshipName": "unavailabilityPeriod",
+      "ownerSide": false
+    }
+  ],
+  "entityTableName": "partner_representative",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211012102631"
+}

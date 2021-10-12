@@ -1,0 +1,39 @@
+{
+  "name": "Language",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "key",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "language",
+      "relationshipName": "countries"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "person",
+      "otherEntityRelationshipName": "language",
+      "relationshipName": "persons"
+    }
+  ],
+  "entityTableName": "language",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211012102614"
+}

@@ -1,0 +1,64 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="availabilityTimeslot">
+      <h2 data-cy="availabilityTimeslotDetailsHeading">
+        <span jhiTranslate="maisondelapmeApp.availabilityTimeslot.detail.title">Availability Timeslot</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ availabilityTimeslot.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.availabilityTimeslot.startHour">Start Hour</span></dt>
+        <dd>
+          <span>{{ availabilityTimeslot.startHour }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.availabilityTimeslot.startMin">Start Min</span></dt>
+        <dd>
+          <span>{{ availabilityTimeslot.startMin }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.availabilityTimeslot.endHour">End Hour</span></dt>
+        <dd>
+          <span>{{ availabilityTimeslot.endHour }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.availabilityTimeslot.endMin">End Min</span></dt>
+        <dd>
+          <span>{{ availabilityTimeslot.endMin }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.availabilityTimeslot.day">Day</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'maisondelapmeApp.Day.' + availabilityTimeslot.day }}">{{ availabilityTimeslot.day }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.availabilityTimeslot.advisor">Advisor</span></dt>
+        <dd>
+          <span *ngFor="let advisor of availabilityTimeslot.advisors; let last = last">
+            <a [routerLink]="['/advisor', advisor?.id, 'view']">{{ advisor.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.availabilityTimeslot.partnerRepresentative">Partner Representative</span></dt>
+        <dd>
+          <span *ngFor="let partnerRepresentative of availabilityTimeslot.partnerRepresentatives; let last = last">
+            <a [routerLink]="['/partner-representative', partnerRepresentative?.id, 'view']">{{ partnerRepresentative.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/availability-timeslot', availabilityTimeslot.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

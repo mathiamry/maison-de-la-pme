@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="event">
+      <h2 data-cy="eventDetailsHeading"><span jhiTranslate="maisondelapmeApp.event.detail.title">Event</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ event.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.event.title">Title</span></dt>
+        <dd>
+          <span>{{ event.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.event.description">Description</span></dt>
+        <dd>
+          <span>{{ event.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.event.location">Location</span></dt>
+        <dd>
+          <span>{{ event.location }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.event.startDate">Start Date</span></dt>
+        <dd>
+          <span>{{ event.startDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.event.endDate">End Date</span></dt>
+        <dd>
+          <span>{{ event.endDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.event.isPublished">Is Published</span></dt>
+        <dd>
+          <span>{{ event.isPublished }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.event.author">Author</span></dt>
+        <dd>
+          <span>{{ event.author?.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.event.participants">Participants</span></dt>
+        <dd>
+          <span *ngFor="let participants of event.participants; let last = last"> {{ participants.id }}{{ last ? '' : ', ' }} </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/event', event.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

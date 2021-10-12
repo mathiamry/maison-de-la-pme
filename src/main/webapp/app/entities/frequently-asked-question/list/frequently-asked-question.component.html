@@ -1,0 +1,88 @@
+<div>
+  <h2 id="page-heading" data-cy="FrequentlyAskedQuestionHeading">
+    <span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.home.title">Frequently Asked Questions</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-frequently-asked-question"
+        [routerLink]="['/frequently-asked-question/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.home.createLabel"> Create a new Frequently Asked Question </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="frequentlyAskedQuestions?.length === 0">
+    <span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.home.notFound">No frequentlyAskedQuestions found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="frequentlyAskedQuestions && frequentlyAskedQuestions.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.question">Question</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.answer">Answer</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.order">Order</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.isPublished">Is Published</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.author">Author</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let frequentlyAskedQuestion of frequentlyAskedQuestions; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/frequently-asked-question', frequentlyAskedQuestion.id, 'view']">{{ frequentlyAskedQuestion.id }}</a>
+          </td>
+          <td>{{ frequentlyAskedQuestion.question }}</td>
+          <td>{{ frequentlyAskedQuestion.answer }}</td>
+          <td>{{ frequentlyAskedQuestion.order }}</td>
+          <td>{{ frequentlyAskedQuestion.isPublished }}</td>
+          <td>
+            {{ frequentlyAskedQuestion.author?.id }}
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/frequently-asked-question', frequentlyAskedQuestion.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/frequently-asked-question', frequentlyAskedQuestion.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(frequentlyAskedQuestion)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

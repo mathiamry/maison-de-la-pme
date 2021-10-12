@@ -1,0 +1,65 @@
+{
+  "name": "Tender",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "publishDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "expiryDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "isValid",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "isArchived",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "isPublished",
+      "fieldType": "Boolean"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "tender",
+      "relationshipValidateRules": "required",
+      "relationshipName": "author"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "file",
+      "otherEntityRelationshipName": "tender",
+      "relationshipName": "files"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "notification",
+      "otherEntityRelationshipName": "tender",
+      "relationshipName": "notification"
+    }
+  ],
+  "entityTableName": "tender",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211012102637"
+}

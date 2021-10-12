@@ -1,0 +1,28 @@
+{
+  "maisondelapmeApp": {
+    "news": {
+      "home": {
+        "title": "News",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau News",
+        "createOrEditLabel": "Créer ou éditer un News",
+        "notFound": "Aucun News trouvé"
+      },
+      "created": "Un nouveau News a été créé avec l'identifiant {{ param }}",
+      "updated": "Le News avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le News avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le News {{ id }} ?"
+      },
+      "detail": {
+        "title": "News"
+      },
+      "id": "ID",
+      "title": "Title",
+      "description": "Description",
+      "createdAt": "Created At",
+      "author": "Author",
+      "notification": "Notification"
+    }
+  }
+}

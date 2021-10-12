@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="tender">
+      <h2 data-cy="tenderDetailsHeading"><span jhiTranslate="maisondelapmeApp.tender.detail.title">Tender</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ tender.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.tender.title">Title</span></dt>
+        <dd>
+          <span>{{ tender.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.tender.description">Description</span></dt>
+        <dd>
+          <span>{{ tender.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.tender.publishDate">Publish Date</span></dt>
+        <dd>
+          <span>{{ tender.publishDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.tender.expiryDate">Expiry Date</span></dt>
+        <dd>
+          <span>{{ tender.expiryDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.tender.isValid">Is Valid</span></dt>
+        <dd>
+          <span>{{ tender.isValid }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.tender.isArchived">Is Archived</span></dt>
+        <dd>
+          <span>{{ tender.isArchived }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.tender.isPublished">Is Published</span></dt>
+        <dd>
+          <span>{{ tender.isPublished }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.tender.author">Author</span></dt>
+        <dd>
+          <span>{{ tender.author?.id }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/tender', tender.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

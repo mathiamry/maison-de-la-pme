@@ -1,0 +1,57 @@
+{
+  "name": "SmeRepresentative",
+  "fields": [
+    {
+      "fieldName": "jobTitle",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isAdmin",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "isManager",
+      "fieldType": "Boolean"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "smeRepresentative",
+      "relationshipName": "internalUser",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "person",
+      "otherEntityRelationshipName": "smeRepresentative",
+      "relationshipValidateRules": "required",
+      "relationshipName": "person",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "sme",
+      "otherEntityRelationshipName": "representatives",
+      "relationshipValidateRules": "required",
+      "relationshipName": "sme"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "appointment",
+      "otherEntityRelationshipName": "smeRepresentative",
+      "relationshipName": "appointments"
+    }
+  ],
+  "entityTableName": "sme_representative",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211012102626"
+}

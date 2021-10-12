@@ -1,0 +1,32 @@
+{
+  "maisondelapmeApp": {
+    "partner": {
+      "home": {
+        "title": "Partners",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Partner",
+        "createOrEditLabel": "Créer ou éditer un Partner",
+        "notFound": "Aucun Partner trouvé"
+      },
+      "created": "Un nouveau Partner a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Partner avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Partner avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Partner {{ id }} ?"
+      },
+      "detail": {
+        "title": "Partner"
+      },
+      "id": "ID",
+      "name": "Name",
+      "address": "Address",
+      "email": "Email",
+      "phone": "Phone",
+      "logo": "Logo",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "smeHouse": "Sme House",
+      "representings": "Representings"
+    }
+  }
+}

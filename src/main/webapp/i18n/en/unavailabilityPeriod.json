@@ -1,0 +1,27 @@
+{
+  "maisondelapmeApp": {
+    "unavailabilityPeriod": {
+      "home": {
+        "title": "Unavailability Periods",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Unavailability Period",
+        "createOrEditLabel": "Create or edit a Unavailability Period",
+        "notFound": "No Unavailability Periods found"
+      },
+      "created": "A new Unavailability Period is created with identifier {{ param }}",
+      "updated": "A Unavailability Period is updated with identifier {{ param }}",
+      "deleted": "A Unavailability Period is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Unavailability Period {{ id }}?"
+      },
+      "detail": {
+        "title": "Unavailability Period"
+      },
+      "id": "ID",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "advisor": "Advisor",
+      "partnerRepresentative": "Partner Representative"
+    }
+  }
+}

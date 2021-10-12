@@ -1,0 +1,11 @@
+{
+  "maisondelapmeApp": {
+    "Status": {
+      "null": "",
+      "PENDING": "PENDING",
+      "VALIDATED": "VALIDATED",
+      "DONE": "DONE",
+      "CANCEL": "CANCEL"
+    }
+  }
+}

@@ -1,0 +1,136 @@
+<div>
+  <h2 id="page-heading" data-cy="SmeHeading">
+    <span jhiTranslate="maisondelapmeApp.sme.home.title">Smes</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="maisondelapmeApp.sme.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-sme"
+        [routerLink]="['/sme/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="maisondelapmeApp.sme.home.createLabel"> Create a new Sme </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="smes?.length === 0">
+    <span jhiTranslate="maisondelapmeApp.sme.home.notFound">No smes found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="smes && smes.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.name">Name</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.email">Email</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.phone">Phone</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.phone2">Phone 2</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.logo">Logo</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.address">Address</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.latitude">Latitude</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.longitude">Longitude</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.webSite">Web Site</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.smeImmatriculationNumber">Sme Immatriculation Number</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.isClient">Is Client</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.isAuthorized">Is Authorized</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.termsOfUse">Terms Of Use</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.isValid">Is Valid</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.activityArea">Activity Area</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.need">Need</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.smeHouse">Sme House</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.turnover">Turnover</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.experience">Experience</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.size">Size</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.bank">Bank</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sme of smes; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/sme', sme.id, 'view']">{{ sme.id }}</a>
+          </td>
+          <td>{{ sme.name }}</td>
+          <td>{{ sme.email }}</td>
+          <td>{{ sme.phone }}</td>
+          <td>{{ sme.phone2 }}</td>
+          <td>{{ sme.logo }}</td>
+          <td>{{ sme.address }}</td>
+          <td>{{ sme.latitude }}</td>
+          <td>{{ sme.longitude }}</td>
+          <td>{{ sme.webSite }}</td>
+          <td>{{ sme.smeImmatriculationNumber }}</td>
+          <td>{{ sme.isClient }}</td>
+          <td>{{ sme.isAuthorized }}</td>
+          <td>{{ sme.termsOfUse }}</td>
+          <td>{{ sme.isValid }}</td>
+          <td>
+            <div *ngIf="sme.activityArea">
+              <a [routerLink]="['/activity-area', sme.activityArea?.id, 'view']">{{ sme.activityArea?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="sme.need">
+              <a [routerLink]="['/need', sme.need?.id, 'view']">{{ sme.need?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="sme.smeHouse">
+              <a [routerLink]="['/sme-house', sme.smeHouse?.id, 'view']">{{ sme.smeHouse?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="sme.turnover">
+              <a [routerLink]="['/turnover', sme.turnover?.id, 'view']">{{ sme.turnover?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="sme.experience">
+              <a [routerLink]="['/experience', sme.experience?.id, 'view']">{{ sme.experience?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="sme.size">
+              <a [routerLink]="['/size', sme.size?.id, 'view']">{{ sme.size?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="sme.bank">
+              <a [routerLink]="['/bank', sme.bank?.id, 'view']">{{ sme.bank?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/sme', sme.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/sme', sme.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(sme)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
