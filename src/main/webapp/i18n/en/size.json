@@ -1,0 +1,27 @@
+{
+  "maisondelapmeApp": {
+    "size": {
+      "home": {
+        "title": "Sizes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Size",
+        "createOrEditLabel": "Create or edit a Size",
+        "notFound": "No Sizes found"
+      },
+      "created": "A new Size is created with identifier {{ param }}",
+      "updated": "A Size is updated with identifier {{ param }}",
+      "deleted": "A Size is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Size {{ id }}?"
+      },
+      "detail": {
+        "title": "Size"
+      },
+      "id": "ID",
+      "min": "Min",
+      "max": "Max",
+      "description": "Description",
+      "smes": "Smes"
+    }
+  }
+}

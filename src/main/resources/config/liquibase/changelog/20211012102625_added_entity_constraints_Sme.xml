@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <!--
+        Added the constraints for entity Sme.
+    -->
+    <changeSet id="20211012102625-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="activity_area_id"
+                                 baseTableName="sme"
+                                 constraintName="fk_sme__activity_area_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="activity_area"/>
+
+        <addForeignKeyConstraint baseColumnNames="need_id"
+                                 baseTableName="sme"
+                                 constraintName="fk_sme__need_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="need"/>
+
+        <addForeignKeyConstraint baseColumnNames="sme_house_id"
+                                 baseTableName="sme"
+                                 constraintName="fk_sme__sme_house_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sme_house"/>
+
+        <addForeignKeyConstraint baseColumnNames="turnover_id"
+                                 baseTableName="sme"
+                                 constraintName="fk_sme__turnover_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="turnover"/>
+
+        <addForeignKeyConstraint baseColumnNames="experience_id"
+                                 baseTableName="sme"
+                                 constraintName="fk_sme__experience_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="experience"/>
+
+        <addForeignKeyConstraint baseColumnNames="size_id"
+                                 baseTableName="sme"
+                                 constraintName="fk_sme__size_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="size"/>
+
+        <addForeignKeyConstraint baseColumnNames="bank_id"
+                                 baseTableName="sme"
+                                 constraintName="fk_sme__bank_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="bank"/>
+    </changeSet>
+</databaseChangeLog>

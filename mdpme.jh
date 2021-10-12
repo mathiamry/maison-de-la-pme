@@ -1,0 +1,245 @@
+enum Status {
+    PENDING, VALIDATED, DONE, CANCEL
+}
+
+enum Day {
+    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY 
+}
+
+enum AppointmentLocation  {
+    ONSITE, ONLINE
+}
+
+entity Turnover {
+    min   Float,
+    max   Float,
+    description String
+}
+
+entity Language {
+    name    String required,
+    key     String required
+}
+
+entity FrequentlyAskedQuestion {
+    question    String required,
+    answer      String required,
+    order       Integer,
+    isPublished Boolean
+}
+
+entity Notification {
+    title           String required,
+    broadcast       Boolean,
+    description     String,
+    createdAt       Instant
+}
+
+entity History {
+    origin  String required,
+    action  String,
+    actionDate Instant
+}
+
+entity Size {
+    min   Integer,
+    max   Integer,
+    description String
+}
+
+entity Experience {
+    min   Float,
+    max   Float,
+    description String
+}
+
+entity Bank {
+    name    String required,
+    description String
+}
+
+entity Country {
+    name    String required
+}
+
+entity ActivityArea {
+    name    String required
+}
+
+entity Need {
+    name    String required
+}
+
+entity SMEHouse {
+    name        String required,
+    description String,
+    address     String,
+    email       String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/),
+    phone       String required
+}
+
+entity Sme {
+    name            String required,
+    email           String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/),
+    phone           String required,
+    phone2          String,
+    logo            String,
+    address         String,
+    latitude        String,
+    longitude       String,
+    webSite         String,
+    SmeImmatriculationNumber    String required,
+    isClient        Boolean,
+    isAuthorized    Boolean,
+    termsOfUse      String,
+    isValid         Boolean
+}
+
+entity SmeRepresentative {
+    jobTitle    String,
+    isAdmin     Boolean,
+    isManager   Boolean
+}
+
+entity UnavailabilityPeriod {
+    startTime   Instant,
+    endTime     Instant
+}
+
+entity AvailabilityTimeslot {
+    startHour   Integer required,
+    startMin    Integer required,
+    endHour     Integer required,
+    endMin      Integer required,
+    day         Day required
+}
+
+entity Anonymous {
+    visitDate   Instant required
+}
+
+entity Partner {
+    name            String required,
+    address         String,
+    email           String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/),
+    phone           String required,
+    logo            String,
+    latitude        String,
+    longitude       String
+}
+
+entity PartnerRepresentative {
+    jobTitle    String,
+    description String
+}
+
+entity Advisor {
+    jobTitle    String,
+    description String
+}
+
+entity Appointment {
+    title   String required,
+    description String,
+    startDate Instant required,
+    endDate Instant required,
+    status Status required,
+    location AppointmentLocation required,
+    rate Integer
+}
+
+entity News {
+    title       String required,
+    description String,
+    createdAt   Instant
+}
+
+entity Event {
+    title       String required,
+    description String,
+    location    String,
+    startDate   Instant required,
+    endDate     Instant required,
+    isPublished Boolean
+}
+
+entity Administrator {
+    jobTitle    String,
+    description String
+}
+
+entity Tender {
+    title       String required,
+    description String,
+    publishDate Instant,
+    expiryDate  Instant,
+    isValid     Boolean,
+    isArchived  Boolean,
+    isPublished Boolean
+}
+
+entity File {
+    name    String,
+    url     String required
+}
+
+entity  Person {
+    firstName   String required,
+    lastName    String required,
+    email       String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/),
+    phone       String
+}
+
+relationship OneToOne {
+	PartnerRepresentative{internalUser required} to User
+    Administrator{internalUser required} to User
+    Advisor{internalUser required} to User
+	SmeRepresentative{internalUser} to User
+    
+    PartnerRepresentative{person required} to Person
+    Administrator{person required} to Person
+    Advisor{person required} to Person
+	SmeRepresentative{person required} to Person
+	Anonymous{person required} to Person
+}
+
+relationship ManyToOne {
+	SMEHouse{country required} to Country{smeHouses} 
+	Sme{activityArea required} to ActivityArea{smes}
+	Sme{need} to Need{smes}
+	SMEHouse{administrator required} to Administrator{houseSmes}
+    Event{author required} to User
+    News{author required} to User
+    Appointment{smeRepresentative} to SmeRepresentative{appointments}
+    Appointment{advisor} to Advisor{appointmnents}
+    Appointment{partnerRepresentative} to PartnerRepresentative{appointmnents}
+    Advisor{smeHouse required} to SMEHouse{advisors} 
+    Partner{smeHouse required} to SMEHouse{partners}
+    PartnerRepresentative{partner required} to Partner{representings}
+    Sme{smeHouse required} to SMEHouse{smes}
+    Sme{turnover} to Turnover{smes}
+    Sme{experience} to Experience{smes}
+    Sme{size} to Size{smes}
+    Sme{bank} to Bank{smes}
+    Country{language} to Language{countries}
+    Person{language} to Language{persons}
+    FrequentlyAskedQuestion{author required} to User
+    History{author required} to User
+    SmeRepresentative{sme required} to Sme{representatives}
+    File to Tender{files}
+    Tender{author required} to User
+    File to Sme{files}
+    Anonymous{appointments} to Appointment
+    Notification to Event
+    Notification to News
+    Notification to Tender
+}
+
+relationship ManyToMany {
+    Event{participants} to User
+    AvailabilityTimeslot to Advisor
+    AvailabilityTimeslot to PartnerRepresentative
+
+    UnavailabilityPeriod to Advisor
+    UnavailabilityPeriod to PartnerRepresentative
+}

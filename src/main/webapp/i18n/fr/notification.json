@@ -1,0 +1,30 @@
+{
+  "maisondelapmeApp": {
+    "notification": {
+      "home": {
+        "title": "Notifications",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Notification",
+        "createOrEditLabel": "Créer ou éditer un Notification",
+        "notFound": "Aucun Notification trouvé"
+      },
+      "created": "Un nouveau Notification a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Notification avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Notification avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Notification {{ id }} ?"
+      },
+      "detail": {
+        "title": "Notification"
+      },
+      "id": "ID",
+      "title": "Title",
+      "broadcast": "Broadcast",
+      "description": "Description",
+      "createdAt": "Created At",
+      "event": "Event",
+      "news": "News",
+      "tender": "Tender"
+    }
+  }
+}

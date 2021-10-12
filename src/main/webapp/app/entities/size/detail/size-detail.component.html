@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="size">
+      <h2 data-cy="sizeDetailsHeading"><span jhiTranslate="maisondelapmeApp.size.detail.title">Size</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ size.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.size.min">Min</span></dt>
+        <dd>
+          <span>{{ size.min }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.size.max">Max</span></dt>
+        <dd>
+          <span>{{ size.max }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.size.description">Description</span></dt>
+        <dd>
+          <span>{{ size.description }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/size', size.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

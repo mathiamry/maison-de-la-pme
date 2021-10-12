@@ -1,0 +1,36 @@
+{
+  "name": "Anonymous",
+  "fields": [
+    {
+      "fieldName": "visitDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "person",
+      "otherEntityRelationshipName": "anonymous",
+      "relationshipValidateRules": "required",
+      "relationshipName": "person",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "appointment",
+      "otherEntityRelationshipName": "anonymous",
+      "relationshipName": "appointments"
+    }
+  ],
+  "entityTableName": "anonymous",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211012102629"
+}

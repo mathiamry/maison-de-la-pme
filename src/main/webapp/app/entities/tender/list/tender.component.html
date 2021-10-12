@@ -1,0 +1,84 @@
+<div>
+  <h2 id="page-heading" data-cy="TenderHeading">
+    <span jhiTranslate="maisondelapmeApp.tender.home.title">Tenders</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="maisondelapmeApp.tender.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-tender"
+        [routerLink]="['/tender/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="maisondelapmeApp.tender.home.createLabel"> Create a new Tender </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="tenders?.length === 0">
+    <span jhiTranslate="maisondelapmeApp.tender.home.notFound">No tenders found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="tenders && tenders.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.tender.title">Title</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.tender.description">Description</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.tender.publishDate">Publish Date</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.tender.expiryDate">Expiry Date</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.tender.isValid">Is Valid</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.tender.isArchived">Is Archived</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.tender.isPublished">Is Published</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.tender.author">Author</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tender of tenders; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/tender', tender.id, 'view']">{{ tender.id }}</a>
+          </td>
+          <td>{{ tender.title }}</td>
+          <td>{{ tender.description }}</td>
+          <td>{{ tender.publishDate | formatMediumDatetime }}</td>
+          <td>{{ tender.expiryDate | formatMediumDatetime }}</td>
+          <td>{{ tender.isValid }}</td>
+          <td>{{ tender.isArchived }}</td>
+          <td>{{ tender.isPublished }}</td>
+          <td>
+            {{ tender.author?.id }}
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/tender', tender.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/tender', tender.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(tender)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+{
+  "name": "AvailabilityTimeslot",
+  "fields": [
+    {
+      "fieldName": "startHour",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "startMin",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "endHour",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "endMin",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "day",
+      "fieldType": "Day",
+      "fieldValues": "MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY,SUNDAY",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "advisor",
+      "otherEntityRelationshipName": "availabilityTimeslot",
+      "relationshipName": "advisor",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "partnerRepresentative",
+      "otherEntityRelationshipName": "availabilityTimeslot",
+      "relationshipName": "partnerRepresentative",
+      "ownerSide": true
+    }
+  ],
+  "entityTableName": "availability_timeslot",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211012102628"
+}

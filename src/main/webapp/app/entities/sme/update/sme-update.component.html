@@ -1,0 +1,284 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-sme-heading" data-cy="SmeCreateUpdateHeading" jhiTranslate="maisondelapmeApp.sme.home.createOrEditLabel">
+        Create or edit a Sme
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.email" for="field_email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+          <div *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('email')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('email')?.errors?.pattern"
+              jhiTranslate="entity.validation.pattern"
+              [translateValues]="{ pattern: 'Email' }"
+            >
+              This field should follow pattern for "Email".
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.phone" for="field_phone">Phone</label>
+          <input type="text" class="form-control" name="phone" id="field_phone" data-cy="phone" formControlName="phone" />
+          <div *ngIf="editForm.get('phone')!.invalid && (editForm.get('phone')!.dirty || editForm.get('phone')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('phone')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.phone2" for="field_phone2">Phone 2</label>
+          <input type="text" class="form-control" name="phone2" id="field_phone2" data-cy="phone2" formControlName="phone2" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.logo" for="field_logo">Logo</label>
+          <input type="text" class="form-control" name="logo" id="field_logo" data-cy="logo" formControlName="logo" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.address" for="field_address">Address</label>
+          <input type="text" class="form-control" name="address" id="field_address" data-cy="address" formControlName="address" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.latitude" for="field_latitude">Latitude</label>
+          <input type="text" class="form-control" name="latitude" id="field_latitude" data-cy="latitude" formControlName="latitude" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.longitude" for="field_longitude">Longitude</label>
+          <input type="text" class="form-control" name="longitude" id="field_longitude" data-cy="longitude" formControlName="longitude" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.webSite" for="field_webSite">Web Site</label>
+          <input type="text" class="form-control" name="webSite" id="field_webSite" data-cy="webSite" formControlName="webSite" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="maisondelapmeApp.sme.smeImmatriculationNumber"
+            for="field_smeImmatriculationNumber"
+            >Sme Immatriculation Number</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="smeImmatriculationNumber"
+            id="field_smeImmatriculationNumber"
+            data-cy="smeImmatriculationNumber"
+            formControlName="smeImmatriculationNumber"
+          />
+          <div
+            *ngIf="
+              editForm.get('smeImmatriculationNumber')!.invalid &&
+              (editForm.get('smeImmatriculationNumber')!.dirty || editForm.get('smeImmatriculationNumber')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('smeImmatriculationNumber')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.isClient" for="field_isClient">Is Client</label>
+          <input type="checkbox" class="form-check" name="isClient" id="field_isClient" data-cy="isClient" formControlName="isClient" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.isAuthorized" for="field_isAuthorized">Is Authorized</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="isAuthorized"
+            id="field_isAuthorized"
+            data-cy="isAuthorized"
+            formControlName="isAuthorized"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.termsOfUse" for="field_termsOfUse">Terms Of Use</label>
+          <input
+            type="text"
+            class="form-control"
+            name="termsOfUse"
+            id="field_termsOfUse"
+            data-cy="termsOfUse"
+            formControlName="termsOfUse"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.isValid" for="field_isValid">Is Valid</label>
+          <input type="checkbox" class="form-check" name="isValid" id="field_isValid" data-cy="isValid" formControlName="isValid" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.activityArea" for="field_activityArea">Activity Area</label>
+          <select class="form-control" id="field_activityArea" data-cy="activityArea" name="activityArea" formControlName="activityArea">
+            <option *ngIf="!editForm.get('activityArea')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                activityAreaOption.id === editForm.get('activityArea')!.value?.id ? editForm.get('activityArea')!.value : activityAreaOption
+              "
+              *ngFor="let activityAreaOption of activityAreasSharedCollection; trackBy: trackActivityAreaById"
+            >
+              {{ activityAreaOption.id }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['activityArea'])!.invalid && (editForm.get(['activityArea'])!.dirty || editForm.get(['activityArea'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['activityArea'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.need" for="field_need">Need</label>
+          <select class="form-control" id="field_need" data-cy="need" name="need" formControlName="need">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="needOption.id === editForm.get('need')!.value?.id ? editForm.get('need')!.value : needOption"
+              *ngFor="let needOption of needsSharedCollection; trackBy: trackNeedById"
+            >
+              {{ needOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.smeHouse" for="field_smeHouse">Sme House</label>
+          <select class="form-control" id="field_smeHouse" data-cy="smeHouse" name="smeHouse" formControlName="smeHouse">
+            <option *ngIf="!editForm.get('smeHouse')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="sMEHouseOption.id === editForm.get('smeHouse')!.value?.id ? editForm.get('smeHouse')!.value : sMEHouseOption"
+              *ngFor="let sMEHouseOption of sMEHousesSharedCollection; trackBy: trackSMEHouseById"
+            >
+              {{ sMEHouseOption.id }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['smeHouse'])!.invalid && (editForm.get(['smeHouse'])!.dirty || editForm.get(['smeHouse'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['smeHouse'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.turnover" for="field_turnover">Turnover</label>
+          <select class="form-control" id="field_turnover" data-cy="turnover" name="turnover" formControlName="turnover">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="turnoverOption.id === editForm.get('turnover')!.value?.id ? editForm.get('turnover')!.value : turnoverOption"
+              *ngFor="let turnoverOption of turnoversSharedCollection; trackBy: trackTurnoverById"
+            >
+              {{ turnoverOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.experience" for="field_experience">Experience</label>
+          <select class="form-control" id="field_experience" data-cy="experience" name="experience" formControlName="experience">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                experienceOption.id === editForm.get('experience')!.value?.id ? editForm.get('experience')!.value : experienceOption
+              "
+              *ngFor="let experienceOption of experiencesSharedCollection; trackBy: trackExperienceById"
+            >
+              {{ experienceOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.size" for="field_size">Size</label>
+          <select class="form-control" id="field_size" data-cy="size" name="size" formControlName="size">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="sizeOption.id === editForm.get('size')!.value?.id ? editForm.get('size')!.value : sizeOption"
+              *ngFor="let sizeOption of sizesSharedCollection; trackBy: trackSizeById"
+            >
+              {{ sizeOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.sme.bank" for="field_bank">Bank</label>
+          <select class="form-control" id="field_bank" data-cy="bank" name="bank" formControlName="bank">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="bankOption.id === editForm.get('bank')!.value?.id ? editForm.get('bank')!.value : bankOption"
+              *ngFor="let bankOption of banksSharedCollection; trackBy: trackBankById"
+            >
+              {{ bankOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

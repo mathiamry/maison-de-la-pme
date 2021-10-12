@@ -1,0 +1,38 @@
+{
+  "name": "File",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "url",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "tender",
+      "otherEntityRelationshipName": "files",
+      "relationshipName": "tender"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "sme",
+      "otherEntityRelationshipName": "files",
+      "relationshipName": "sme"
+    }
+  ],
+  "entityTableName": "file",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211012102638"
+}

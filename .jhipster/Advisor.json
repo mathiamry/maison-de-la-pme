@@ -1,0 +1,68 @@
+{
+  "name": "Advisor",
+  "fields": [
+    {
+      "fieldName": "jobTitle",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "advisor",
+      "relationshipValidateRules": "required",
+      "relationshipName": "internalUser",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "person",
+      "otherEntityRelationshipName": "advisor",
+      "relationshipValidateRules": "required",
+      "relationshipName": "person",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "sMEHouse",
+      "otherEntityRelationshipName": "advisors",
+      "relationshipValidateRules": "required",
+      "relationshipName": "smeHouse"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "appointment",
+      "otherEntityRelationshipName": "advisor",
+      "relationshipName": "appointmnents"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "availabilityTimeslot",
+      "otherEntityRelationshipName": "advisor",
+      "relationshipName": "availabilityTimeslot",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "unavailabilityPeriod",
+      "otherEntityRelationshipName": "advisor",
+      "relationshipName": "unavailabilityPeriod",
+      "ownerSide": false
+    }
+  ],
+  "entityTableName": "advisor",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211012102632"
+}

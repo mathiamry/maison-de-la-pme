@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="partner">
+      <h2 data-cy="partnerDetailsHeading"><span jhiTranslate="maisondelapmeApp.partner.detail.title">Partner</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ partner.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.partner.name">Name</span></dt>
+        <dd>
+          <span>{{ partner.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.partner.address">Address</span></dt>
+        <dd>
+          <span>{{ partner.address }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.partner.email">Email</span></dt>
+        <dd>
+          <span>{{ partner.email }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.partner.phone">Phone</span></dt>
+        <dd>
+          <span>{{ partner.phone }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.partner.logo">Logo</span></dt>
+        <dd>
+          <span>{{ partner.logo }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.partner.latitude">Latitude</span></dt>
+        <dd>
+          <span>{{ partner.latitude }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.partner.longitude">Longitude</span></dt>
+        <dd>
+          <span>{{ partner.longitude }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.partner.smeHouse">Sme House</span></dt>
+        <dd>
+          <div *ngIf="partner.smeHouse">
+            <a [routerLink]="['/sme-house', partner.smeHouse?.id, 'view']">{{ partner.smeHouse?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/partner', partner.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

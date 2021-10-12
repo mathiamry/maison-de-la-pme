@@ -1,0 +1,52 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="unavailabilityPeriod">
+      <h2 data-cy="unavailabilityPeriodDetailsHeading">
+        <span jhiTranslate="maisondelapmeApp.unavailabilityPeriod.detail.title">Unavailability Period</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ unavailabilityPeriod.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.unavailabilityPeriod.startTime">Start Time</span></dt>
+        <dd>
+          <span>{{ unavailabilityPeriod.startTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.unavailabilityPeriod.endTime">End Time</span></dt>
+        <dd>
+          <span>{{ unavailabilityPeriod.endTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.unavailabilityPeriod.advisor">Advisor</span></dt>
+        <dd>
+          <span *ngFor="let advisor of unavailabilityPeriod.advisors; let last = last">
+            <a [routerLink]="['/advisor', advisor?.id, 'view']">{{ advisor.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.unavailabilityPeriod.partnerRepresentative">Partner Representative</span></dt>
+        <dd>
+          <span *ngFor="let partnerRepresentative of unavailabilityPeriod.partnerRepresentatives; let last = last">
+            <a [routerLink]="['/partner-representative', partnerRepresentative?.id, 'view']">{{ partnerRepresentative.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/unavailability-period', unavailabilityPeriod.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="anonymous">
+      <h2 data-cy="anonymousDetailsHeading"><span jhiTranslate="maisondelapmeApp.anonymous.detail.title">Anonymous</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ anonymous.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.anonymous.visitDate">Visit Date</span></dt>
+        <dd>
+          <span>{{ anonymous.visitDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.anonymous.person">Person</span></dt>
+        <dd>
+          <div *ngIf="anonymous.person">
+            <a [routerLink]="['/person', anonymous.person?.id, 'view']">{{ anonymous.person?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.anonymous.appointments">Appointments</span></dt>
+        <dd>
+          <div *ngIf="anonymous.appointments">
+            <a [routerLink]="['/appointment', anonymous.appointments?.id, 'view']">{{ anonymous.appointments?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/anonymous', anonymous.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

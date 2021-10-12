@@ -1,0 +1,34 @@
+{
+  "name": "Country",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "language",
+      "otherEntityRelationshipName": "countries",
+      "relationshipName": "language"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "sMEHouse",
+      "otherEntityRelationshipName": "country",
+      "relationshipName": "smeHouses"
+    }
+  ],
+  "entityTableName": "country",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211012102621"
+}

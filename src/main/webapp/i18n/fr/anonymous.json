@@ -1,0 +1,26 @@
+{
+  "maisondelapmeApp": {
+    "anonymous": {
+      "home": {
+        "title": "Anonymous",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Anonymous",
+        "createOrEditLabel": "Créer ou éditer un Anonymous",
+        "notFound": "Aucun Anonymous trouvé"
+      },
+      "created": "Un nouveau Anonymous a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Anonymous avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Anonymous avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Anonymous {{ id }} ?"
+      },
+      "detail": {
+        "title": "Anonymous"
+      },
+      "id": "ID",
+      "visitDate": "Visit Date",
+      "person": "Person",
+      "appointments": "Appointments"
+    }
+  }
+}

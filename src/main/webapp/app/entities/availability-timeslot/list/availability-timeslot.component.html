@@ -1,0 +1,104 @@
+<div>
+  <h2 id="page-heading" data-cy="AvailabilityTimeslotHeading">
+    <span jhiTranslate="maisondelapmeApp.availabilityTimeslot.home.title">Availability Timeslots</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="maisondelapmeApp.availabilityTimeslot.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-availability-timeslot"
+        [routerLink]="['/availability-timeslot/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="maisondelapmeApp.availabilityTimeslot.home.createLabel"> Create a new Availability Timeslot </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="availabilityTimeslots?.length === 0">
+    <span jhiTranslate="maisondelapmeApp.availabilityTimeslot.home.notFound">No availabilityTimeslots found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="availabilityTimeslots && availabilityTimeslots.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.availabilityTimeslot.startHour">Start Hour</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.availabilityTimeslot.startMin">Start Min</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.availabilityTimeslot.endHour">End Hour</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.availabilityTimeslot.endMin">End Min</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.availabilityTimeslot.day">Day</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.availabilityTimeslot.advisor">Advisor</span></th>
+          <th scope="col">
+            <span jhiTranslate="maisondelapmeApp.availabilityTimeslot.partnerRepresentative">Partner Representative</span>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let availabilityTimeslot of availabilityTimeslots; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/availability-timeslot', availabilityTimeslot.id, 'view']">{{ availabilityTimeslot.id }}</a>
+          </td>
+          <td>{{ availabilityTimeslot.startHour }}</td>
+          <td>{{ availabilityTimeslot.startMin }}</td>
+          <td>{{ availabilityTimeslot.endHour }}</td>
+          <td>{{ availabilityTimeslot.endMin }}</td>
+          <td jhiTranslate="{{ 'maisondelapmeApp.Day.' + availabilityTimeslot.day }}">{{ availabilityTimeslot.day }}</td>
+          <td>
+            <span *ngFor="let advisor of availabilityTimeslot.advisors; let last = last">
+              <a class="form-control-static" [routerLink]="['/advisor', advisor.id, 'view']">{{ advisor.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td>
+            <span *ngFor="let partnerRepresentative of availabilityTimeslot.partnerRepresentatives; let last = last">
+              <a class="form-control-static" [routerLink]="['/partner-representative', partnerRepresentative.id, 'view']">{{
+                partnerRepresentative.id
+              }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/availability-timeslot', availabilityTimeslot.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/availability-timeslot', availabilityTimeslot.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(availabilityTimeslot)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

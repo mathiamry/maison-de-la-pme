@@ -1,0 +1,31 @@
+{
+  "maisondelapmeApp": {
+    "partnerRepresentative": {
+      "home": {
+        "title": "Partner Representatives",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Partner Representative",
+        "createOrEditLabel": "Create or edit a Partner Representative",
+        "notFound": "No Partner Representatives found"
+      },
+      "created": "A new Partner Representative is created with identifier {{ param }}",
+      "updated": "A Partner Representative is updated with identifier {{ param }}",
+      "deleted": "A Partner Representative is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Partner Representative {{ id }}?"
+      },
+      "detail": {
+        "title": "Partner Representative"
+      },
+      "id": "ID",
+      "jobTitle": "Job Title",
+      "description": "Description",
+      "internalUser": "Internal User",
+      "person": "Person",
+      "partner": "Partner",
+      "appointmnents": "Appointmnents",
+      "availabilityTimeslot": "Availability Timeslot",
+      "unavailabilityPeriod": "Unavailability Period"
+    }
+  }
+}

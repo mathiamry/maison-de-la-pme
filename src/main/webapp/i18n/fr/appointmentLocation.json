@@ -1,0 +1,9 @@
+{
+  "maisondelapmeApp": {
+    "AppointmentLocation": {
+      "null": "",
+      "ONSITE": "ONSITE",
+      "ONLINE": "ONLINE"
+    }
+  }
+}

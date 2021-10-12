@@ -1,0 +1,39 @@
+{
+  "name": "UnavailabilityPeriod",
+  "fields": [
+    {
+      "fieldName": "startTime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "endTime",
+      "fieldType": "Instant"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "advisor",
+      "otherEntityRelationshipName": "unavailabilityPeriod",
+      "relationshipName": "advisor",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "partnerRepresentative",
+      "otherEntityRelationshipName": "unavailabilityPeriod",
+      "relationshipName": "partnerRepresentative",
+      "ownerSide": true
+    }
+  ],
+  "entityTableName": "unavailability_period",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211012102627"
+}

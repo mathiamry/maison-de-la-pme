@@ -1,0 +1,33 @@
+{
+  "maisondelapmeApp": {
+    "sMEHouse": {
+      "home": {
+        "title": "SMEHouses",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau SME House",
+        "createOrEditLabel": "Créer ou éditer un SME House",
+        "notFound": "Aucun SME House trouvé"
+      },
+      "created": "Un nouveau SME House a été créé avec l'identifiant {{ param }}",
+      "updated": "Le SME House avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le SME House avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le SME House {{ id }} ?"
+      },
+      "detail": {
+        "title": "SME House"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "address": "Address",
+      "email": "Email",
+      "phone": "Phone",
+      "country": "Country",
+      "administrator": "Administrator",
+      "advisors": "Advisors",
+      "partners": "Partners",
+      "smes": "Smes"
+    }
+  }
+}

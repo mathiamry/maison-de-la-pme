@@ -1,0 +1,90 @@
+<div>
+  <h2 id="page-heading" data-cy="AnonymousHeading">
+    <span jhiTranslate="maisondelapmeApp.anonymous.home.title">Anonymous</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="maisondelapmeApp.anonymous.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-anonymous"
+        [routerLink]="['/anonymous/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="maisondelapmeApp.anonymous.home.createLabel"> Create a new Anonymous </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="anonymous?.length === 0">
+    <span jhiTranslate="maisondelapmeApp.anonymous.home.notFound">No anonymous found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="anonymous && anonymous.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.anonymous.visitDate">Visit Date</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.anonymous.person">Person</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.anonymous.appointments">Appointments</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let anonymous of anonymous; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/anonymous', anonymous.id, 'view']">{{ anonymous.id }}</a>
+          </td>
+          <td>{{ anonymous.visitDate | formatMediumDatetime }}</td>
+          <td>
+            <div *ngIf="anonymous.person">
+              <a [routerLink]="['/person', anonymous.person?.id, 'view']">{{ anonymous.person?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="anonymous.appointments">
+              <a [routerLink]="['/appointment', anonymous.appointments?.id, 'view']">{{ anonymous.appointments?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/anonymous', anonymous.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/anonymous', anonymous.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(anonymous)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="partnerRepresentative">
+      <h2 data-cy="partnerRepresentativeDetailsHeading">
+        <span jhiTranslate="maisondelapmeApp.partnerRepresentative.detail.title">Partner Representative</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ partnerRepresentative.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.partnerRepresentative.jobTitle">Job Title</span></dt>
+        <dd>
+          <span>{{ partnerRepresentative.jobTitle }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.partnerRepresentative.description">Description</span></dt>
+        <dd>
+          <span>{{ partnerRepresentative.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.partnerRepresentative.internalUser">Internal User</span></dt>
+        <dd>
+          <span>{{ partnerRepresentative.internalUser?.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.partnerRepresentative.person">Person</span></dt>
+        <dd>
+          <div *ngIf="partnerRepresentative.person">
+            <a [routerLink]="['/person', partnerRepresentative.person?.id, 'view']">{{ partnerRepresentative.person?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.partnerRepresentative.partner">Partner</span></dt>
+        <dd>
+          <div *ngIf="partnerRepresentative.partner">
+            <a [routerLink]="['/partner', partnerRepresentative.partner?.id, 'view']">{{ partnerRepresentative.partner?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/partner-representative', partnerRepresentative.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

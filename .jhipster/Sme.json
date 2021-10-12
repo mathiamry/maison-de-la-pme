@@ -1,0 +1,134 @@
+{
+  "name": "Sme",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "pattern"],
+      "fieldValidateRulesPattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+    },
+    {
+      "fieldName": "phone",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "phone2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "logo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "address",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "latitude",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "longitude",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "webSite",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "smeImmatriculationNumber",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "isClient",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "isAuthorized",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "termsOfUse",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isValid",
+      "fieldType": "Boolean"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "activityArea",
+      "otherEntityRelationshipName": "smes",
+      "relationshipValidateRules": "required",
+      "relationshipName": "activityArea"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "need",
+      "otherEntityRelationshipName": "smes",
+      "relationshipName": "need"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "sMEHouse",
+      "otherEntityRelationshipName": "smes",
+      "relationshipValidateRules": "required",
+      "relationshipName": "smeHouse"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "turnover",
+      "otherEntityRelationshipName": "smes",
+      "relationshipName": "turnover"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "experience",
+      "otherEntityRelationshipName": "smes",
+      "relationshipName": "experience"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "size",
+      "otherEntityRelationshipName": "smes",
+      "relationshipName": "size"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "bank",
+      "otherEntityRelationshipName": "smes",
+      "relationshipName": "bank"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "smeRepresentative",
+      "otherEntityRelationshipName": "sme",
+      "relationshipName": "representatives"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "file",
+      "otherEntityRelationshipName": "sme",
+      "relationshipName": "files"
+    }
+  ],
+  "entityTableName": "sme",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211012102625"
+}

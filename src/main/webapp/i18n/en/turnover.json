@@ -1,0 +1,27 @@
+{
+  "maisondelapmeApp": {
+    "turnover": {
+      "home": {
+        "title": "Turnovers",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Turnover",
+        "createOrEditLabel": "Create or edit a Turnover",
+        "notFound": "No Turnovers found"
+      },
+      "created": "A new Turnover is created with identifier {{ param }}",
+      "updated": "A Turnover is updated with identifier {{ param }}",
+      "deleted": "A Turnover is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Turnover {{ id }}?"
+      },
+      "detail": {
+        "title": "Turnover"
+      },
+      "id": "ID",
+      "min": "Min",
+      "max": "Max",
+      "description": "Description",
+      "smes": "Smes"
+    }
+  }
+}

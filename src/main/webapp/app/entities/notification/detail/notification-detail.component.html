@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="notification">
+      <h2 data-cy="notificationDetailsHeading"><span jhiTranslate="maisondelapmeApp.notification.detail.title">Notification</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ notification.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.notification.title">Title</span></dt>
+        <dd>
+          <span>{{ notification.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.notification.broadcast">Broadcast</span></dt>
+        <dd>
+          <span>{{ notification.broadcast }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.notification.description">Description</span></dt>
+        <dd>
+          <span>{{ notification.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.notification.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ notification.createdAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.notification.event">Event</span></dt>
+        <dd>
+          <div *ngIf="notification.event">
+            <a [routerLink]="['/event', notification.event?.id, 'view']">{{ notification.event?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.notification.news">News</span></dt>
+        <dd>
+          <div *ngIf="notification.news">
+            <a [routerLink]="['/news', notification.news?.id, 'view']">{{ notification.news?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.notification.tender">Tender</span></dt>
+        <dd>
+          <div *ngIf="notification.tender">
+            <a [routerLink]="['/tender', notification.tender?.id, 'view']">{{ notification.tender?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/notification', notification.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

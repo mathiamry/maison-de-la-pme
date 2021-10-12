@@ -1,0 +1,50 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="frequentlyAskedQuestion">
+      <h2 data-cy="frequentlyAskedQuestionDetailsHeading">
+        <span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.detail.title">Frequently Asked Question</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ frequentlyAskedQuestion.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.question">Question</span></dt>
+        <dd>
+          <span>{{ frequentlyAskedQuestion.question }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.answer">Answer</span></dt>
+        <dd>
+          <span>{{ frequentlyAskedQuestion.answer }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.order">Order</span></dt>
+        <dd>
+          <span>{{ frequentlyAskedQuestion.order }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.isPublished">Is Published</span></dt>
+        <dd>
+          <span>{{ frequentlyAskedQuestion.isPublished }}</span>
+        </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.author">Author</span></dt>
+        <dd>
+          <span>{{ frequentlyAskedQuestion.author?.id }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/frequently-asked-question', frequentlyAskedQuestion.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

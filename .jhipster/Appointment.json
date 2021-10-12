@@ -1,0 +1,70 @@
+{
+  "name": "Appointment",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "startDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "endDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "PENDING,VALIDATED,DONE,CANCEL",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "location",
+      "fieldType": "AppointmentLocation",
+      "fieldValues": "ONSITE,ONLINE",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "rate",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "smeRepresentative",
+      "otherEntityRelationshipName": "appointments",
+      "relationshipName": "smeRepresentative"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "advisor",
+      "otherEntityRelationshipName": "appointmnents",
+      "relationshipName": "advisor"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "partnerRepresentative",
+      "otherEntityRelationshipName": "appointmnents",
+      "relationshipName": "partnerRepresentative"
+    }
+  ],
+  "entityTableName": "appointment",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211012102633"
+}

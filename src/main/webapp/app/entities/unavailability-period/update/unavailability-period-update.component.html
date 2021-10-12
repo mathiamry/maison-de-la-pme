@@ -1,0 +1,105 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-unavailability-period-heading"
+        data-cy="UnavailabilityPeriodCreateUpdateHeading"
+        jhiTranslate="maisondelapmeApp.unavailabilityPeriod.home.createOrEditLabel"
+      >
+        Create or edit a Unavailability Period
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.unavailabilityPeriod.startTime" for="field_startTime"
+            >Start Time</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_startTime"
+              data-cy="startTime"
+              type="datetime-local"
+              class="form-control"
+              name="startTime"
+              formControlName="startTime"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.unavailabilityPeriod.endTime" for="field_endTime"
+            >End Time</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_endTime"
+              data-cy="endTime"
+              type="datetime-local"
+              class="form-control"
+              name="endTime"
+              formControlName="endTime"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label jhiTranslate="maisondelapmeApp.unavailabilityPeriod.advisor" for="field_advisors">Advisor</label>
+          <select class="form-control" id="field_advisors" data-cy="advisor" multiple name="advisors" formControlName="advisors">
+            <option
+              [ngValue]="getSelectedAdvisor(advisorOption, editForm.get('advisors')!.value)"
+              *ngFor="let advisorOption of advisorsSharedCollection; trackBy: trackAdvisorById"
+            >
+              {{ advisorOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label jhiTranslate="maisondelapmeApp.unavailabilityPeriod.partnerRepresentative" for="field_partnerRepresentatives"
+            >Partner Representative</label
+          >
+          <select
+            class="form-control"
+            id="field_partnerRepresentatives"
+            data-cy="partnerRepresentative"
+            multiple
+            name="partnerRepresentatives"
+            formControlName="partnerRepresentatives"
+          >
+            <option
+              [ngValue]="getSelectedPartnerRepresentative(partnerRepresentativeOption, editForm.get('partnerRepresentatives')!.value)"
+              *ngFor="let partnerRepresentativeOption of partnerRepresentativesSharedCollection; trackBy: trackPartnerRepresentativeById"
+            >
+              {{ partnerRepresentativeOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

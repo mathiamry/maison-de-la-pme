@@ -1,0 +1,28 @@
+{
+  "maisondelapmeApp": {
+    "frequentlyAskedQuestion": {
+      "home": {
+        "title": "FrequentlyAskedQuestions",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Frequently Asked Question",
+        "createOrEditLabel": "Créer ou éditer un Frequently Asked Question",
+        "notFound": "Aucun Frequently Asked Question trouvé"
+      },
+      "created": "Un nouveau Frequently Asked Question a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Frequently Asked Question avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Frequently Asked Question avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Frequently Asked Question {{ id }} ?"
+      },
+      "detail": {
+        "title": "Frequently Asked Question"
+      },
+      "id": "ID",
+      "question": "Question",
+      "answer": "Answer",
+      "order": "Order",
+      "isPublished": "Is Published",
+      "author": "Author"
+    }
+  }
+}

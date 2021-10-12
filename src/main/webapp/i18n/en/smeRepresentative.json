@@ -1,0 +1,30 @@
+{
+  "maisondelapmeApp": {
+    "smeRepresentative": {
+      "home": {
+        "title": "Sme Representatives",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Sme Representative",
+        "createOrEditLabel": "Create or edit a Sme Representative",
+        "notFound": "No Sme Representatives found"
+      },
+      "created": "A new Sme Representative is created with identifier {{ param }}",
+      "updated": "A Sme Representative is updated with identifier {{ param }}",
+      "deleted": "A Sme Representative is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Sme Representative {{ id }}?"
+      },
+      "detail": {
+        "title": "Sme Representative"
+      },
+      "id": "ID",
+      "jobTitle": "Job Title",
+      "isAdmin": "Is Admin",
+      "isManager": "Is Manager",
+      "internalUser": "Internal User",
+      "person": "Person",
+      "sme": "Sme",
+      "appointments": "Appointments"
+    }
+  }
+}
