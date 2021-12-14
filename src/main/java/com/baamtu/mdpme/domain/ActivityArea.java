@@ -32,7 +32,7 @@ public class ActivityArea implements Serializable {
     @OneToMany(mappedBy = "activityArea")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
-        value = { "activityArea", "need", "smeHouse", "turnover", "experience", "size", "bank", "representatives", "files" },
+        value = { "activityArea", "need", "smeHouse", "turnover", "experience", "size", "representatives", "files", "banks" },
         allowSetters = true
     )
     private Set<Sme> smes = new HashSet<>();

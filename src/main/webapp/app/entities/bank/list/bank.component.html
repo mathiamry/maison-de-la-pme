@@ -35,6 +35,7 @@
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
           <th scope="col"><span jhiTranslate="maisondelapmeApp.bank.name">Name</span></th>
           <th scope="col"><span jhiTranslate="maisondelapmeApp.bank.description">Description</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.bank.sme">Sme</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -45,6 +46,12 @@
           </td>
           <td>{{ bank.name }}</td>
           <td>{{ bank.description }}</td>
+          <td>
+            <span *ngFor="let sme of bank.smes; let last = last">
+              <a class="form-control-static" [routerLink]="['/sme', sme.id, 'view']">{{ sme.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
           <td class="text-right">
             <div class="btn-group">
               <button type="submit" [routerLink]="['/bank', bank.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">

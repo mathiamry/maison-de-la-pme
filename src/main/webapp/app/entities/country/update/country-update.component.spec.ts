@@ -14,135 +14,133 @@ import { LanguageService } from 'app/entities/language/service/language.service'
 
 import { CountryUpdateComponent } from './country-update.component';
 
-describe('Component Tests', () => {
-  describe('Country Management Update Component', () => {
-    let comp: CountryUpdateComponent;
-    let fixture: ComponentFixture<CountryUpdateComponent>;
-    let activatedRoute: ActivatedRoute;
-    let countryService: CountryService;
-    let languageService: LanguageService;
+describe('Country Management Update Component', () => {
+  let comp: CountryUpdateComponent;
+  let fixture: ComponentFixture<CountryUpdateComponent>;
+  let activatedRoute: ActivatedRoute;
+  let countryService: CountryService;
+  let languageService: LanguageService;
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
-        declarations: [CountryUpdateComponent],
-        providers: [FormBuilder, ActivatedRoute],
-      })
-        .overrideTemplate(CountryUpdateComponent, '')
-        .compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      declarations: [CountryUpdateComponent],
+      providers: [FormBuilder, ActivatedRoute],
+    })
+      .overrideTemplate(CountryUpdateComponent, '')
+      .compileComponents();
 
-      fixture = TestBed.createComponent(CountryUpdateComponent);
-      activatedRoute = TestBed.inject(ActivatedRoute);
-      countryService = TestBed.inject(CountryService);
-      languageService = TestBed.inject(LanguageService);
+    fixture = TestBed.createComponent(CountryUpdateComponent);
+    activatedRoute = TestBed.inject(ActivatedRoute);
+    countryService = TestBed.inject(CountryService);
+    languageService = TestBed.inject(LanguageService);
 
-      comp = fixture.componentInstance;
+    comp = fixture.componentInstance;
+  });
+
+  describe('ngOnInit', () => {
+    it('Should call Language query and add missing value', () => {
+      const country: ICountry = { id: 456 };
+      const language: ILanguage = { id: 40198 };
+      country.language = language;
+
+      const languageCollection: ILanguage[] = [{ id: 76721 }];
+      jest.spyOn(languageService, 'query').mockReturnValue(of(new HttpResponse({ body: languageCollection })));
+      const additionalLanguages = [language];
+      const expectedCollection: ILanguage[] = [...additionalLanguages, ...languageCollection];
+      jest.spyOn(languageService, 'addLanguageToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ country });
+      comp.ngOnInit();
+
+      expect(languageService.query).toHaveBeenCalled();
+      expect(languageService.addLanguageToCollectionIfMissing).toHaveBeenCalledWith(languageCollection, ...additionalLanguages);
+      expect(comp.languagesSharedCollection).toEqual(expectedCollection);
     });
 
-    describe('ngOnInit', () => {
-      it('Should call Language query and add missing value', () => {
-        const country: ICountry = { id: 456 };
-        const language: ILanguage = { id: 40198 };
-        country.language = language;
+    it('Should update editForm', () => {
+      const country: ICountry = { id: 456 };
+      const language: ILanguage = { id: 23109 };
+      country.language = language;
 
-        const languageCollection: ILanguage[] = [{ id: 76721 }];
-        jest.spyOn(languageService, 'query').mockReturnValue(of(new HttpResponse({ body: languageCollection })));
-        const additionalLanguages = [language];
-        const expectedCollection: ILanguage[] = [...additionalLanguages, ...languageCollection];
-        jest.spyOn(languageService, 'addLanguageToCollectionIfMissing').mockReturnValue(expectedCollection);
+      activatedRoute.data = of({ country });
+      comp.ngOnInit();
 
-        activatedRoute.data = of({ country });
-        comp.ngOnInit();
+      expect(comp.editForm.value).toEqual(expect.objectContaining(country));
+      expect(comp.languagesSharedCollection).toContain(language);
+    });
+  });
 
-        expect(languageService.query).toHaveBeenCalled();
-        expect(languageService.addLanguageToCollectionIfMissing).toHaveBeenCalledWith(languageCollection, ...additionalLanguages);
-        expect(comp.languagesSharedCollection).toEqual(expectedCollection);
-      });
+  describe('save', () => {
+    it('Should call update service on save for existing entity', () => {
+      // GIVEN
+      const saveSubject = new Subject<HttpResponse<Country>>();
+      const country = { id: 123 };
+      jest.spyOn(countryService, 'update').mockReturnValue(saveSubject);
+      jest.spyOn(comp, 'previousState');
+      activatedRoute.data = of({ country });
+      comp.ngOnInit();
 
-      it('Should update editForm', () => {
-        const country: ICountry = { id: 456 };
-        const language: ILanguage = { id: 23109 };
-        country.language = language;
+      // WHEN
+      comp.save();
+      expect(comp.isSaving).toEqual(true);
+      saveSubject.next(new HttpResponse({ body: country }));
+      saveSubject.complete();
 
-        activatedRoute.data = of({ country });
-        comp.ngOnInit();
-
-        expect(comp.editForm.value).toEqual(expect.objectContaining(country));
-        expect(comp.languagesSharedCollection).toContain(language);
-      });
+      // THEN
+      expect(comp.previousState).toHaveBeenCalled();
+      expect(countryService.update).toHaveBeenCalledWith(country);
+      expect(comp.isSaving).toEqual(false);
     });
 
-    describe('save', () => {
-      it('Should call update service on save for existing entity', () => {
-        // GIVEN
-        const saveSubject = new Subject<HttpResponse<Country>>();
-        const country = { id: 123 };
-        jest.spyOn(countryService, 'update').mockReturnValue(saveSubject);
-        jest.spyOn(comp, 'previousState');
-        activatedRoute.data = of({ country });
-        comp.ngOnInit();
+    it('Should call create service on save for new entity', () => {
+      // GIVEN
+      const saveSubject = new Subject<HttpResponse<Country>>();
+      const country = new Country();
+      jest.spyOn(countryService, 'create').mockReturnValue(saveSubject);
+      jest.spyOn(comp, 'previousState');
+      activatedRoute.data = of({ country });
+      comp.ngOnInit();
 
-        // WHEN
-        comp.save();
-        expect(comp.isSaving).toEqual(true);
-        saveSubject.next(new HttpResponse({ body: country }));
-        saveSubject.complete();
+      // WHEN
+      comp.save();
+      expect(comp.isSaving).toEqual(true);
+      saveSubject.next(new HttpResponse({ body: country }));
+      saveSubject.complete();
 
-        // THEN
-        expect(comp.previousState).toHaveBeenCalled();
-        expect(countryService.update).toHaveBeenCalledWith(country);
-        expect(comp.isSaving).toEqual(false);
-      });
-
-      it('Should call create service on save for new entity', () => {
-        // GIVEN
-        const saveSubject = new Subject<HttpResponse<Country>>();
-        const country = new Country();
-        jest.spyOn(countryService, 'create').mockReturnValue(saveSubject);
-        jest.spyOn(comp, 'previousState');
-        activatedRoute.data = of({ country });
-        comp.ngOnInit();
-
-        // WHEN
-        comp.save();
-        expect(comp.isSaving).toEqual(true);
-        saveSubject.next(new HttpResponse({ body: country }));
-        saveSubject.complete();
-
-        // THEN
-        expect(countryService.create).toHaveBeenCalledWith(country);
-        expect(comp.isSaving).toEqual(false);
-        expect(comp.previousState).toHaveBeenCalled();
-      });
-
-      it('Should set isSaving to false on error', () => {
-        // GIVEN
-        const saveSubject = new Subject<HttpResponse<Country>>();
-        const country = { id: 123 };
-        jest.spyOn(countryService, 'update').mockReturnValue(saveSubject);
-        jest.spyOn(comp, 'previousState');
-        activatedRoute.data = of({ country });
-        comp.ngOnInit();
-
-        // WHEN
-        comp.save();
-        expect(comp.isSaving).toEqual(true);
-        saveSubject.error('This is an error!');
-
-        // THEN
-        expect(countryService.update).toHaveBeenCalledWith(country);
-        expect(comp.isSaving).toEqual(false);
-        expect(comp.previousState).not.toHaveBeenCalled();
-      });
+      // THEN
+      expect(countryService.create).toHaveBeenCalledWith(country);
+      expect(comp.isSaving).toEqual(false);
+      expect(comp.previousState).toHaveBeenCalled();
     });
 
-    describe('Tracking relationships identifiers', () => {
-      describe('trackLanguageById', () => {
-        it('Should return tracked Language primary key', () => {
-          const entity = { id: 123 };
-          const trackResult = comp.trackLanguageById(0, entity);
-          expect(trackResult).toEqual(entity.id);
-        });
+    it('Should set isSaving to false on error', () => {
+      // GIVEN
+      const saveSubject = new Subject<HttpResponse<Country>>();
+      const country = { id: 123 };
+      jest.spyOn(countryService, 'update').mockReturnValue(saveSubject);
+      jest.spyOn(comp, 'previousState');
+      activatedRoute.data = of({ country });
+      comp.ngOnInit();
+
+      // WHEN
+      comp.save();
+      expect(comp.isSaving).toEqual(true);
+      saveSubject.error('This is an error!');
+
+      // THEN
+      expect(countryService.update).toHaveBeenCalledWith(country);
+      expect(comp.isSaving).toEqual(false);
+      expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Tracking relationships identifiers', () => {
+    describe('trackLanguageById', () => {
+      it('Should return tracked Language primary key', () => {
+        const entity = { id: 123 };
+        const trackResult = comp.trackLanguageById(0, entity);
+        expect(trackResult).toEqual(entity.id);
       });
     });
   });

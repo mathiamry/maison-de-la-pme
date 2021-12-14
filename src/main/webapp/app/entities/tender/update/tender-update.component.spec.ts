@@ -15,135 +15,133 @@ import { UserService } from 'app/entities/user/user.service';
 
 import { TenderUpdateComponent } from './tender-update.component';
 
-describe('Component Tests', () => {
-  describe('Tender Management Update Component', () => {
-    let comp: TenderUpdateComponent;
-    let fixture: ComponentFixture<TenderUpdateComponent>;
-    let activatedRoute: ActivatedRoute;
-    let tenderService: TenderService;
-    let userService: UserService;
+describe('Tender Management Update Component', () => {
+  let comp: TenderUpdateComponent;
+  let fixture: ComponentFixture<TenderUpdateComponent>;
+  let activatedRoute: ActivatedRoute;
+  let tenderService: TenderService;
+  let userService: UserService;
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
-        declarations: [TenderUpdateComponent],
-        providers: [FormBuilder, ActivatedRoute],
-      })
-        .overrideTemplate(TenderUpdateComponent, '')
-        .compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      declarations: [TenderUpdateComponent],
+      providers: [FormBuilder, ActivatedRoute],
+    })
+      .overrideTemplate(TenderUpdateComponent, '')
+      .compileComponents();
 
-      fixture = TestBed.createComponent(TenderUpdateComponent);
-      activatedRoute = TestBed.inject(ActivatedRoute);
-      tenderService = TestBed.inject(TenderService);
-      userService = TestBed.inject(UserService);
+    fixture = TestBed.createComponent(TenderUpdateComponent);
+    activatedRoute = TestBed.inject(ActivatedRoute);
+    tenderService = TestBed.inject(TenderService);
+    userService = TestBed.inject(UserService);
 
-      comp = fixture.componentInstance;
+    comp = fixture.componentInstance;
+  });
+
+  describe('ngOnInit', () => {
+    it('Should call User query and add missing value', () => {
+      const tender: ITender = { id: 456 };
+      const author: IUser = { id: 32714 };
+      tender.author = author;
+
+      const userCollection: IUser[] = [{ id: 3209 }];
+      jest.spyOn(userService, 'query').mockReturnValue(of(new HttpResponse({ body: userCollection })));
+      const additionalUsers = [author];
+      const expectedCollection: IUser[] = [...additionalUsers, ...userCollection];
+      jest.spyOn(userService, 'addUserToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ tender });
+      comp.ngOnInit();
+
+      expect(userService.query).toHaveBeenCalled();
+      expect(userService.addUserToCollectionIfMissing).toHaveBeenCalledWith(userCollection, ...additionalUsers);
+      expect(comp.usersSharedCollection).toEqual(expectedCollection);
     });
 
-    describe('ngOnInit', () => {
-      it('Should call User query and add missing value', () => {
-        const tender: ITender = { id: 456 };
-        const author: IUser = { id: 32714 };
-        tender.author = author;
+    it('Should update editForm', () => {
+      const tender: ITender = { id: 456 };
+      const author: IUser = { id: 87410 };
+      tender.author = author;
 
-        const userCollection: IUser[] = [{ id: 3209 }];
-        jest.spyOn(userService, 'query').mockReturnValue(of(new HttpResponse({ body: userCollection })));
-        const additionalUsers = [author];
-        const expectedCollection: IUser[] = [...additionalUsers, ...userCollection];
-        jest.spyOn(userService, 'addUserToCollectionIfMissing').mockReturnValue(expectedCollection);
+      activatedRoute.data = of({ tender });
+      comp.ngOnInit();
 
-        activatedRoute.data = of({ tender });
-        comp.ngOnInit();
+      expect(comp.editForm.value).toEqual(expect.objectContaining(tender));
+      expect(comp.usersSharedCollection).toContain(author);
+    });
+  });
 
-        expect(userService.query).toHaveBeenCalled();
-        expect(userService.addUserToCollectionIfMissing).toHaveBeenCalledWith(userCollection, ...additionalUsers);
-        expect(comp.usersSharedCollection).toEqual(expectedCollection);
-      });
+  describe('save', () => {
+    it('Should call update service on save for existing entity', () => {
+      // GIVEN
+      const saveSubject = new Subject<HttpResponse<Tender>>();
+      const tender = { id: 123 };
+      jest.spyOn(tenderService, 'update').mockReturnValue(saveSubject);
+      jest.spyOn(comp, 'previousState');
+      activatedRoute.data = of({ tender });
+      comp.ngOnInit();
 
-      it('Should update editForm', () => {
-        const tender: ITender = { id: 456 };
-        const author: IUser = { id: 87410 };
-        tender.author = author;
+      // WHEN
+      comp.save();
+      expect(comp.isSaving).toEqual(true);
+      saveSubject.next(new HttpResponse({ body: tender }));
+      saveSubject.complete();
 
-        activatedRoute.data = of({ tender });
-        comp.ngOnInit();
-
-        expect(comp.editForm.value).toEqual(expect.objectContaining(tender));
-        expect(comp.usersSharedCollection).toContain(author);
-      });
+      // THEN
+      expect(comp.previousState).toHaveBeenCalled();
+      expect(tenderService.update).toHaveBeenCalledWith(tender);
+      expect(comp.isSaving).toEqual(false);
     });
 
-    describe('save', () => {
-      it('Should call update service on save for existing entity', () => {
-        // GIVEN
-        const saveSubject = new Subject<HttpResponse<Tender>>();
-        const tender = { id: 123 };
-        jest.spyOn(tenderService, 'update').mockReturnValue(saveSubject);
-        jest.spyOn(comp, 'previousState');
-        activatedRoute.data = of({ tender });
-        comp.ngOnInit();
+    it('Should call create service on save for new entity', () => {
+      // GIVEN
+      const saveSubject = new Subject<HttpResponse<Tender>>();
+      const tender = new Tender();
+      jest.spyOn(tenderService, 'create').mockReturnValue(saveSubject);
+      jest.spyOn(comp, 'previousState');
+      activatedRoute.data = of({ tender });
+      comp.ngOnInit();
 
-        // WHEN
-        comp.save();
-        expect(comp.isSaving).toEqual(true);
-        saveSubject.next(new HttpResponse({ body: tender }));
-        saveSubject.complete();
+      // WHEN
+      comp.save();
+      expect(comp.isSaving).toEqual(true);
+      saveSubject.next(new HttpResponse({ body: tender }));
+      saveSubject.complete();
 
-        // THEN
-        expect(comp.previousState).toHaveBeenCalled();
-        expect(tenderService.update).toHaveBeenCalledWith(tender);
-        expect(comp.isSaving).toEqual(false);
-      });
-
-      it('Should call create service on save for new entity', () => {
-        // GIVEN
-        const saveSubject = new Subject<HttpResponse<Tender>>();
-        const tender = new Tender();
-        jest.spyOn(tenderService, 'create').mockReturnValue(saveSubject);
-        jest.spyOn(comp, 'previousState');
-        activatedRoute.data = of({ tender });
-        comp.ngOnInit();
-
-        // WHEN
-        comp.save();
-        expect(comp.isSaving).toEqual(true);
-        saveSubject.next(new HttpResponse({ body: tender }));
-        saveSubject.complete();
-
-        // THEN
-        expect(tenderService.create).toHaveBeenCalledWith(tender);
-        expect(comp.isSaving).toEqual(false);
-        expect(comp.previousState).toHaveBeenCalled();
-      });
-
-      it('Should set isSaving to false on error', () => {
-        // GIVEN
-        const saveSubject = new Subject<HttpResponse<Tender>>();
-        const tender = { id: 123 };
-        jest.spyOn(tenderService, 'update').mockReturnValue(saveSubject);
-        jest.spyOn(comp, 'previousState');
-        activatedRoute.data = of({ tender });
-        comp.ngOnInit();
-
-        // WHEN
-        comp.save();
-        expect(comp.isSaving).toEqual(true);
-        saveSubject.error('This is an error!');
-
-        // THEN
-        expect(tenderService.update).toHaveBeenCalledWith(tender);
-        expect(comp.isSaving).toEqual(false);
-        expect(comp.previousState).not.toHaveBeenCalled();
-      });
+      // THEN
+      expect(tenderService.create).toHaveBeenCalledWith(tender);
+      expect(comp.isSaving).toEqual(false);
+      expect(comp.previousState).toHaveBeenCalled();
     });
 
-    describe('Tracking relationships identifiers', () => {
-      describe('trackUserById', () => {
-        it('Should return tracked User primary key', () => {
-          const entity = { id: 123 };
-          const trackResult = comp.trackUserById(0, entity);
-          expect(trackResult).toEqual(entity.id);
-        });
+    it('Should set isSaving to false on error', () => {
+      // GIVEN
+      const saveSubject = new Subject<HttpResponse<Tender>>();
+      const tender = { id: 123 };
+      jest.spyOn(tenderService, 'update').mockReturnValue(saveSubject);
+      jest.spyOn(comp, 'previousState');
+      activatedRoute.data = of({ tender });
+      comp.ngOnInit();
+
+      // WHEN
+      comp.save();
+      expect(comp.isSaving).toEqual(true);
+      saveSubject.error('This is an error!');
+
+      // THEN
+      expect(tenderService.update).toHaveBeenCalledWith(tender);
+      expect(comp.isSaving).toEqual(false);
+      expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Tracking relationships identifiers', () => {
+    describe('trackUserById', () => {
+      it('Should return tracked User primary key', () => {
+        const entity = { id: 123 };
+        const trackResult = comp.trackUserById(0, entity);
+        expect(trackResult).toEqual(entity.id);
       });
     });
   });

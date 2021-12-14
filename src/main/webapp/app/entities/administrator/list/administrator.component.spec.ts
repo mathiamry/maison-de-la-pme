@@ -7,42 +7,40 @@ import { AdministratorService } from '../service/administrator.service';
 
 import { AdministratorComponent } from './administrator.component';
 
-describe('Component Tests', () => {
-  describe('Administrator Management Component', () => {
-    let comp: AdministratorComponent;
-    let fixture: ComponentFixture<AdministratorComponent>;
-    let service: AdministratorService;
+describe('Administrator Management Component', () => {
+  let comp: AdministratorComponent;
+  let fixture: ComponentFixture<AdministratorComponent>;
+  let service: AdministratorService;
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
-        declarations: [AdministratorComponent],
-      })
-        .overrideTemplate(AdministratorComponent, '')
-        .compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      declarations: [AdministratorComponent],
+    })
+      .overrideTemplate(AdministratorComponent, '')
+      .compileComponents();
 
-      fixture = TestBed.createComponent(AdministratorComponent);
-      comp = fixture.componentInstance;
-      service = TestBed.inject(AdministratorService);
+    fixture = TestBed.createComponent(AdministratorComponent);
+    comp = fixture.componentInstance;
+    service = TestBed.inject(AdministratorService);
 
-      const headers = new HttpHeaders().append('link', 'link;link');
-      jest.spyOn(service, 'query').mockReturnValue(
-        of(
-          new HttpResponse({
-            body: [{ id: 123 }],
-            headers,
-          })
-        )
-      );
-    });
+    const headers = new HttpHeaders();
+    jest.spyOn(service, 'query').mockReturnValue(
+      of(
+        new HttpResponse({
+          body: [{ id: 123 }],
+          headers,
+        })
+      )
+    );
+  });
 
-    it('Should call load all on init', () => {
-      // WHEN
-      comp.ngOnInit();
+  it('Should call load all on init', () => {
+    // WHEN
+    comp.ngOnInit();
 
-      // THEN
-      expect(service.query).toHaveBeenCalled();
-      expect(comp.administrators?.[0]).toEqual(expect.objectContaining({ id: 123 }));
-    });
+    // THEN
+    expect(service.query).toHaveBeenCalled();
+    expect(comp.administrators?.[0]).toEqual(expect.objectContaining({ id: 123 }));
   });
 });

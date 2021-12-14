@@ -13,10 +13,11 @@
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-many",
+      "relationshipType": "many-to-many",
       "otherEntityName": "sme",
-      "otherEntityRelationshipName": "bank",
-      "relationshipName": "smes"
+      "otherEntityRelationshipName": "banks",
+      "relationshipName": "sme",
+      "ownerSide": true
     }
   ],
   "entityTableName": "bank",
