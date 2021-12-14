@@ -7,42 +7,40 @@ import { FrequentlyAskedQuestionService } from '../service/frequently-asked-ques
 
 import { FrequentlyAskedQuestionComponent } from './frequently-asked-question.component';
 
-describe('Component Tests', () => {
-  describe('FrequentlyAskedQuestion Management Component', () => {
-    let comp: FrequentlyAskedQuestionComponent;
-    let fixture: ComponentFixture<FrequentlyAskedQuestionComponent>;
-    let service: FrequentlyAskedQuestionService;
+describe('FrequentlyAskedQuestion Management Component', () => {
+  let comp: FrequentlyAskedQuestionComponent;
+  let fixture: ComponentFixture<FrequentlyAskedQuestionComponent>;
+  let service: FrequentlyAskedQuestionService;
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
-        declarations: [FrequentlyAskedQuestionComponent],
-      })
-        .overrideTemplate(FrequentlyAskedQuestionComponent, '')
-        .compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      declarations: [FrequentlyAskedQuestionComponent],
+    })
+      .overrideTemplate(FrequentlyAskedQuestionComponent, '')
+      .compileComponents();
 
-      fixture = TestBed.createComponent(FrequentlyAskedQuestionComponent);
-      comp = fixture.componentInstance;
-      service = TestBed.inject(FrequentlyAskedQuestionService);
+    fixture = TestBed.createComponent(FrequentlyAskedQuestionComponent);
+    comp = fixture.componentInstance;
+    service = TestBed.inject(FrequentlyAskedQuestionService);
 
-      const headers = new HttpHeaders().append('link', 'link;link');
-      jest.spyOn(service, 'query').mockReturnValue(
-        of(
-          new HttpResponse({
-            body: [{ id: 123 }],
-            headers,
-          })
-        )
-      );
-    });
+    const headers = new HttpHeaders();
+    jest.spyOn(service, 'query').mockReturnValue(
+      of(
+        new HttpResponse({
+          body: [{ id: 123 }],
+          headers,
+        })
+      )
+    );
+  });
 
-    it('Should call load all on init', () => {
-      // WHEN
-      comp.ngOnInit();
+  it('Should call load all on init', () => {
+    // WHEN
+    comp.ngOnInit();
 
-      // THEN
-      expect(service.query).toHaveBeenCalled();
-      expect(comp.frequentlyAskedQuestions?.[0]).toEqual(expect.objectContaining({ id: 123 }));
-    });
+    // THEN
+    expect(service.query).toHaveBeenCalled();
+    expect(comp.frequentlyAskedQuestions?.[0]).toEqual(expect.objectContaining({ id: 123 }));
   });
 });

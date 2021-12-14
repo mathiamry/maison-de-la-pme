@@ -11,72 +11,70 @@ import { AnonymousService } from '../service/anonymous.service';
 
 import { AnonymousRoutingResolveService } from './anonymous-routing-resolve.service';
 
-describe('Service Tests', () => {
-  describe('Anonymous routing resolve service', () => {
-    let mockRouter: Router;
-    let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-    let routingResolveService: AnonymousRoutingResolveService;
-    let service: AnonymousService;
-    let resultAnonymous: IAnonymous | undefined;
+describe('Anonymous routing resolve service', () => {
+  let mockRouter: Router;
+  let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
+  let routingResolveService: AnonymousRoutingResolveService;
+  let service: AnonymousService;
+  let resultAnonymous: IAnonymous | undefined;
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
-        providers: [Router, ActivatedRouteSnapshot],
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [Router, ActivatedRouteSnapshot],
+    });
+    mockRouter = TestBed.inject(Router);
+    mockActivatedRouteSnapshot = TestBed.inject(ActivatedRouteSnapshot);
+    routingResolveService = TestBed.inject(AnonymousRoutingResolveService);
+    service = TestBed.inject(AnonymousService);
+    resultAnonymous = undefined;
+  });
+
+  describe('resolve', () => {
+    it('should return IAnonymous returned by find', () => {
+      // GIVEN
+      service.find = jest.fn(id => of(new HttpResponse({ body: { id } })));
+      mockActivatedRouteSnapshot.params = { id: 123 };
+
+      // WHEN
+      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
+        resultAnonymous = result;
       });
-      mockRouter = TestBed.inject(Router);
-      mockActivatedRouteSnapshot = TestBed.inject(ActivatedRouteSnapshot);
-      routingResolveService = TestBed.inject(AnonymousRoutingResolveService);
-      service = TestBed.inject(AnonymousService);
-      resultAnonymous = undefined;
+
+      // THEN
+      expect(service.find).toBeCalledWith(123);
+      expect(resultAnonymous).toEqual({ id: 123 });
     });
 
-    describe('resolve', () => {
-      it('should return IAnonymous returned by find', () => {
-        // GIVEN
-        service.find = jest.fn(id => of(new HttpResponse({ body: { id } })));
-        mockActivatedRouteSnapshot.params = { id: 123 };
+    it('should return new IAnonymous if id is not provided', () => {
+      // GIVEN
+      service.find = jest.fn();
+      mockActivatedRouteSnapshot.params = {};
 
-        // WHEN
-        routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-          resultAnonymous = result;
-        });
-
-        // THEN
-        expect(service.find).toBeCalledWith(123);
-        expect(resultAnonymous).toEqual({ id: 123 });
+      // WHEN
+      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
+        resultAnonymous = result;
       });
 
-      it('should return new IAnonymous if id is not provided', () => {
-        // GIVEN
-        service.find = jest.fn();
-        mockActivatedRouteSnapshot.params = {};
+      // THEN
+      expect(service.find).not.toBeCalled();
+      expect(resultAnonymous).toEqual(new Anonymous());
+    });
 
-        // WHEN
-        routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-          resultAnonymous = result;
-        });
+    it('should route to 404 page if data not found in server', () => {
+      // GIVEN
+      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse({ body: null as unknown as Anonymous })));
+      mockActivatedRouteSnapshot.params = { id: 123 };
 
-        // THEN
-        expect(service.find).not.toBeCalled();
-        expect(resultAnonymous).toEqual(new Anonymous());
+      // WHEN
+      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
+        resultAnonymous = result;
       });
 
-      it('should route to 404 page if data not found in server', () => {
-        // GIVEN
-        jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse({ body: null as unknown as Anonymous })));
-        mockActivatedRouteSnapshot.params = { id: 123 };
-
-        // WHEN
-        routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-          resultAnonymous = result;
-        });
-
-        // THEN
-        expect(service.find).toBeCalledWith(123);
-        expect(resultAnonymous).toEqual(undefined);
-        expect(mockRouter.navigate).toHaveBeenCalledWith(['404']);
-      });
+      // THEN
+      expect(service.find).toBeCalledWith(123);
+      expect(resultAnonymous).toEqual(undefined);
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['404']);
     });
   });
 });

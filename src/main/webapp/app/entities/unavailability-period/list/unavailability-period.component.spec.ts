@@ -7,42 +7,40 @@ import { UnavailabilityPeriodService } from '../service/unavailability-period.se
 
 import { UnavailabilityPeriodComponent } from './unavailability-period.component';
 
-describe('Component Tests', () => {
-  describe('UnavailabilityPeriod Management Component', () => {
-    let comp: UnavailabilityPeriodComponent;
-    let fixture: ComponentFixture<UnavailabilityPeriodComponent>;
-    let service: UnavailabilityPeriodService;
+describe('UnavailabilityPeriod Management Component', () => {
+  let comp: UnavailabilityPeriodComponent;
+  let fixture: ComponentFixture<UnavailabilityPeriodComponent>;
+  let service: UnavailabilityPeriodService;
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
-        declarations: [UnavailabilityPeriodComponent],
-      })
-        .overrideTemplate(UnavailabilityPeriodComponent, '')
-        .compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      declarations: [UnavailabilityPeriodComponent],
+    })
+      .overrideTemplate(UnavailabilityPeriodComponent, '')
+      .compileComponents();
 
-      fixture = TestBed.createComponent(UnavailabilityPeriodComponent);
-      comp = fixture.componentInstance;
-      service = TestBed.inject(UnavailabilityPeriodService);
+    fixture = TestBed.createComponent(UnavailabilityPeriodComponent);
+    comp = fixture.componentInstance;
+    service = TestBed.inject(UnavailabilityPeriodService);
 
-      const headers = new HttpHeaders().append('link', 'link;link');
-      jest.spyOn(service, 'query').mockReturnValue(
-        of(
-          new HttpResponse({
-            body: [{ id: 123 }],
-            headers,
-          })
-        )
-      );
-    });
+    const headers = new HttpHeaders();
+    jest.spyOn(service, 'query').mockReturnValue(
+      of(
+        new HttpResponse({
+          body: [{ id: 123 }],
+          headers,
+        })
+      )
+    );
+  });
 
-    it('Should call load all on init', () => {
-      // WHEN
-      comp.ngOnInit();
+  it('Should call load all on init', () => {
+    // WHEN
+    comp.ngOnInit();
 
-      // THEN
-      expect(service.query).toHaveBeenCalled();
-      expect(comp.unavailabilityPeriods?.[0]).toEqual(expect.objectContaining({ id: 123 }));
-    });
+    // THEN
+    expect(service.query).toHaveBeenCalled();
+    expect(comp.unavailabilityPeriods?.[0]).toEqual(expect.objectContaining({ id: 123 }));
   });
 });

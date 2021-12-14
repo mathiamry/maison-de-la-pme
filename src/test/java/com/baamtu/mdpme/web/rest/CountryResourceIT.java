@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.baamtu.mdpme.IntegrationTest;
 import com.baamtu.mdpme.domain.Country;
 import com.baamtu.mdpme.repository.CountryRepository;
+import com.baamtu.mdpme.service.dto.CountryDTO;
+import com.baamtu.mdpme.service.mapper.CountryMapper;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -40,6 +42,9 @@ class CountryResourceIT {
 
     @Autowired
     private CountryRepository countryRepository;
+
+    @Autowired
+    private CountryMapper countryMapper;
 
     @Autowired
     private EntityManager em;
@@ -81,8 +86,9 @@ class CountryResourceIT {
     void createCountry() throws Exception {
         int databaseSizeBeforeCreate = countryRepository.findAll().size();
         // Create the Country
+        CountryDTO countryDTO = countryMapper.toDto(country);
         restCountryMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(country)))
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(countryDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Country in the database
@@ -97,12 +103,13 @@ class CountryResourceIT {
     void createCountryWithExistingId() throws Exception {
         // Create the Country with an existing ID
         country.setId(1L);
+        CountryDTO countryDTO = countryMapper.toDto(country);
 
         int databaseSizeBeforeCreate = countryRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCountryMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(country)))
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(countryDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Country in the database
@@ -118,9 +125,10 @@ class CountryResourceIT {
         country.setName(null);
 
         // Create the Country, which fails.
+        CountryDTO countryDTO = countryMapper.toDto(country);
 
         restCountryMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(country)))
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(countryDTO)))
             .andExpect(status().isBadRequest());
 
         List<Country> countryList = countryRepository.findAll();
@@ -177,12 +185,13 @@ class CountryResourceIT {
         // Disconnect from session so that the updates on updatedCountry are not directly saved in db
         em.detach(updatedCountry);
         updatedCountry.name(UPDATED_NAME);
+        CountryDTO countryDTO = countryMapper.toDto(updatedCountry);
 
         restCountryMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedCountry.getId())
+                put(ENTITY_API_URL_ID, countryDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedCountry))
+                    .content(TestUtil.convertObjectToJsonBytes(countryDTO))
             )
             .andExpect(status().isOk());
 
@@ -199,12 +208,15 @@ class CountryResourceIT {
         int databaseSizeBeforeUpdate = countryRepository.findAll().size();
         country.setId(count.incrementAndGet());
 
+        // Create the Country
+        CountryDTO countryDTO = countryMapper.toDto(country);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCountryMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, country.getId())
+                put(ENTITY_API_URL_ID, countryDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(country))
+                    .content(TestUtil.convertObjectToJsonBytes(countryDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -219,12 +231,15 @@ class CountryResourceIT {
         int databaseSizeBeforeUpdate = countryRepository.findAll().size();
         country.setId(count.incrementAndGet());
 
+        // Create the Country
+        CountryDTO countryDTO = countryMapper.toDto(country);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCountryMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(country))
+                    .content(TestUtil.convertObjectToJsonBytes(countryDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -239,9 +254,12 @@ class CountryResourceIT {
         int databaseSizeBeforeUpdate = countryRepository.findAll().size();
         country.setId(count.incrementAndGet());
 
+        // Create the Country
+        CountryDTO countryDTO = countryMapper.toDto(country);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCountryMockMvc
-            .perform(put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(country)))
+            .perform(put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(countryDTO)))
             .andExpect(status().isMethodNotAllowed());
 
         // Validate the Country in the database
@@ -313,12 +331,15 @@ class CountryResourceIT {
         int databaseSizeBeforeUpdate = countryRepository.findAll().size();
         country.setId(count.incrementAndGet());
 
+        // Create the Country
+        CountryDTO countryDTO = countryMapper.toDto(country);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCountryMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, country.getId())
+                patch(ENTITY_API_URL_ID, countryDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(country))
+                    .content(TestUtil.convertObjectToJsonBytes(countryDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -333,12 +354,15 @@ class CountryResourceIT {
         int databaseSizeBeforeUpdate = countryRepository.findAll().size();
         country.setId(count.incrementAndGet());
 
+        // Create the Country
+        CountryDTO countryDTO = countryMapper.toDto(country);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCountryMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(country))
+                    .content(TestUtil.convertObjectToJsonBytes(countryDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -353,9 +377,14 @@ class CountryResourceIT {
         int databaseSizeBeforeUpdate = countryRepository.findAll().size();
         country.setId(count.incrementAndGet());
 
+        // Create the Country
+        CountryDTO countryDTO = countryMapper.toDto(country);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCountryMockMvc
-            .perform(patch(ENTITY_API_URL).contentType("application/merge-patch+json").content(TestUtil.convertObjectToJsonBytes(country)))
+            .perform(
+                patch(ENTITY_API_URL).contentType("application/merge-patch+json").content(TestUtil.convertObjectToJsonBytes(countryDTO))
+            )
             .andExpect(status().isMethodNotAllowed());
 
         // Validate the Country in the database

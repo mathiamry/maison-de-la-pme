@@ -53,7 +53,6 @@
           <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.turnover">Turnover</span></th>
           <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.experience">Experience</span></th>
           <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.size">Size</span></th>
-          <th scope="col"><span jhiTranslate="maisondelapmeApp.sme.bank">Bank</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -104,11 +103,6 @@
           <td>
             <div *ngIf="sme.size">
               <a [routerLink]="['/size', sme.size?.id, 'view']">{{ sme.size?.id }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="sme.bank">
-              <a [routerLink]="['/bank', sme.bank?.id, 'view']">{{ sme.bank?.id }}</a>
             </div>
           </td>
           <td class="text-right">

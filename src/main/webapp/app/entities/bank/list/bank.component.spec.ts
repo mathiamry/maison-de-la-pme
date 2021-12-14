@@ -7,42 +7,40 @@ import { BankService } from '../service/bank.service';
 
 import { BankComponent } from './bank.component';
 
-describe('Component Tests', () => {
-  describe('Bank Management Component', () => {
-    let comp: BankComponent;
-    let fixture: ComponentFixture<BankComponent>;
-    let service: BankService;
+describe('Bank Management Component', () => {
+  let comp: BankComponent;
+  let fixture: ComponentFixture<BankComponent>;
+  let service: BankService;
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
-        declarations: [BankComponent],
-      })
-        .overrideTemplate(BankComponent, '')
-        .compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      declarations: [BankComponent],
+    })
+      .overrideTemplate(BankComponent, '')
+      .compileComponents();
 
-      fixture = TestBed.createComponent(BankComponent);
-      comp = fixture.componentInstance;
-      service = TestBed.inject(BankService);
+    fixture = TestBed.createComponent(BankComponent);
+    comp = fixture.componentInstance;
+    service = TestBed.inject(BankService);
 
-      const headers = new HttpHeaders().append('link', 'link;link');
-      jest.spyOn(service, 'query').mockReturnValue(
-        of(
-          new HttpResponse({
-            body: [{ id: 123 }],
-            headers,
-          })
-        )
-      );
-    });
+    const headers = new HttpHeaders();
+    jest.spyOn(service, 'query').mockReturnValue(
+      of(
+        new HttpResponse({
+          body: [{ id: 123 }],
+          headers,
+        })
+      )
+    );
+  });
 
-    it('Should call load all on init', () => {
-      // WHEN
-      comp.ngOnInit();
+  it('Should call load all on init', () => {
+    // WHEN
+    comp.ngOnInit();
 
-      // THEN
-      expect(service.query).toHaveBeenCalled();
-      expect(comp.banks?.[0]).toEqual(expect.objectContaining({ id: 123 }));
-    });
+    // THEN
+    expect(service.query).toHaveBeenCalled();
+    expect(comp.banks?.[0]).toEqual(expect.objectContaining({ id: 123 }));
   });
 });

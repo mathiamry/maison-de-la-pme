@@ -16,6 +16,7 @@ entity Turnover {
     description String
 }
 
+@dto(mapstruct)
 entity Language {
     name    String required,
     key     String required
@@ -58,6 +59,7 @@ entity Bank {
     description String
 }
 
+@dto(mapstruct)
 entity Country {
     name    String required
 }
@@ -163,6 +165,7 @@ entity Event {
     isPublished Boolean
 }
 
+@dto(mapstruct)
 entity Administrator {
     jobTitle    String,
     description String
@@ -182,7 +185,7 @@ entity File {
     name    String,
     url     String required
 }
-
+@dto(mapstruct)
 entity  Person {
     firstName   String required,
     lastName    String required,
@@ -220,7 +223,6 @@ relationship ManyToOne {
     Sme{turnover} to Turnover{smes}
     Sme{experience} to Experience{smes}
     Sme{size} to Size{smes}
-    Sme{bank} to Bank{smes}
     Country{language} to Language{countries}
     Person{language} to Language{persons}
     FrequentlyAskedQuestion{author required} to User
@@ -239,7 +241,8 @@ relationship ManyToMany {
     Event{participants} to User
     AvailabilityTimeslot to Advisor
     AvailabilityTimeslot to PartnerRepresentative
-
+	Bank{sme} to Sme{banks}
     UnavailabilityPeriod to Advisor
     UnavailabilityPeriod to PartnerRepresentative
 }
+service Administrator, Person, Language, Country with serviceClass 

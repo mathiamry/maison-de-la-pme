@@ -16,6 +16,8 @@ import { IAdvisor } from 'app/entities/advisor/advisor.model';
 import { AdvisorService } from 'app/entities/advisor/service/advisor.service';
 import { IPartnerRepresentative } from 'app/entities/partner-representative/partner-representative.model';
 import { PartnerRepresentativeService } from 'app/entities/partner-representative/service/partner-representative.service';
+import { Status } from 'app/entities/enumerations/status.model';
+import { AppointmentLocation } from 'app/entities/enumerations/appointment-location.model';
 
 @Component({
   selector: 'jhi-appointment-update',
@@ -23,6 +25,8 @@ import { PartnerRepresentativeService } from 'app/entities/partner-representativ
 })
 export class AppointmentUpdateComponent implements OnInit {
   isSaving = false;
+  statusValues = Object.keys(Status);
+  appointmentLocationValues = Object.keys(AppointmentLocation);
 
   smeRepresentativesSharedCollection: ISmeRepresentative[] = [];
   advisorsSharedCollection: IAdvisor[] = [];

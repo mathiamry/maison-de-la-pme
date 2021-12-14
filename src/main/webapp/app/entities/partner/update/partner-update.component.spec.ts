@@ -14,135 +14,133 @@ import { SMEHouseService } from 'app/entities/sme-house/service/sme-house.servic
 
 import { PartnerUpdateComponent } from './partner-update.component';
 
-describe('Component Tests', () => {
-  describe('Partner Management Update Component', () => {
-    let comp: PartnerUpdateComponent;
-    let fixture: ComponentFixture<PartnerUpdateComponent>;
-    let activatedRoute: ActivatedRoute;
-    let partnerService: PartnerService;
-    let sMEHouseService: SMEHouseService;
+describe('Partner Management Update Component', () => {
+  let comp: PartnerUpdateComponent;
+  let fixture: ComponentFixture<PartnerUpdateComponent>;
+  let activatedRoute: ActivatedRoute;
+  let partnerService: PartnerService;
+  let sMEHouseService: SMEHouseService;
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
-        declarations: [PartnerUpdateComponent],
-        providers: [FormBuilder, ActivatedRoute],
-      })
-        .overrideTemplate(PartnerUpdateComponent, '')
-        .compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      declarations: [PartnerUpdateComponent],
+      providers: [FormBuilder, ActivatedRoute],
+    })
+      .overrideTemplate(PartnerUpdateComponent, '')
+      .compileComponents();
 
-      fixture = TestBed.createComponent(PartnerUpdateComponent);
-      activatedRoute = TestBed.inject(ActivatedRoute);
-      partnerService = TestBed.inject(PartnerService);
-      sMEHouseService = TestBed.inject(SMEHouseService);
+    fixture = TestBed.createComponent(PartnerUpdateComponent);
+    activatedRoute = TestBed.inject(ActivatedRoute);
+    partnerService = TestBed.inject(PartnerService);
+    sMEHouseService = TestBed.inject(SMEHouseService);
 
-      comp = fixture.componentInstance;
+    comp = fixture.componentInstance;
+  });
+
+  describe('ngOnInit', () => {
+    it('Should call SMEHouse query and add missing value', () => {
+      const partner: IPartner = { id: 456 };
+      const smeHouse: ISMEHouse = { id: 58554 };
+      partner.smeHouse = smeHouse;
+
+      const sMEHouseCollection: ISMEHouse[] = [{ id: 95034 }];
+      jest.spyOn(sMEHouseService, 'query').mockReturnValue(of(new HttpResponse({ body: sMEHouseCollection })));
+      const additionalSMEHouses = [smeHouse];
+      const expectedCollection: ISMEHouse[] = [...additionalSMEHouses, ...sMEHouseCollection];
+      jest.spyOn(sMEHouseService, 'addSMEHouseToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ partner });
+      comp.ngOnInit();
+
+      expect(sMEHouseService.query).toHaveBeenCalled();
+      expect(sMEHouseService.addSMEHouseToCollectionIfMissing).toHaveBeenCalledWith(sMEHouseCollection, ...additionalSMEHouses);
+      expect(comp.sMEHousesSharedCollection).toEqual(expectedCollection);
     });
 
-    describe('ngOnInit', () => {
-      it('Should call SMEHouse query and add missing value', () => {
-        const partner: IPartner = { id: 456 };
-        const smeHouse: ISMEHouse = { id: 58554 };
-        partner.smeHouse = smeHouse;
+    it('Should update editForm', () => {
+      const partner: IPartner = { id: 456 };
+      const smeHouse: ISMEHouse = { id: 29165 };
+      partner.smeHouse = smeHouse;
 
-        const sMEHouseCollection: ISMEHouse[] = [{ id: 95034 }];
-        jest.spyOn(sMEHouseService, 'query').mockReturnValue(of(new HttpResponse({ body: sMEHouseCollection })));
-        const additionalSMEHouses = [smeHouse];
-        const expectedCollection: ISMEHouse[] = [...additionalSMEHouses, ...sMEHouseCollection];
-        jest.spyOn(sMEHouseService, 'addSMEHouseToCollectionIfMissing').mockReturnValue(expectedCollection);
+      activatedRoute.data = of({ partner });
+      comp.ngOnInit();
 
-        activatedRoute.data = of({ partner });
-        comp.ngOnInit();
+      expect(comp.editForm.value).toEqual(expect.objectContaining(partner));
+      expect(comp.sMEHousesSharedCollection).toContain(smeHouse);
+    });
+  });
 
-        expect(sMEHouseService.query).toHaveBeenCalled();
-        expect(sMEHouseService.addSMEHouseToCollectionIfMissing).toHaveBeenCalledWith(sMEHouseCollection, ...additionalSMEHouses);
-        expect(comp.sMEHousesSharedCollection).toEqual(expectedCollection);
-      });
+  describe('save', () => {
+    it('Should call update service on save for existing entity', () => {
+      // GIVEN
+      const saveSubject = new Subject<HttpResponse<Partner>>();
+      const partner = { id: 123 };
+      jest.spyOn(partnerService, 'update').mockReturnValue(saveSubject);
+      jest.spyOn(comp, 'previousState');
+      activatedRoute.data = of({ partner });
+      comp.ngOnInit();
 
-      it('Should update editForm', () => {
-        const partner: IPartner = { id: 456 };
-        const smeHouse: ISMEHouse = { id: 29165 };
-        partner.smeHouse = smeHouse;
+      // WHEN
+      comp.save();
+      expect(comp.isSaving).toEqual(true);
+      saveSubject.next(new HttpResponse({ body: partner }));
+      saveSubject.complete();
 
-        activatedRoute.data = of({ partner });
-        comp.ngOnInit();
-
-        expect(comp.editForm.value).toEqual(expect.objectContaining(partner));
-        expect(comp.sMEHousesSharedCollection).toContain(smeHouse);
-      });
+      // THEN
+      expect(comp.previousState).toHaveBeenCalled();
+      expect(partnerService.update).toHaveBeenCalledWith(partner);
+      expect(comp.isSaving).toEqual(false);
     });
 
-    describe('save', () => {
-      it('Should call update service on save for existing entity', () => {
-        // GIVEN
-        const saveSubject = new Subject<HttpResponse<Partner>>();
-        const partner = { id: 123 };
-        jest.spyOn(partnerService, 'update').mockReturnValue(saveSubject);
-        jest.spyOn(comp, 'previousState');
-        activatedRoute.data = of({ partner });
-        comp.ngOnInit();
+    it('Should call create service on save for new entity', () => {
+      // GIVEN
+      const saveSubject = new Subject<HttpResponse<Partner>>();
+      const partner = new Partner();
+      jest.spyOn(partnerService, 'create').mockReturnValue(saveSubject);
+      jest.spyOn(comp, 'previousState');
+      activatedRoute.data = of({ partner });
+      comp.ngOnInit();
 
-        // WHEN
-        comp.save();
-        expect(comp.isSaving).toEqual(true);
-        saveSubject.next(new HttpResponse({ body: partner }));
-        saveSubject.complete();
+      // WHEN
+      comp.save();
+      expect(comp.isSaving).toEqual(true);
+      saveSubject.next(new HttpResponse({ body: partner }));
+      saveSubject.complete();
 
-        // THEN
-        expect(comp.previousState).toHaveBeenCalled();
-        expect(partnerService.update).toHaveBeenCalledWith(partner);
-        expect(comp.isSaving).toEqual(false);
-      });
-
-      it('Should call create service on save for new entity', () => {
-        // GIVEN
-        const saveSubject = new Subject<HttpResponse<Partner>>();
-        const partner = new Partner();
-        jest.spyOn(partnerService, 'create').mockReturnValue(saveSubject);
-        jest.spyOn(comp, 'previousState');
-        activatedRoute.data = of({ partner });
-        comp.ngOnInit();
-
-        // WHEN
-        comp.save();
-        expect(comp.isSaving).toEqual(true);
-        saveSubject.next(new HttpResponse({ body: partner }));
-        saveSubject.complete();
-
-        // THEN
-        expect(partnerService.create).toHaveBeenCalledWith(partner);
-        expect(comp.isSaving).toEqual(false);
-        expect(comp.previousState).toHaveBeenCalled();
-      });
-
-      it('Should set isSaving to false on error', () => {
-        // GIVEN
-        const saveSubject = new Subject<HttpResponse<Partner>>();
-        const partner = { id: 123 };
-        jest.spyOn(partnerService, 'update').mockReturnValue(saveSubject);
-        jest.spyOn(comp, 'previousState');
-        activatedRoute.data = of({ partner });
-        comp.ngOnInit();
-
-        // WHEN
-        comp.save();
-        expect(comp.isSaving).toEqual(true);
-        saveSubject.error('This is an error!');
-
-        // THEN
-        expect(partnerService.update).toHaveBeenCalledWith(partner);
-        expect(comp.isSaving).toEqual(false);
-        expect(comp.previousState).not.toHaveBeenCalled();
-      });
+      // THEN
+      expect(partnerService.create).toHaveBeenCalledWith(partner);
+      expect(comp.isSaving).toEqual(false);
+      expect(comp.previousState).toHaveBeenCalled();
     });
 
-    describe('Tracking relationships identifiers', () => {
-      describe('trackSMEHouseById', () => {
-        it('Should return tracked SMEHouse primary key', () => {
-          const entity = { id: 123 };
-          const trackResult = comp.trackSMEHouseById(0, entity);
-          expect(trackResult).toEqual(entity.id);
-        });
+    it('Should set isSaving to false on error', () => {
+      // GIVEN
+      const saveSubject = new Subject<HttpResponse<Partner>>();
+      const partner = { id: 123 };
+      jest.spyOn(partnerService, 'update').mockReturnValue(saveSubject);
+      jest.spyOn(comp, 'previousState');
+      activatedRoute.data = of({ partner });
+      comp.ngOnInit();
+
+      // WHEN
+      comp.save();
+      expect(comp.isSaving).toEqual(true);
+      saveSubject.error('This is an error!');
+
+      // THEN
+      expect(partnerService.update).toHaveBeenCalledWith(partner);
+      expect(comp.isSaving).toEqual(false);
+      expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Tracking relationships identifiers', () => {
+    describe('trackSMEHouseById', () => {
+      it('Should return tracked SMEHouse primary key', () => {
+        const entity = { id: 123 };
+        const trackResult = comp.trackSMEHouseById(0, entity);
+        expect(trackResult).toEqual(entity.id);
       });
     });
   });

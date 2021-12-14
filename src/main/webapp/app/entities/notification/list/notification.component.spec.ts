@@ -7,42 +7,40 @@ import { NotificationService } from '../service/notification.service';
 
 import { NotificationComponent } from './notification.component';
 
-describe('Component Tests', () => {
-  describe('Notification Management Component', () => {
-    let comp: NotificationComponent;
-    let fixture: ComponentFixture<NotificationComponent>;
-    let service: NotificationService;
+describe('Notification Management Component', () => {
+  let comp: NotificationComponent;
+  let fixture: ComponentFixture<NotificationComponent>;
+  let service: NotificationService;
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
-        declarations: [NotificationComponent],
-      })
-        .overrideTemplate(NotificationComponent, '')
-        .compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      declarations: [NotificationComponent],
+    })
+      .overrideTemplate(NotificationComponent, '')
+      .compileComponents();
 
-      fixture = TestBed.createComponent(NotificationComponent);
-      comp = fixture.componentInstance;
-      service = TestBed.inject(NotificationService);
+    fixture = TestBed.createComponent(NotificationComponent);
+    comp = fixture.componentInstance;
+    service = TestBed.inject(NotificationService);
 
-      const headers = new HttpHeaders().append('link', 'link;link');
-      jest.spyOn(service, 'query').mockReturnValue(
-        of(
-          new HttpResponse({
-            body: [{ id: 123 }],
-            headers,
-          })
-        )
-      );
-    });
+    const headers = new HttpHeaders();
+    jest.spyOn(service, 'query').mockReturnValue(
+      of(
+        new HttpResponse({
+          body: [{ id: 123 }],
+          headers,
+        })
+      )
+    );
+  });
 
-    it('Should call load all on init', () => {
-      // WHEN
-      comp.ngOnInit();
+  it('Should call load all on init', () => {
+    // WHEN
+    comp.ngOnInit();
 
-      // THEN
-      expect(service.query).toHaveBeenCalled();
-      expect(comp.notifications?.[0]).toEqual(expect.objectContaining({ id: 123 }));
-    });
+    // THEN
+    expect(service.query).toHaveBeenCalled();
+    expect(comp.notifications?.[0]).toEqual(expect.objectContaining({ id: 123 }));
   });
 });

@@ -36,7 +36,7 @@ public class Experience implements Serializable {
     @OneToMany(mappedBy = "experience")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
-        value = { "activityArea", "need", "smeHouse", "turnover", "experience", "size", "bank", "representatives", "files" },
+        value = { "activityArea", "need", "smeHouse", "turnover", "experience", "size", "representatives", "files", "banks" },
         allowSetters = true
     )
     private Set<Sme> smes = new HashSet<>();

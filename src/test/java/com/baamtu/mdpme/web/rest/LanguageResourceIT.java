@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.baamtu.mdpme.IntegrationTest;
 import com.baamtu.mdpme.domain.Language;
 import com.baamtu.mdpme.repository.LanguageRepository;
+import com.baamtu.mdpme.service.dto.LanguageDTO;
+import com.baamtu.mdpme.service.mapper.LanguageMapper;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -43,6 +45,9 @@ class LanguageResourceIT {
 
     @Autowired
     private LanguageRepository languageRepository;
+
+    @Autowired
+    private LanguageMapper languageMapper;
 
     @Autowired
     private EntityManager em;
@@ -84,8 +89,9 @@ class LanguageResourceIT {
     void createLanguage() throws Exception {
         int databaseSizeBeforeCreate = languageRepository.findAll().size();
         // Create the Language
+        LanguageDTO languageDTO = languageMapper.toDto(language);
         restLanguageMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(language)))
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(languageDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Language in the database
@@ -101,12 +107,13 @@ class LanguageResourceIT {
     void createLanguageWithExistingId() throws Exception {
         // Create the Language with an existing ID
         language.setId(1L);
+        LanguageDTO languageDTO = languageMapper.toDto(language);
 
         int databaseSizeBeforeCreate = languageRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restLanguageMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(language)))
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(languageDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Language in the database
@@ -122,9 +129,10 @@ class LanguageResourceIT {
         language.setName(null);
 
         // Create the Language, which fails.
+        LanguageDTO languageDTO = languageMapper.toDto(language);
 
         restLanguageMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(language)))
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(languageDTO)))
             .andExpect(status().isBadRequest());
 
         List<Language> languageList = languageRepository.findAll();
@@ -139,9 +147,10 @@ class LanguageResourceIT {
         language.setKey(null);
 
         // Create the Language, which fails.
+        LanguageDTO languageDTO = languageMapper.toDto(language);
 
         restLanguageMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(language)))
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(languageDTO)))
             .andExpect(status().isBadRequest());
 
         List<Language> languageList = languageRepository.findAll();
@@ -200,12 +209,13 @@ class LanguageResourceIT {
         // Disconnect from session so that the updates on updatedLanguage are not directly saved in db
         em.detach(updatedLanguage);
         updatedLanguage.name(UPDATED_NAME).key(UPDATED_KEY);
+        LanguageDTO languageDTO = languageMapper.toDto(updatedLanguage);
 
         restLanguageMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedLanguage.getId())
+                put(ENTITY_API_URL_ID, languageDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedLanguage))
+                    .content(TestUtil.convertObjectToJsonBytes(languageDTO))
             )
             .andExpect(status().isOk());
 
@@ -223,12 +233,15 @@ class LanguageResourceIT {
         int databaseSizeBeforeUpdate = languageRepository.findAll().size();
         language.setId(count.incrementAndGet());
 
+        // Create the Language
+        LanguageDTO languageDTO = languageMapper.toDto(language);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restLanguageMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, language.getId())
+                put(ENTITY_API_URL_ID, languageDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(language))
+                    .content(TestUtil.convertObjectToJsonBytes(languageDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -243,12 +256,15 @@ class LanguageResourceIT {
         int databaseSizeBeforeUpdate = languageRepository.findAll().size();
         language.setId(count.incrementAndGet());
 
+        // Create the Language
+        LanguageDTO languageDTO = languageMapper.toDto(language);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restLanguageMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(language))
+                    .content(TestUtil.convertObjectToJsonBytes(languageDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -263,9 +279,12 @@ class LanguageResourceIT {
         int databaseSizeBeforeUpdate = languageRepository.findAll().size();
         language.setId(count.incrementAndGet());
 
+        // Create the Language
+        LanguageDTO languageDTO = languageMapper.toDto(language);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restLanguageMockMvc
-            .perform(put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(language)))
+            .perform(put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(languageDTO)))
             .andExpect(status().isMethodNotAllowed());
 
         // Validate the Language in the database
@@ -339,12 +358,15 @@ class LanguageResourceIT {
         int databaseSizeBeforeUpdate = languageRepository.findAll().size();
         language.setId(count.incrementAndGet());
 
+        // Create the Language
+        LanguageDTO languageDTO = languageMapper.toDto(language);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restLanguageMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, language.getId())
+                patch(ENTITY_API_URL_ID, languageDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(language))
+                    .content(TestUtil.convertObjectToJsonBytes(languageDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -359,12 +381,15 @@ class LanguageResourceIT {
         int databaseSizeBeforeUpdate = languageRepository.findAll().size();
         language.setId(count.incrementAndGet());
 
+        // Create the Language
+        LanguageDTO languageDTO = languageMapper.toDto(language);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restLanguageMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(language))
+                    .content(TestUtil.convertObjectToJsonBytes(languageDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -379,9 +404,14 @@ class LanguageResourceIT {
         int databaseSizeBeforeUpdate = languageRepository.findAll().size();
         language.setId(count.incrementAndGet());
 
+        // Create the Language
+        LanguageDTO languageDTO = languageMapper.toDto(language);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restLanguageMockMvc
-            .perform(patch(ENTITY_API_URL).contentType("application/merge-patch+json").content(TestUtil.convertObjectToJsonBytes(language)))
+            .perform(
+                patch(ENTITY_API_URL).contentType("application/merge-patch+json").content(TestUtil.convertObjectToJsonBytes(languageDTO))
+            )
             .andExpect(status().isMethodNotAllowed());
 
         // Validate the Language in the database

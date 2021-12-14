@@ -107,6 +107,7 @@ public class CacheConfiguration {
             createCache(cm, com.baamtu.mdpme.domain.Tender.class.getName() + ".notifications");
             createCache(cm, com.baamtu.mdpme.domain.File.class.getName());
             createCache(cm, com.baamtu.mdpme.domain.Person.class.getName());
+            createCache(cm, com.baamtu.mdpme.domain.Sme.class.getName() + ".banks");
             // jhipster-needle-ehcache-add-entry
         };
     }

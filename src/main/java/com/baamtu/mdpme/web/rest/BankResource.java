@@ -143,12 +143,13 @@ public class BankResource {
     /**
      * {@code GET  /banks} : get all the banks.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of banks in body.
      */
     @GetMapping("/banks")
-    public List<Bank> getAllBanks() {
+    public List<Bank> getAllBanks(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Banks");
-        return bankRepository.findAll();
+        return bankRepository.findAllWithEagerRelationships();
     }
 
     /**
@@ -160,7 +161,7 @@ public class BankResource {
     @GetMapping("/banks/{id}")
     public ResponseEntity<Bank> getBank(@PathVariable Long id) {
         log.debug("REST request to get Bank : {}", id);
-        Optional<Bank> bank = bankRepository.findById(id);
+        Optional<Bank> bank = bankRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(bank);
     }
 

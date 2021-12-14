@@ -98,10 +98,6 @@ public class Sme implements Serializable {
     @JsonIgnoreProperties(value = { "smes" }, allowSetters = true)
     private Size size;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "smes" }, allowSetters = true)
-    private Bank bank;
-
     @OneToMany(mappedBy = "sme")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "internalUser", "person", "sme", "appointments" }, allowSetters = true)
@@ -111,6 +107,11 @@ public class Sme implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "tender", "sme" }, allowSetters = true)
     private Set<File> files = new HashSet<>();
+
+    @ManyToMany(mappedBy = "smes")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "smes" }, allowSetters = true)
+    private Set<Bank> banks = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -387,19 +388,6 @@ public class Sme implements Serializable {
         return this;
     }
 
-    public Bank getBank() {
-        return this.bank;
-    }
-
-    public void setBank(Bank bank) {
-        this.bank = bank;
-    }
-
-    public Sme bank(Bank bank) {
-        this.setBank(bank);
-        return this;
-    }
-
     public Set<SmeRepresentative> getRepresentatives() {
         return this.representatives;
     }
@@ -459,6 +447,37 @@ public class Sme implements Serializable {
     public Sme removeFiles(File file) {
         this.files.remove(file);
         file.setSme(null);
+        return this;
+    }
+
+    public Set<Bank> getBanks() {
+        return this.banks;
+    }
+
+    public void setBanks(Set<Bank> banks) {
+        if (this.banks != null) {
+            this.banks.forEach(i -> i.removeSme(this));
+        }
+        if (banks != null) {
+            banks.forEach(i -> i.addSme(this));
+        }
+        this.banks = banks;
+    }
+
+    public Sme banks(Set<Bank> banks) {
+        this.setBanks(banks);
+        return this;
+    }
+
+    public Sme addBanks(Bank bank) {
+        this.banks.add(bank);
+        bank.getSmes().add(this);
+        return this;
+    }
+
+    public Sme removeBanks(Bank bank) {
+        this.banks.remove(bank);
+        bank.getSmes().remove(this);
         return this;
     }
 

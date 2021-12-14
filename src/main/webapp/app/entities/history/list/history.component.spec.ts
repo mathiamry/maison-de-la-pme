@@ -7,42 +7,40 @@ import { HistoryService } from '../service/history.service';
 
 import { HistoryComponent } from './history.component';
 
-describe('Component Tests', () => {
-  describe('History Management Component', () => {
-    let comp: HistoryComponent;
-    let fixture: ComponentFixture<HistoryComponent>;
-    let service: HistoryService;
+describe('History Management Component', () => {
+  let comp: HistoryComponent;
+  let fixture: ComponentFixture<HistoryComponent>;
+  let service: HistoryService;
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
-        declarations: [HistoryComponent],
-      })
-        .overrideTemplate(HistoryComponent, '')
-        .compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      declarations: [HistoryComponent],
+    })
+      .overrideTemplate(HistoryComponent, '')
+      .compileComponents();
 
-      fixture = TestBed.createComponent(HistoryComponent);
-      comp = fixture.componentInstance;
-      service = TestBed.inject(HistoryService);
+    fixture = TestBed.createComponent(HistoryComponent);
+    comp = fixture.componentInstance;
+    service = TestBed.inject(HistoryService);
 
-      const headers = new HttpHeaders().append('link', 'link;link');
-      jest.spyOn(service, 'query').mockReturnValue(
-        of(
-          new HttpResponse({
-            body: [{ id: 123 }],
-            headers,
-          })
-        )
-      );
-    });
+    const headers = new HttpHeaders();
+    jest.spyOn(service, 'query').mockReturnValue(
+      of(
+        new HttpResponse({
+          body: [{ id: 123 }],
+          headers,
+        })
+      )
+    );
+  });
 
-    it('Should call load all on init', () => {
-      // WHEN
-      comp.ngOnInit();
+  it('Should call load all on init', () => {
+    // WHEN
+    comp.ngOnInit();
 
-      // THEN
-      expect(service.query).toHaveBeenCalled();
-      expect(comp.histories?.[0]).toEqual(expect.objectContaining({ id: 123 }));
-    });
+    // THEN
+    expect(service.query).toHaveBeenCalled();
+    expect(comp.histories?.[0]).toEqual(expect.objectContaining({ id: 123 }));
   });
 });
