@@ -19,15 +19,15 @@ export class AdvisorComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.advisorService.query().subscribe(
-      (res: HttpResponse<IAdvisor[]>) => {
+    this.advisorService.query().subscribe({
+      next: (res: HttpResponse<IAdvisor[]>) => {
         this.isLoading = false;
         this.advisors = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

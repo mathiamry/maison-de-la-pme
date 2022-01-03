@@ -103,13 +103,7 @@
           <label class="form-control-label" jhiTranslate="maisondelapmeApp.availabilityTimeslot.day" for="field_day">Day</label>
           <select class="form-control" name="day" formControlName="day" id="field_day" data-cy="day">
             <option [ngValue]="null">{{ 'maisondelapmeApp.Day.null' | translate }}</option>
-            <option value="MONDAY">{{ 'maisondelapmeApp.Day.MONDAY' | translate }}</option>
-            <option value="TUESDAY">{{ 'maisondelapmeApp.Day.TUESDAY' | translate }}</option>
-            <option value="WEDNESDAY">{{ 'maisondelapmeApp.Day.WEDNESDAY' | translate }}</option>
-            <option value="THURSDAY">{{ 'maisondelapmeApp.Day.THURSDAY' | translate }}</option>
-            <option value="FRIDAY">{{ 'maisondelapmeApp.Day.FRIDAY' | translate }}</option>
-            <option value="SATURDAY">{{ 'maisondelapmeApp.Day.SATURDAY' | translate }}</option>
-            <option value="SUNDAY">{{ 'maisondelapmeApp.Day.SUNDAY' | translate }}</option>
+            <option *ngFor="let day of dayValues" [value]="day">{{ 'maisondelapmeApp.Day.' + day | translate }}</option>
           </select>
           <div *ngIf="editForm.get('day')!.invalid && (editForm.get('day')!.dirty || editForm.get('day')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('day')?.errors?.required" jhiTranslate="entity.validation.required">

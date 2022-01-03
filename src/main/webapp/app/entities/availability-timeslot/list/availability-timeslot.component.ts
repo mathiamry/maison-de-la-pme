@@ -19,15 +19,15 @@ export class AvailabilityTimeslotComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.availabilityTimeslotService.query().subscribe(
-      (res: HttpResponse<IAvailabilityTimeslot[]>) => {
+    this.availabilityTimeslotService.query().subscribe({
+      next: (res: HttpResponse<IAvailabilityTimeslot[]>) => {
         this.isLoading = false;
         this.availabilityTimeslots = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

@@ -19,15 +19,15 @@ export class LanguageComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.languageService.query().subscribe(
-      (res: HttpResponse<ILanguage[]>) => {
+    this.languageService.query().subscribe({
+      next: (res: HttpResponse<ILanguage[]>) => {
         this.isLoading = false;
         this.languages = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

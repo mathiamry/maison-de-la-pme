@@ -4,9 +4,9 @@ import { ISMEHouse } from 'app/entities/sme-house/sme-house.model';
 import { ITurnover } from 'app/entities/turnover/turnover.model';
 import { IExperience } from 'app/entities/experience/experience.model';
 import { ISize } from 'app/entities/size/size.model';
-import { IBank } from 'app/entities/bank/bank.model';
 import { ISmeRepresentative } from 'app/entities/sme-representative/sme-representative.model';
 import { IFile } from 'app/entities/file/file.model';
+import { IBank } from 'app/entities/bank/bank.model';
 
 export interface ISme {
   id?: number;
@@ -30,9 +30,9 @@ export interface ISme {
   turnover?: ITurnover | null;
   experience?: IExperience | null;
   size?: ISize | null;
-  bank?: IBank | null;
   representatives?: ISmeRepresentative[] | null;
   files?: IFile[] | null;
+  banks?: IBank[] | null;
 }
 
 export class Sme implements ISme {
@@ -58,9 +58,9 @@ export class Sme implements ISme {
     public turnover?: ITurnover | null,
     public experience?: IExperience | null,
     public size?: ISize | null,
-    public bank?: IBank | null,
     public representatives?: ISmeRepresentative[] | null,
-    public files?: IFile[] | null
+    public files?: IFile[] | null,
+    public banks?: IBank[] | null
   ) {
     this.isClient = this.isClient ?? false;
     this.isAuthorized = this.isAuthorized ?? false;

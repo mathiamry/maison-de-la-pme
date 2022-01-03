@@ -19,15 +19,15 @@ export class ActivityAreaComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.activityAreaService.query().subscribe(
-      (res: HttpResponse<IActivityArea[]>) => {
+    this.activityAreaService.query().subscribe({
+      next: (res: HttpResponse<IActivityArea[]>) => {
         this.isLoading = false;
         this.activityAreas = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

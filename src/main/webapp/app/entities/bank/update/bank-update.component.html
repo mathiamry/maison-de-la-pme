@@ -34,6 +34,18 @@
             formControlName="description"
           />
         </div>
+
+        <div class="form-group">
+          <label jhiTranslate="maisondelapmeApp.bank.sme" for="field_smes">Sme</label>
+          <select class="form-control" id="field_smes" data-cy="sme" multiple name="smes" formControlName="smes">
+            <option
+              [ngValue]="getSelectedSme(smeOption, editForm.get('smes')!.value)"
+              *ngFor="let smeOption of smesSharedCollection; trackBy: trackSmeById"
+            >
+              {{ smeOption.id }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div>

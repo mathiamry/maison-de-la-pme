@@ -19,15 +19,15 @@ export class SmeComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.smeService.query().subscribe(
-      (res: HttpResponse<ISme[]>) => {
+    this.smeService.query().subscribe({
+      next: (res: HttpResponse<ISme[]>) => {
         this.isLoading = false;
         this.smes = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

@@ -107,10 +107,7 @@
           <label class="form-control-label" jhiTranslate="maisondelapmeApp.appointment.status" for="field_status">Status</label>
           <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
             <option [ngValue]="null">{{ 'maisondelapmeApp.Status.null' | translate }}</option>
-            <option value="PENDING">{{ 'maisondelapmeApp.Status.PENDING' | translate }}</option>
-            <option value="VALIDATED">{{ 'maisondelapmeApp.Status.VALIDATED' | translate }}</option>
-            <option value="DONE">{{ 'maisondelapmeApp.Status.DONE' | translate }}</option>
-            <option value="CANCEL">{{ 'maisondelapmeApp.Status.CANCEL' | translate }}</option>
+            <option *ngFor="let status of statusValues" [value]="status">{{ 'maisondelapmeApp.Status.' + status | translate }}</option>
           </select>
           <div *ngIf="editForm.get('status')!.invalid && (editForm.get('status')!.dirty || editForm.get('status')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('status')?.errors?.required" jhiTranslate="entity.validation.required">
@@ -123,8 +120,9 @@
           <label class="form-control-label" jhiTranslate="maisondelapmeApp.appointment.location" for="field_location">Location</label>
           <select class="form-control" name="location" formControlName="location" id="field_location" data-cy="location">
             <option [ngValue]="null">{{ 'maisondelapmeApp.AppointmentLocation.null' | translate }}</option>
-            <option value="ONSITE">{{ 'maisondelapmeApp.AppointmentLocation.ONSITE' | translate }}</option>
-            <option value="ONLINE">{{ 'maisondelapmeApp.AppointmentLocation.ONLINE' | translate }}</option>
+            <option *ngFor="let appointmentLocation of appointmentLocationValues" [value]="appointmentLocation">
+              {{ 'maisondelapmeApp.AppointmentLocation.' + appointmentLocation | translate }}
+            </option>
           </select>
           <div *ngIf="editForm.get('location')!.invalid && (editForm.get('location')!.dirty || editForm.get('location')!.touched)">
             <small

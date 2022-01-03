@@ -11,6 +11,7 @@ import { IAdvisor } from 'app/entities/advisor/advisor.model';
 import { AdvisorService } from 'app/entities/advisor/service/advisor.service';
 import { IPartnerRepresentative } from 'app/entities/partner-representative/partner-representative.model';
 import { PartnerRepresentativeService } from 'app/entities/partner-representative/service/partner-representative.service';
+import { Day } from 'app/entities/enumerations/day.model';
 
 @Component({
   selector: 'jhi-availability-timeslot-update',
@@ -18,6 +19,7 @@ import { PartnerRepresentativeService } from 'app/entities/partner-representativ
 })
 export class AvailabilityTimeslotUpdateComponent implements OnInit {
   isSaving = false;
+  dayValues = Object.keys(Day);
 
   advisorsSharedCollection: IAdvisor[] = [];
   partnerRepresentativesSharedCollection: IPartnerRepresentative[] = [];
@@ -94,10 +96,10 @@ export class AvailabilityTimeslotUpdateComponent implements OnInit {
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IAvailabilityTimeslot>>): void {
-    result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
-      () => this.onSaveSuccess(),
-      () => this.onSaveError()
-    );
+    result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
+      next: () => this.onSaveSuccess(),
+      error: () => this.onSaveError(),
+    });
   }
 
   protected onSaveSuccess(): void {

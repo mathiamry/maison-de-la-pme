@@ -19,15 +19,15 @@ export class PersonComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.personService.query().subscribe(
-      (res: HttpResponse<IPerson[]>) => {
+    this.personService.query().subscribe({
+      next: (res: HttpResponse<IPerson[]>) => {
         this.isLoading = false;
         this.people = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

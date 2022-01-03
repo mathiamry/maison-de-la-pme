@@ -19,15 +19,15 @@ export class TurnoverComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.turnoverService.query().subscribe(
-      (res: HttpResponse<ITurnover[]>) => {
+    this.turnoverService.query().subscribe({
+      next: (res: HttpResponse<ITurnover[]>) => {
         this.isLoading = false;
         this.turnovers = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

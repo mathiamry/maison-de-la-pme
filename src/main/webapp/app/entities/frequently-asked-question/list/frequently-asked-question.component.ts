@@ -19,15 +19,15 @@ export class FrequentlyAskedQuestionComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.frequentlyAskedQuestionService.query().subscribe(
-      (res: HttpResponse<IFrequentlyAskedQuestion[]>) => {
+    this.frequentlyAskedQuestionService.query().subscribe({
+      next: (res: HttpResponse<IFrequentlyAskedQuestion[]>) => {
         this.isLoading = false;
         this.frequentlyAskedQuestions = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

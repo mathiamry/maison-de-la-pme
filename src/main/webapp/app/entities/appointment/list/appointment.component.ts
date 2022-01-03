@@ -19,15 +19,15 @@ export class AppointmentComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.appointmentService.query().subscribe(
-      (res: HttpResponse<IAppointment[]>) => {
+    this.appointmentService.query().subscribe({
+      next: (res: HttpResponse<IAppointment[]>) => {
         this.isLoading = false;
         this.appointments = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

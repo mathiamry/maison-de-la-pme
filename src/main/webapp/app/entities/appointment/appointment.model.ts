@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 import { ISmeRepresentative } from 'app/entities/sme-representative/sme-representative.model';
 import { IAdvisor } from 'app/entities/advisor/advisor.model';
 import { IPartnerRepresentative } from 'app/entities/partner-representative/partner-representative.model';

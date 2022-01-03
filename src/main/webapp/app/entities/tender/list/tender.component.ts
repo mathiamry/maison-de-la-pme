@@ -19,15 +19,15 @@ export class TenderComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.tenderService.query().subscribe(
-      (res: HttpResponse<ITender[]>) => {
+    this.tenderService.query().subscribe({
+      next: (res: HttpResponse<ITender[]>) => {
         this.isLoading = false;
         this.tenders = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

@@ -19,15 +19,15 @@ export class FileComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.fileService.query().subscribe(
-      (res: HttpResponse<IFile[]>) => {
+    this.fileService.query().subscribe({
+      next: (res: HttpResponse<IFile[]>) => {
         this.isLoading = false;
         this.files = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {
