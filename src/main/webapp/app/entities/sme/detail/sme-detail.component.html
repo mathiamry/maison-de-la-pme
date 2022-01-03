@@ -106,12 +106,6 @@
             <a [routerLink]="['/size', sme.size?.id, 'view']">{{ sme.size?.id }}</a>
           </div>
         </dd>
-        <dt><span jhiTranslate="maisondelapmeApp.sme.bank">Bank</span></dt>
-        <dd>
-          <div *ngIf="sme.bank">
-            <a [routerLink]="['/bank', sme.bank?.id, 'view']">{{ sme.bank?.id }}</a>
-          </div>
-        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

@@ -19,15 +19,15 @@ export class SmeRepresentativeComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.smeRepresentativeService.query().subscribe(
-      (res: HttpResponse<ISmeRepresentative[]>) => {
+    this.smeRepresentativeService.query().subscribe({
+      next: (res: HttpResponse<ISmeRepresentative[]>) => {
         this.isLoading = false;
         this.smeRepresentatives = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

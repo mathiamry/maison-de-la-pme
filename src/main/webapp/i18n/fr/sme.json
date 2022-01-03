@@ -38,9 +38,9 @@
       "turnover": "Turnover",
       "experience": "Experience",
       "size": "Size",
-      "bank": "Bank",
       "representatives": "Representatives",
-      "files": "Files"
+      "files": "Files",
+      "banks": "Banks"
     }
   }
 }

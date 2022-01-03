@@ -19,15 +19,15 @@ export class PartnerRepresentativeComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.partnerRepresentativeService.query().subscribe(
-      (res: HttpResponse<IPartnerRepresentative[]>) => {
+    this.partnerRepresentativeService.query().subscribe({
+      next: (res: HttpResponse<IPartnerRepresentative[]>) => {
         this.isLoading = false;
         this.partnerRepresentatives = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

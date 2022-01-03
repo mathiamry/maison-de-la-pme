@@ -35,10 +35,10 @@
     }
   ],
   "entityTableName": "administrator",
-  "dto": "no",
+  "dto": "mapstruct",
   "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,

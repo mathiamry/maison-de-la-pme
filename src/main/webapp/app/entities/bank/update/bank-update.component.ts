@@ -3,10 +3,12 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import { IBank, Bank } from '../bank.model';
 import { BankService } from '../service/bank.service';
+import { ISme } from 'app/entities/sme/sme.model';
+import { SmeService } from 'app/entities/sme/service/sme.service';
 
 @Component({
   selector: 'jhi-bank-update',
@@ -15,17 +17,27 @@ import { BankService } from '../service/bank.service';
 export class BankUpdateComponent implements OnInit {
   isSaving = false;
 
+  smesSharedCollection: ISme[] = [];
+
   editForm = this.fb.group({
     id: [],
     name: [null, [Validators.required]],
     description: [],
+    smes: [],
   });
 
-  constructor(protected bankService: BankService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(
+    protected bankService: BankService,
+    protected smeService: SmeService,
+    protected activatedRoute: ActivatedRoute,
+    protected fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ bank }) => {
       this.updateForm(bank);
+
+      this.loadRelationshipsOptions();
     });
   }
 
@@ -43,11 +55,26 @@ export class BankUpdateComponent implements OnInit {
     }
   }
 
+  trackSmeById(index: number, item: ISme): number {
+    return item.id!;
+  }
+
+  getSelectedSme(option: ISme, selectedVals?: ISme[]): ISme {
+    if (selectedVals) {
+      for (const selectedVal of selectedVals) {
+        if (option.id === selectedVal.id) {
+          return selectedVal;
+        }
+      }
+    }
+    return option;
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IBank>>): void {
-    result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
-      () => this.onSaveSuccess(),
-      () => this.onSaveError()
-    );
+    result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
+      next: () => this.onSaveSuccess(),
+      error: () => this.onSaveError(),
+    });
   }
 
   protected onSaveSuccess(): void {
@@ -67,7 +94,18 @@ export class BankUpdateComponent implements OnInit {
       id: bank.id,
       name: bank.name,
       description: bank.description,
+      smes: bank.smes,
     });
+
+    this.smesSharedCollection = this.smeService.addSmeToCollectionIfMissing(this.smesSharedCollection, ...(bank.smes ?? []));
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.smeService
+      .query()
+      .pipe(map((res: HttpResponse<ISme[]>) => res.body ?? []))
+      .pipe(map((smes: ISme[]) => this.smeService.addSmeToCollectionIfMissing(smes, ...(this.editForm.get('smes')!.value ?? []))))
+      .subscribe((smes: ISme[]) => (this.smesSharedCollection = smes));
   }
 
   protected createFromForm(): IBank {
@@ -76,6 +114,7 @@ export class BankUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       name: this.editForm.get(['name'])!.value,
       description: this.editForm.get(['description'])!.value,
+      smes: this.editForm.get(['smes'])!.value,
     };
   }
 }

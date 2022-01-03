@@ -32,10 +32,11 @@ public class Bank implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "bank")
+    @ManyToMany
+    @JoinTable(name = "rel_bank__sme", joinColumns = @JoinColumn(name = "bank_id"), inverseJoinColumns = @JoinColumn(name = "sme_id"))
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
-        value = { "activityArea", "need", "smeHouse", "turnover", "experience", "size", "bank", "representatives", "files" },
+        value = { "activityArea", "need", "smeHouse", "turnover", "experience", "size", "representatives", "files", "banks" },
         allowSetters = true
     )
     private Set<Sme> smes = new HashSet<>();
@@ -86,12 +87,6 @@ public class Bank implements Serializable {
     }
 
     public void setSmes(Set<Sme> smes) {
-        if (this.smes != null) {
-            this.smes.forEach(i -> i.setBank(null));
-        }
-        if (smes != null) {
-            smes.forEach(i -> i.setBank(this));
-        }
         this.smes = smes;
     }
 
@@ -100,15 +95,15 @@ public class Bank implements Serializable {
         return this;
     }
 
-    public Bank addSmes(Sme sme) {
+    public Bank addSme(Sme sme) {
         this.smes.add(sme);
-        sme.setBank(this);
+        sme.getBanks().add(this);
         return this;
     }
 
-    public Bank removeSmes(Sme sme) {
+    public Bank removeSme(Sme sme) {
         this.smes.remove(sme);
-        sme.setBank(null);
+        sme.getBanks().remove(this);
         return this;
     }
 

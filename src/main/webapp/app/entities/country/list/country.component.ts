@@ -19,15 +19,15 @@ export class CountryComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.countryService.query().subscribe(
-      (res: HttpResponse<ICountry[]>) => {
+    this.countryService.query().subscribe({
+      next: (res: HttpResponse<ICountry[]>) => {
         this.isLoading = false;
         this.countries = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

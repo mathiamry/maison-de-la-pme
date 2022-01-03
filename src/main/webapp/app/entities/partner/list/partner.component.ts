@@ -19,15 +19,15 @@ export class PartnerComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.partnerService.query().subscribe(
-      (res: HttpResponse<IPartner[]>) => {
+    this.partnerService.query().subscribe({
+      next: (res: HttpResponse<IPartner[]>) => {
         this.isLoading = false;
         this.partners = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

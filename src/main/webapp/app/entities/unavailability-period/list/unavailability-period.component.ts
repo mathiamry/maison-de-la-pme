@@ -19,15 +19,15 @@ export class UnavailabilityPeriodComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.unavailabilityPeriodService.query().subscribe(
-      (res: HttpResponse<IUnavailabilityPeriod[]>) => {
+    this.unavailabilityPeriodService.query().subscribe({
+      next: (res: HttpResponse<IUnavailabilityPeriod[]>) => {
         this.isLoading = false;
         this.unavailabilityPeriods = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

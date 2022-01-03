@@ -19,15 +19,15 @@ export class AdministratorComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.administratorService.query().subscribe(
-      (res: HttpResponse<IAdministrator[]>) => {
+    this.administratorService.query().subscribe({
+      next: (res: HttpResponse<IAdministrator[]>) => {
         this.isLoading = false;
         this.administrators = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

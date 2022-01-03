@@ -19,15 +19,15 @@ export class SizeComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.sizeService.query().subscribe(
-      (res: HttpResponse<ISize[]>) => {
+    this.sizeService.query().subscribe({
+      next: (res: HttpResponse<ISize[]>) => {
         this.isLoading = false;
         this.sizes = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

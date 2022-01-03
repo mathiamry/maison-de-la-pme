@@ -19,15 +19,15 @@ export class SMEHouseComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.sMEHouseService.query().subscribe(
-      (res: HttpResponse<ISMEHouse[]>) => {
+    this.sMEHouseService.query().subscribe({
+      next: (res: HttpResponse<ISMEHouse[]>) => {
         this.isLoading = false;
         this.sMEHouses = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

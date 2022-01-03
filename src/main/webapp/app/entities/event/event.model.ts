@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 import { IUser } from 'app/entities/user/user.model';
 import { INotification } from 'app/entities/notification/notification.model';
 

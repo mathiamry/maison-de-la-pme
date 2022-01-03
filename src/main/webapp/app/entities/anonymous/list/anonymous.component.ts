@@ -19,15 +19,15 @@ export class AnonymousComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.anonymousService.query().subscribe(
-      (res: HttpResponse<IAnonymous[]>) => {
+    this.anonymousService.query().subscribe({
+      next: (res: HttpResponse<IAnonymous[]>) => {
         this.isLoading = false;
         this.anonymous = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

@@ -103,12 +103,6 @@
       "relationshipName": "size"
     },
     {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "bank",
-      "otherEntityRelationshipName": "smes",
-      "relationshipName": "bank"
-    },
-    {
       "relationshipType": "one-to-many",
       "otherEntityName": "smeRepresentative",
       "otherEntityRelationshipName": "sme",
@@ -119,6 +113,13 @@
       "otherEntityName": "file",
       "otherEntityRelationshipName": "sme",
       "relationshipName": "files"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "bank",
+      "otherEntityRelationshipName": "sme",
+      "relationshipName": "banks",
+      "ownerSide": false
     }
   ],
   "entityTableName": "sme",

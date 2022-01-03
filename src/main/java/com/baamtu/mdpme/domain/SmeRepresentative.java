@@ -47,7 +47,7 @@ public class SmeRepresentative implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "activityArea", "need", "smeHouse", "turnover", "experience", "size", "bank", "representatives", "files" },
+        value = { "activityArea", "need", "smeHouse", "turnover", "experience", "size", "representatives", "files", "banks" },
         allowSetters = true
     )
     private Sme sme;

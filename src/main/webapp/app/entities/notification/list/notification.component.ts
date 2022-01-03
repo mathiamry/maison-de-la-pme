@@ -19,15 +19,15 @@ export class NotificationComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.notificationService.query().subscribe(
-      (res: HttpResponse<INotification[]>) => {
+    this.notificationService.query().subscribe({
+      next: (res: HttpResponse<INotification[]>) => {
         this.isLoading = false;
         this.notifications = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

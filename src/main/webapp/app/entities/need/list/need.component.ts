@@ -19,15 +19,15 @@ export class NeedComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.needService.query().subscribe(
-      (res: HttpResponse<INeed[]>) => {
+    this.needService.query().subscribe({
+      next: (res: HttpResponse<INeed[]>) => {
         this.isLoading = false;
         this.needs = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

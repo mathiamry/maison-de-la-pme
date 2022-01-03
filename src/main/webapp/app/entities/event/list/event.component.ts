@@ -19,15 +19,15 @@ export class EventComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.eventService.query().subscribe(
-      (res: HttpResponse<IEvent[]>) => {
+    this.eventService.query().subscribe({
+      next: (res: HttpResponse<IEvent[]>) => {
         this.isLoading = false;
         this.events = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

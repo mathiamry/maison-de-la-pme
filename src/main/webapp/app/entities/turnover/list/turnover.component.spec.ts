@@ -7,42 +7,40 @@ import { TurnoverService } from '../service/turnover.service';
 
 import { TurnoverComponent } from './turnover.component';
 
-describe('Component Tests', () => {
-  describe('Turnover Management Component', () => {
-    let comp: TurnoverComponent;
-    let fixture: ComponentFixture<TurnoverComponent>;
-    let service: TurnoverService;
+describe('Turnover Management Component', () => {
+  let comp: TurnoverComponent;
+  let fixture: ComponentFixture<TurnoverComponent>;
+  let service: TurnoverService;
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
-        declarations: [TurnoverComponent],
-      })
-        .overrideTemplate(TurnoverComponent, '')
-        .compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      declarations: [TurnoverComponent],
+    })
+      .overrideTemplate(TurnoverComponent, '')
+      .compileComponents();
 
-      fixture = TestBed.createComponent(TurnoverComponent);
-      comp = fixture.componentInstance;
-      service = TestBed.inject(TurnoverService);
+    fixture = TestBed.createComponent(TurnoverComponent);
+    comp = fixture.componentInstance;
+    service = TestBed.inject(TurnoverService);
 
-      const headers = new HttpHeaders().append('link', 'link;link');
-      jest.spyOn(service, 'query').mockReturnValue(
-        of(
-          new HttpResponse({
-            body: [{ id: 123 }],
-            headers,
-          })
-        )
-      );
-    });
+    const headers = new HttpHeaders();
+    jest.spyOn(service, 'query').mockReturnValue(
+      of(
+        new HttpResponse({
+          body: [{ id: 123 }],
+          headers,
+        })
+      )
+    );
+  });
 
-    it('Should call load all on init', () => {
-      // WHEN
-      comp.ngOnInit();
+  it('Should call load all on init', () => {
+    // WHEN
+    comp.ngOnInit();
 
-      // THEN
-      expect(service.query).toHaveBeenCalled();
-      expect(comp.turnovers?.[0]).toEqual(expect.objectContaining({ id: 123 }));
-    });
+    // THEN
+    expect(service.query).toHaveBeenCalled();
+    expect(comp.turnovers?.[0]).toEqual(expect.objectContaining({ id: 123 }));
   });
 });

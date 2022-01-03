@@ -19,15 +19,15 @@ export class NewsComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.newsService.query().subscribe(
-      (res: HttpResponse<INews[]>) => {
+    this.newsService.query().subscribe({
+      next: (res: HttpResponse<INews[]>) => {
         this.isLoading = false;
         this.news = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

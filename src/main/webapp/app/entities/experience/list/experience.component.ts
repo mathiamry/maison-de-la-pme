@@ -19,15 +19,15 @@ export class ExperienceComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.experienceService.query().subscribe(
-      (res: HttpResponse<IExperience[]>) => {
+    this.experienceService.query().subscribe({
+      next: (res: HttpResponse<IExperience[]>) => {
         this.isLoading = false;
         this.experiences = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

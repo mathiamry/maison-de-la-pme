@@ -63,6 +63,7 @@
     <include file="config/liquibase/changelog/20211012102637_added_entity_constraints_Tender.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211012102638_added_entity_constraints_File.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211012102639_added_entity_constraints_Person.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211012102620_added_entity_constraints_Bank.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

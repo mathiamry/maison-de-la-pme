@@ -19,15 +19,15 @@ export class HistoryComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.historyService.query().subscribe(
-      (res: HttpResponse<IHistory[]>) => {
+    this.historyService.query().subscribe({
+      next: (res: HttpResponse<IHistory[]>) => {
         this.isLoading = false;
         this.histories = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

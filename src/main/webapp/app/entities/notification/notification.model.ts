@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 import { IEvent } from 'app/entities/event/event.model';
 import { INews } from 'app/entities/news/news.model';
 import { ITender } from 'app/entities/tender/tender.model';

@@ -19,8 +19,6 @@ import { IExperience } from 'app/entities/experience/experience.model';
 import { ExperienceService } from 'app/entities/experience/service/experience.service';
 import { ISize } from 'app/entities/size/size.model';
 import { SizeService } from 'app/entities/size/service/size.service';
-import { IBank } from 'app/entities/bank/bank.model';
-import { BankService } from 'app/entities/bank/service/bank.service';
 
 @Component({
   selector: 'jhi-sme-update',
@@ -35,7 +33,6 @@ export class SmeUpdateComponent implements OnInit {
   turnoversSharedCollection: ITurnover[] = [];
   experiencesSharedCollection: IExperience[] = [];
   sizesSharedCollection: ISize[] = [];
-  banksSharedCollection: IBank[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -59,7 +56,6 @@ export class SmeUpdateComponent implements OnInit {
     turnover: [],
     experience: [],
     size: [],
-    bank: [],
   });
 
   constructor(
@@ -70,7 +66,6 @@ export class SmeUpdateComponent implements OnInit {
     protected turnoverService: TurnoverService,
     protected experienceService: ExperienceService,
     protected sizeService: SizeService,
-    protected bankService: BankService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -121,15 +116,11 @@ export class SmeUpdateComponent implements OnInit {
     return item.id!;
   }
 
-  trackBankById(index: number, item: IBank): number {
-    return item.id!;
-  }
-
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ISme>>): void {
-    result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
-      () => this.onSaveSuccess(),
-      () => this.onSaveError()
-    );
+    result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
+      next: () => this.onSaveSuccess(),
+      error: () => this.onSaveError(),
+    });
   }
 
   protected onSaveSuccess(): void {
@@ -167,7 +158,6 @@ export class SmeUpdateComponent implements OnInit {
       turnover: sme.turnover,
       experience: sme.experience,
       size: sme.size,
-      bank: sme.bank,
     });
 
     this.activityAreasSharedCollection = this.activityAreaService.addActivityAreaToCollectionIfMissing(
@@ -182,7 +172,6 @@ export class SmeUpdateComponent implements OnInit {
       sme.experience
     );
     this.sizesSharedCollection = this.sizeService.addSizeToCollectionIfMissing(this.sizesSharedCollection, sme.size);
-    this.banksSharedCollection = this.bankService.addBankToCollectionIfMissing(this.banksSharedCollection, sme.bank);
   }
 
   protected loadRelationshipsOptions(): void {
@@ -237,12 +226,6 @@ export class SmeUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<ISize[]>) => res.body ?? []))
       .pipe(map((sizes: ISize[]) => this.sizeService.addSizeToCollectionIfMissing(sizes, this.editForm.get('size')!.value)))
       .subscribe((sizes: ISize[]) => (this.sizesSharedCollection = sizes));
-
-    this.bankService
-      .query()
-      .pipe(map((res: HttpResponse<IBank[]>) => res.body ?? []))
-      .pipe(map((banks: IBank[]) => this.bankService.addBankToCollectionIfMissing(banks, this.editForm.get('bank')!.value)))
-      .subscribe((banks: IBank[]) => (this.banksSharedCollection = banks));
   }
 
   protected createFromForm(): ISme {
@@ -269,7 +252,6 @@ export class SmeUpdateComponent implements OnInit {
       turnover: this.editForm.get(['turnover'])!.value,
       experience: this.editForm.get(['experience'])!.value,
       size: this.editForm.get(['size'])!.value,
-      bank: this.editForm.get(['bank'])!.value,
     };
   }
 }
