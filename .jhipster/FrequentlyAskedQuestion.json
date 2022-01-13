@@ -32,7 +32,7 @@
   ],
   "entityTableName": "frequently_asked_question",
   "dto": "no",
-  "pagination": "no",
+  "pagination": "infinite-scroll",
   "service": "no",
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
