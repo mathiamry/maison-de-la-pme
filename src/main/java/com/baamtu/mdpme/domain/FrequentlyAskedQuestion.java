@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
 /**
  * A FrequentlyAskedQuestion.
@@ -26,7 +27,8 @@ public class FrequentlyAskedQuestion implements Serializable {
     @Column(name = "question", nullable = false)
     private String question;
 
-    @NotNull
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "answer", nullable = false)
     private String answer;
 

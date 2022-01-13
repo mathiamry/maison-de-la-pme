@@ -21,6 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 /**
  * Integration tests for the {@link FrequentlyAskedQuestionResource} REST controller.
@@ -172,27 +173,6 @@ class FrequentlyAskedQuestionResourceIT {
 
     @Test
     @Transactional
-    void checkAnswerIsRequired() throws Exception {
-        int databaseSizeBeforeTest = frequentlyAskedQuestionRepository.findAll().size();
-        // set the field null
-        frequentlyAskedQuestion.setAnswer(null);
-
-        // Create the FrequentlyAskedQuestion, which fails.
-
-        restFrequentlyAskedQuestionMockMvc
-            .perform(
-                post(ENTITY_API_URL)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(frequentlyAskedQuestion))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<FrequentlyAskedQuestion> frequentlyAskedQuestionList = frequentlyAskedQuestionRepository.findAll();
-        assertThat(frequentlyAskedQuestionList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllFrequentlyAskedQuestions() throws Exception {
         // Initialize the database
         frequentlyAskedQuestionRepository.saveAndFlush(frequentlyAskedQuestion);
@@ -204,7 +184,7 @@ class FrequentlyAskedQuestionResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(frequentlyAskedQuestion.getId().intValue())))
             .andExpect(jsonPath("$.[*].question").value(hasItem(DEFAULT_QUESTION)))
-            .andExpect(jsonPath("$.[*].answer").value(hasItem(DEFAULT_ANSWER)))
+            .andExpect(jsonPath("$.[*].answer").value(hasItem(DEFAULT_ANSWER.toString())))
             .andExpect(jsonPath("$.[*].order").value(hasItem(DEFAULT_ORDER)))
             .andExpect(jsonPath("$.[*].isPublished").value(hasItem(DEFAULT_IS_PUBLISHED.booleanValue())));
     }
@@ -222,7 +202,7 @@ class FrequentlyAskedQuestionResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(frequentlyAskedQuestion.getId().intValue()))
             .andExpect(jsonPath("$.question").value(DEFAULT_QUESTION))
-            .andExpect(jsonPath("$.answer").value(DEFAULT_ANSWER))
+            .andExpect(jsonPath("$.answer").value(DEFAULT_ANSWER.toString()))
             .andExpect(jsonPath("$.order").value(DEFAULT_ORDER))
             .andExpect(jsonPath("$.isPublished").value(DEFAULT_IS_PUBLISHED.booleanValue()));
     }

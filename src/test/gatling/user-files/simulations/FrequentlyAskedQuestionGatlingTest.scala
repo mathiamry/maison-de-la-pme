@@ -72,7 +72,7 @@ class FrequentlyAskedQuestionGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "question":"SAMPLE_TEXT"
-                , "answer":"SAMPLE_TEXT"
+                , "answer":null
                 , "order":"0"
                 , "isPublished":null
                 }""")).asJson

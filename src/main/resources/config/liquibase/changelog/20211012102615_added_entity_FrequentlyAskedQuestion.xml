@@ -17,7 +17,7 @@
             <column name="question" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="answer" type="varchar(255)">
+            <column name="answer" type="${clobType}">
                 <constraints nullable="false" />
             </column>
             <column name="jhi_order" type="integer">
@@ -51,7 +51,7 @@
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="question" type="string"/>
-            <column name="answer" type="string"/>
+            <column name="answer" type="clob"/>
             <column name="jhi_order" type="numeric"/>
             <column name="is_published" type="boolean"/>
             <column name="author_id" type="numeric"/>
