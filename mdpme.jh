@@ -24,7 +24,7 @@ entity Language {
 
 entity FrequentlyAskedQuestion {
     question    String required,
-    answer      String required,
+    answer      TextBlob minbytes(3) maxbytes(5000) required,
     order       Integer,
     isPublished Boolean
 }
