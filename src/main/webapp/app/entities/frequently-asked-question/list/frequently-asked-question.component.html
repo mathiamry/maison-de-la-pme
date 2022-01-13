@@ -3,7 +3,7 @@
     <span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.home.title">Frequently Asked Questions</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+      <button class="btn btn-info mr-2" (click)="reset()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.home.refreshListLabel">Refresh List</span>
       </button>
@@ -31,17 +31,27 @@
   <div class="table-responsive" id="entities" *ngIf="frequentlyAskedQuestions && frequentlyAskedQuestions.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
-          <th scope="col"><span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.question">Question</span></th>
-          <th scope="col"><span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.answer">Answer</span></th>
-          <th scope="col"><span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.order">Order</span></th>
-          <th scope="col"><span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.isPublished">Is Published</span></th>
-          <th scope="col"><span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.author">Author</span></th>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="question">
+            <span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.question">Question</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="answer">
+            <span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.answer">Answer</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="order">
+            <span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.order">Order</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="isPublished">
+            <span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.isPublished">Is Published</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="author.id">
+            <span jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.author">Author</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
         <tr *ngFor="let frequentlyAskedQuestion of frequentlyAskedQuestions; trackBy: trackId" data-cy="entityTable">
           <td>
             <a [routerLink]="['/frequently-asked-question', frequentlyAskedQuestion.id, 'view']">{{ frequentlyAskedQuestion.id }}</a>
