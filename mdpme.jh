@@ -245,5 +245,6 @@ relationship ManyToMany {
     UnavailabilityPeriod to Advisor
     UnavailabilityPeriod to PartnerRepresentative
 }
+paginate FrequentlyAskedQuestion with infinite-scroll
 service Administrator, Person, Language, Country with serviceClass 
 filter Administrator
