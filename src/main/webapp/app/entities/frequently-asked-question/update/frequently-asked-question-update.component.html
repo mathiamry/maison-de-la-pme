@@ -35,7 +35,7 @@
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="maisondelapmeApp.frequentlyAskedQuestion.answer" for="field_answer">Answer</label>
-          <input type="text" class="form-control" name="answer" id="field_answer" data-cy="answer" formControlName="answer" />
+          <textarea class="form-control" name="answer" id="field_answer" data-cy="answer" formControlName="answer"></textarea>
           <div *ngIf="editForm.get('answer')!.invalid && (editForm.get('answer')!.dirty || editForm.get('answer')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('answer')?.errors?.required" jhiTranslate="entity.validation.required">
               This field is required.

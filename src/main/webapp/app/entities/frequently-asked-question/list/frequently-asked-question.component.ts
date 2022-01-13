@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IFrequentlyAskedQuestion } from '../frequently-asked-question.model';
 import { FrequentlyAskedQuestionService } from '../service/frequently-asked-question.service';
 import { FrequentlyAskedQuestionDeleteDialogComponent } from '../delete/frequently-asked-question-delete-dialog.component';
+import { DataUtils } from 'app/core/util/data-util.service';
 
 @Component({
   selector: 'jhi-frequently-asked-question',
@@ -14,7 +15,11 @@ export class FrequentlyAskedQuestionComponent implements OnInit {
   frequentlyAskedQuestions?: IFrequentlyAskedQuestion[];
   isLoading = false;
 
-  constructor(protected frequentlyAskedQuestionService: FrequentlyAskedQuestionService, protected modalService: NgbModal) {}
+  constructor(
+    protected frequentlyAskedQuestionService: FrequentlyAskedQuestionService,
+    protected dataUtils: DataUtils,
+    protected modalService: NgbModal
+  ) {}
 
   loadAll(): void {
     this.isLoading = true;
@@ -36,6 +41,14 @@ export class FrequentlyAskedQuestionComponent implements OnInit {
 
   trackId(index: number, item: IFrequentlyAskedQuestion): number {
     return item.id!;
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    return this.dataUtils.openFile(base64String, contentType);
   }
 
   delete(frequentlyAskedQuestion: IFrequentlyAskedQuestion): void {

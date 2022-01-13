@@ -7,6 +7,9 @@ import { finalize, map } from 'rxjs/operators';
 
 import { IFrequentlyAskedQuestion, FrequentlyAskedQuestion } from '../frequently-asked-question.model';
 import { FrequentlyAskedQuestionService } from '../service/frequently-asked-question.service';
+import { AlertError } from 'app/shared/alert/alert-error.model';
+import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
+import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
 
@@ -29,6 +32,8 @@ export class FrequentlyAskedQuestionUpdateComponent implements OnInit {
   });
 
   constructor(
+    protected dataUtils: DataUtils,
+    protected eventManager: EventManager,
     protected frequentlyAskedQuestionService: FrequentlyAskedQuestionService,
     protected userService: UserService,
     protected activatedRoute: ActivatedRoute,
@@ -40,6 +45,21 @@ export class FrequentlyAskedQuestionUpdateComponent implements OnInit {
       this.updateForm(frequentlyAskedQuestion);
 
       this.loadRelationshipsOptions();
+    });
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    this.dataUtils.openFile(base64String, contentType);
+  }
+
+  setFileData(event: Event, field: string, isImage: boolean): void {
+    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
+      error: (err: FileLoadError) =>
+        this.eventManager.broadcast(new EventWithContent<AlertError>('maisondelapmeApp.error', { ...err, key: 'error.file.' + err.key })),
     });
   }
 
