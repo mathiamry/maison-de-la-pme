@@ -62,6 +62,12 @@
             }}</a>
           </div>
         </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.appointment.object">Object</span></dt>
+        <dd>
+          <div *ngIf="appointment.object">
+            <a [routerLink]="['/appointment-object', appointment.object?.id, 'view']">{{ appointment.object?.id }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

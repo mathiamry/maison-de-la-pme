@@ -25,5 +25,11 @@
                                  constraintName="fk_appointment__partner_representative_id"
                                  referencedColumnNames="id"
                                  referencedTableName="partner_representative"/>
+
+        <addForeignKeyConstraint baseColumnNames="object_id"
+                                 baseTableName="appointment"
+                                 constraintName="fk_appointment__object_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="appointment_object"/>
     </changeSet>
 </databaseChangeLog>

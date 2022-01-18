@@ -205,6 +205,26 @@
             </option>
           </select>
         </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="maisondelapmeApp.appointment.object" for="field_object">Object</label>
+          <select class="form-control" id="field_object" data-cy="object" name="object" formControlName="object">
+            <option *ngIf="!editForm.get('object')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                appointmentObjectOption.id === editForm.get('object')!.value?.id ? editForm.get('object')!.value : appointmentObjectOption
+              "
+              *ngFor="let appointmentObjectOption of appointmentObjectsSharedCollection; trackBy: trackAppointmentObjectById"
+            >
+              {{ appointmentObjectOption.id }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['object'])!.invalid && (editForm.get(['object'])!.dirty || editForm.get(['object'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['object'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
       </div>
 
       <div>

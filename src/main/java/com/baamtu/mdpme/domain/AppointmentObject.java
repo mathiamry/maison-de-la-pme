@@ -2,6 +2,8 @@ package com.baamtu.mdpme.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -27,10 +29,10 @@ public class AppointmentObject implements Serializable {
     @Column(name = "object", nullable = false)
     private String object;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties(value = { "smeRepresentative", "advisor", "partnerRepresentative", "appointments" }, allowSetters = true)
-    private Appointment object;
+    @OneToMany(mappedBy = "object")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "smeRepresentative", "advisor", "partnerRepresentative", "object" }, allowSetters = true)
+    private Set<Appointment> appointments = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -60,16 +62,34 @@ public class AppointmentObject implements Serializable {
         this.object = object;
     }
 
-    public Appointment getObject() {
-        return this.object;
+    public Set<Appointment> getAppointments() {
+        return this.appointments;
     }
 
-    public void setObject(Appointment appointment) {
-        this.object = appointment;
+    public void setAppointments(Set<Appointment> appointments) {
+        if (this.appointments != null) {
+            this.appointments.forEach(i -> i.setObject(null));
+        }
+        if (appointments != null) {
+            appointments.forEach(i -> i.setObject(this));
+        }
+        this.appointments = appointments;
     }
 
-    public AppointmentObject object(Appointment appointment) {
-        this.setObject(appointment);
+    public AppointmentObject appointments(Set<Appointment> appointments) {
+        this.setAppointments(appointments);
+        return this;
+    }
+
+    public AppointmentObject addAppointments(Appointment appointment) {
+        this.appointments.add(appointment);
+        appointment.setObject(this);
+        return this;
+    }
+
+    public AppointmentObject removeAppointments(Appointment appointment) {
+        this.appointments.remove(appointment);
+        appointment.setObject(null);
         return this;
     }
 

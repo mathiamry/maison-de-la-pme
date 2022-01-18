@@ -35,7 +35,7 @@ public class Anonymous implements Serializable {
     private Person person;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "smeRepresentative", "advisor", "partnerRepresentative", "appointments" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "smeRepresentative", "advisor", "partnerRepresentative", "object" }, allowSetters = true)
     private Appointment appointments;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

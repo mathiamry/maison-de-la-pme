@@ -9,11 +9,10 @@
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-one",
+      "relationshipType": "one-to-many",
       "otherEntityName": "appointment",
-      "otherEntityRelationshipName": "appointments",
-      "relationshipValidateRules": "required",
-      "relationshipName": "object"
+      "otherEntityRelationshipName": "object",
+      "relationshipName": "appointments"
     }
   ],
   "entityTableName": "appointment_object",
