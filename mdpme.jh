@@ -222,7 +222,7 @@ relationship ManyToOne {
     Advisor{smeHouse required} to SMEHouse{advisors} 
     Partner{smeHouse required} to SMEHouse{partners}
     PartnerRepresentative{partner required} to Partner{representings}
-    AppointmentObject{object required} to Appointment{appointments}
+    Appointment{object required} to AppointmentObject{appointments}
     Sme{smeHouse required} to SMEHouse{smes}
     Sme{turnover} to Turnover{smes}
     Sme{experience} to Experience{smes}
