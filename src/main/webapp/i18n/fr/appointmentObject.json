@@ -1,0 +1,25 @@
+{
+  "maisondelapmeApp": {
+    "appointmentObject": {
+      "home": {
+        "title": "AppointmentObjects",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Appointment Object",
+        "createOrEditLabel": "Créer ou éditer un Appointment Object",
+        "notFound": "Aucun Appointment Object trouvé"
+      },
+      "created": "Un nouveau Appointment Object a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Appointment Object avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Appointment Object avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Appointment Object {{ id }} ?"
+      },
+      "detail": {
+        "title": "Appointment Object"
+      },
+      "id": "ID",
+      "object": "Object",
+      "object": "Object"
+    }
+  }
+}

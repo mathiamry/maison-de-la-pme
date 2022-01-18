@@ -2,19 +2,18 @@ package com.baamtu.mdpme.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.time.Instant;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A Anonymous.
+ * A AppointmentObject.
  */
 @Entity
-@Table(name = "anonymous")
+@Table(name = "appointment_object")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Anonymous implements Serializable {
+public class AppointmentObject implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,18 +24,13 @@ public class Anonymous implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "visit_date", nullable = false)
-    private Instant visitDate;
+    @Column(name = "object", nullable = false)
+    private String object;
 
-    @JsonIgnoreProperties(value = { "language" }, allowSetters = true)
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
-    private Person person;
-
-    @ManyToOne
     @JsonIgnoreProperties(value = { "smeRepresentative", "advisor", "partnerRepresentative", "appointments" }, allowSetters = true)
-    private Appointment appointments;
+    private Appointment object;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -44,7 +38,7 @@ public class Anonymous implements Serializable {
         return this.id;
     }
 
-    public Anonymous id(Long id) {
+    public AppointmentObject id(Long id) {
         this.setId(id);
         return this;
     }
@@ -53,42 +47,29 @@ public class Anonymous implements Serializable {
         this.id = id;
     }
 
-    public Instant getVisitDate() {
-        return this.visitDate;
+    public String getObject() {
+        return this.object;
     }
 
-    public Anonymous visitDate(Instant visitDate) {
-        this.setVisitDate(visitDate);
+    public AppointmentObject object(String object) {
+        this.setObject(object);
         return this;
     }
 
-    public void setVisitDate(Instant visitDate) {
-        this.visitDate = visitDate;
+    public void setObject(String object) {
+        this.object = object;
     }
 
-    public Person getPerson() {
-        return this.person;
+    public Appointment getObject() {
+        return this.object;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setObject(Appointment appointment) {
+        this.object = appointment;
     }
 
-    public Anonymous person(Person person) {
-        this.setPerson(person);
-        return this;
-    }
-
-    public Appointment getAppointments() {
-        return this.appointments;
-    }
-
-    public void setAppointments(Appointment appointment) {
-        this.appointments = appointment;
-    }
-
-    public Anonymous appointments(Appointment appointment) {
-        this.setAppointments(appointment);
+    public AppointmentObject object(Appointment appointment) {
+        this.setObject(appointment);
         return this;
     }
 
@@ -99,10 +80,10 @@ public class Anonymous implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Anonymous)) {
+        if (!(o instanceof AppointmentObject)) {
             return false;
         }
-        return id != null && id.equals(((Anonymous) o).id);
+        return id != null && id.equals(((AppointmentObject) o).id);
     }
 
     @Override
@@ -114,9 +95,9 @@ public class Anonymous implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "Anonymous{" +
+        return "AppointmentObject{" +
             "id=" + getId() +
-            ", visitDate='" + getVisitDate() + "'" +
+            ", object='" + getObject() + "'" +
             "}";
     }
 }

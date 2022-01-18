@@ -140,6 +140,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'maisondelapmeApp.person.home.title' },
         loadChildren: () => import('./person/person.module').then(m => m.PersonModule),
       },
+      {
+        path: 'appointment-object',
+        data: { pageTitle: 'maisondelapmeApp.appointmentObject.home.title' },
+        loadChildren: () => import('./appointment-object/appointment-object.module').then(m => m.AppointmentObjectModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

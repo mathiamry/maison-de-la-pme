@@ -181,6 +181,9 @@ entity Tender {
     isPublished Boolean
 }
 
+entity AppointmentObject{
+object String required
+}
 entity File {
     name    String,
     url     String required
@@ -219,6 +222,7 @@ relationship ManyToOne {
     Advisor{smeHouse required} to SMEHouse{advisors} 
     Partner{smeHouse required} to SMEHouse{partners}
     PartnerRepresentative{partner required} to Partner{representings}
+    AppointmentObject{object required} to Appointment{appointments}
     Sme{smeHouse required} to SMEHouse{smes}
     Sme{turnover} to Turnover{smes}
     Sme{experience} to Experience{smes}
