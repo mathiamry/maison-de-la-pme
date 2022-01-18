@@ -27,7 +27,8 @@
       "rate": "Rate",
       "smeRepresentative": "Sme Representative",
       "advisor": "Advisor",
-      "partnerRepresentative": "Partner Representative"
+      "partnerRepresentative": "Partner Representative",
+      "appointments": "Appointments"
     }
   }
 }

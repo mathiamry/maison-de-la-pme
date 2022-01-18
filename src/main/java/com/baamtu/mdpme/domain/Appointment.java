@@ -5,6 +5,8 @@ import com.baamtu.mdpme.domain.enumeration.Status;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -71,6 +73,11 @@ public class Appointment implements Serializable {
         allowSetters = true
     )
     private PartnerRepresentative partnerRepresentative;
+
+    @OneToMany(mappedBy = "object")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "object" }, allowSetters = true)
+    private Set<AppointmentObject> appointments = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -214,6 +221,37 @@ public class Appointment implements Serializable {
 
     public Appointment partnerRepresentative(PartnerRepresentative partnerRepresentative) {
         this.setPartnerRepresentative(partnerRepresentative);
+        return this;
+    }
+
+    public Set<AppointmentObject> getAppointments() {
+        return this.appointments;
+    }
+
+    public void setAppointments(Set<AppointmentObject> appointmentObjects) {
+        if (this.appointments != null) {
+            this.appointments.forEach(i -> i.setObject(null));
+        }
+        if (appointmentObjects != null) {
+            appointmentObjects.forEach(i -> i.setObject(this));
+        }
+        this.appointments = appointmentObjects;
+    }
+
+    public Appointment appointments(Set<AppointmentObject> appointmentObjects) {
+        this.setAppointments(appointmentObjects);
+        return this;
+    }
+
+    public Appointment addAppointments(AppointmentObject appointmentObject) {
+        this.appointments.add(appointmentObject);
+        appointmentObject.setObject(this);
+        return this;
+    }
+
+    public Appointment removeAppointments(AppointmentObject appointmentObject) {
+        this.appointments.remove(appointmentObject);
+        appointmentObject.setObject(null);
         return this;
     }
 

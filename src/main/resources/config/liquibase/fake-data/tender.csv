@@ -1,11 +1,11 @@
 id;title;description;publish_date;expiry_date;is_valid;is_archived;is_published;author_id
 1;systemic;cohesive Belgique invoice;2021-10-12T09:19:49;2021-10-12T10:17:53;false;false;true;1
 2;overriding;Seychelles b mint;2021-10-11T22:41:53;2021-10-11T12:44:22;true;true;false;2
-3;Intelligent;Faubourg-Saint-Denis Licensed;2021-10-11T22:21:42;2021-10-12T02:32:31;false;true;true;2
-4;Account;Jewelery bypass Account;2021-10-11T19:55:46;2021-10-11T23:28:47;false;false;true;2
+3;Intelligent;Faubourg-Saint-Denis Licensed;2021-10-11T22:21:42;2021-10-12T02:32:31;false;true;true;1
+4;Account;Jewelery bypass Account;2021-10-11T19:55:46;2021-10-11T23:28:47;false;false;true;1
 5;de Salad;orchestration back ROI;2021-10-11T13:44:12;2021-10-12T04:56:59;false;true;false;1
-6;Account Moldovan;Public-key;2021-10-11T21:52:35;2021-10-11T13:36:51;true;true;true;1
-7;b;Self-enabling Borders;2021-10-12T06:09:52;2021-10-11T18:12:09;false;false;true;1
+6;Account Moldovan;Public-key;2021-10-11T21:52:35;2021-10-11T13:36:51;true;true;true;2
+7;b;Self-enabling Borders;2021-10-12T06:09:52;2021-10-11T18:12:09;false;false;true;2
 8;Chat-qui-Pêche implementation;b;2021-10-12T03:22:53;2021-10-12T02:52:45;true;false;false;2
-9;Ergonomic system administration;rich Computer;2021-10-11T17:02:35;2021-10-11T18:10:25;false;false;true;1
-10;Account Coordinateur Corse;Operative;2021-10-12T01:28:05;2021-10-12T07:32:40;true;true;true;2
+9;Ergonomic system administration;rich Computer;2021-10-11T17:02:35;2021-10-11T18:10:25;false;false;true;2
+10;Account Coordinateur Corse;Operative;2021-10-12T01:28:05;2021-10-12T07:32:40;true;true;true;1

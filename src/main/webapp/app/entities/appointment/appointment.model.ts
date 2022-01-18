@@ -2,6 +2,7 @@ import dayjs from 'dayjs/esm';
 import { ISmeRepresentative } from 'app/entities/sme-representative/sme-representative.model';
 import { IAdvisor } from 'app/entities/advisor/advisor.model';
 import { IPartnerRepresentative } from 'app/entities/partner-representative/partner-representative.model';
+import { IAppointmentObject } from 'app/entities/appointment-object/appointment-object.model';
 import { Status } from 'app/entities/enumerations/status.model';
 import { AppointmentLocation } from 'app/entities/enumerations/appointment-location.model';
 
@@ -17,6 +18,7 @@ export interface IAppointment {
   smeRepresentative?: ISmeRepresentative | null;
   advisor?: IAdvisor | null;
   partnerRepresentative?: IPartnerRepresentative | null;
+  appointments?: IAppointmentObject[] | null;
 }
 
 export class Appointment implements IAppointment {
@@ -31,7 +33,8 @@ export class Appointment implements IAppointment {
     public rate?: number | null,
     public smeRepresentative?: ISmeRepresentative | null,
     public advisor?: IAdvisor | null,
-    public partnerRepresentative?: IPartnerRepresentative | null
+    public partnerRepresentative?: IPartnerRepresentative | null,
+    public appointments?: IAppointmentObject[] | null
   ) {}
 }
 

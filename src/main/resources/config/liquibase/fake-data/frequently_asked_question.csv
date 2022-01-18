@@ -3,9 +3,9 @@ id;question;answer;jhi_order;is_published;author_id
 2;Buckinghamshire zero Frozen;../fake-data/blob/hipster.txt;4841;false;2
 3;Berkshire Home;../fake-data/blob/hipster.txt;57505;true;2
 4;bypass Account a;../fake-data/blob/hipster.txt;65308;false;1
-5;services;../fake-data/blob/hipster.txt;20632;true;2
-6;a;../fake-data/blob/hipster.txt;90767;true;2
-7;Chicken;../fake-data/blob/hipster.txt;81206;true;2
+5;services;../fake-data/blob/hipster.txt;20632;true;1
+6;a;../fake-data/blob/hipster.txt;90767;true;1
+7;Chicken;../fake-data/blob/hipster.txt;81206;true;1
 8;B2B Niger Unbranded;../fake-data/blob/hipster.txt;4639;false;2
 9;Belgique;../fake-data/blob/hipster.txt;43958;false;1
-10;virtual Ingenieur Limousin;../fake-data/blob/hipster.txt;2158;false;2
+10;virtual Ingenieur Limousin;../fake-data/blob/hipster.txt;2158;false;1

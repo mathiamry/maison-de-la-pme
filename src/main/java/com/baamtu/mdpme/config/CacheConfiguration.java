@@ -108,6 +108,8 @@ public class CacheConfiguration {
             createCache(cm, com.baamtu.mdpme.domain.File.class.getName());
             createCache(cm, com.baamtu.mdpme.domain.Person.class.getName());
             createCache(cm, com.baamtu.mdpme.domain.Sme.class.getName() + ".banks");
+            createCache(cm, com.baamtu.mdpme.domain.Appointment.class.getName() + ".appointments");
+            createCache(cm, com.baamtu.mdpme.domain.AppointmentObject.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

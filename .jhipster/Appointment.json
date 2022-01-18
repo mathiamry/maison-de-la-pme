@@ -55,6 +55,12 @@
       "otherEntityName": "partnerRepresentative",
       "otherEntityRelationshipName": "appointmnents",
       "relationshipName": "partnerRepresentative"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "appointmentObject",
+      "otherEntityRelationshipName": "object",
+      "relationshipName": "appointments"
     }
   ],
   "entityTableName": "appointment",

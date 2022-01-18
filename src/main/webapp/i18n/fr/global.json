@@ -34,6 +34,7 @@
         "tender": "Tender",
         "file": "File",
         "person": "Person",
+        "appointmentObject": "Appointment Object",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

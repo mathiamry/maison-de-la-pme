@@ -72,9 +72,10 @@
       "Administrator",
       "Tender",
       "File",
-      "Person"
+      "Person",
+      "AppointmentObject"
     ],
-    "lastLiquibaseTimestamp": 1634034399000
+    "lastLiquibaseTimestamp": 1642465139000
   },
   "git-provider": "GitHub",
   "git-company": "mathiamry",
