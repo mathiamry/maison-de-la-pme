@@ -16,6 +16,8 @@ import { IAdvisor } from 'app/entities/advisor/advisor.model';
 import { AdvisorService } from 'app/entities/advisor/service/advisor.service';
 import { IPartnerRepresentative } from 'app/entities/partner-representative/partner-representative.model';
 import { PartnerRepresentativeService } from 'app/entities/partner-representative/service/partner-representative.service';
+import { IAppointmentObject } from 'app/entities/appointment-object/appointment-object.model';
+import { AppointmentObjectService } from 'app/entities/appointment-object/service/appointment-object.service';
 import { Status } from 'app/entities/enumerations/status.model';
 import { AppointmentLocation } from 'app/entities/enumerations/appointment-location.model';
 
@@ -31,6 +33,7 @@ export class AppointmentUpdateComponent implements OnInit {
   smeRepresentativesSharedCollection: ISmeRepresentative[] = [];
   advisorsSharedCollection: IAdvisor[] = [];
   partnerRepresentativesSharedCollection: IPartnerRepresentative[] = [];
+  appointmentObjectsSharedCollection: IAppointmentObject[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -44,6 +47,7 @@ export class AppointmentUpdateComponent implements OnInit {
     smeRepresentative: [],
     advisor: [],
     partnerRepresentative: [],
+    object: [null, Validators.required],
   });
 
   constructor(
@@ -51,6 +55,7 @@ export class AppointmentUpdateComponent implements OnInit {
     protected smeRepresentativeService: SmeRepresentativeService,
     protected advisorService: AdvisorService,
     protected partnerRepresentativeService: PartnerRepresentativeService,
+    protected appointmentObjectService: AppointmentObjectService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -95,6 +100,10 @@ export class AppointmentUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  trackAppointmentObjectById(index: number, item: IAppointmentObject): number {
+    return item.id!;
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IAppointment>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),
@@ -127,6 +136,7 @@ export class AppointmentUpdateComponent implements OnInit {
       smeRepresentative: appointment.smeRepresentative,
       advisor: appointment.advisor,
       partnerRepresentative: appointment.partnerRepresentative,
+      object: appointment.object,
     });
 
     this.smeRepresentativesSharedCollection = this.smeRepresentativeService.addSmeRepresentativeToCollectionIfMissing(
@@ -137,6 +147,10 @@ export class AppointmentUpdateComponent implements OnInit {
     this.partnerRepresentativesSharedCollection = this.partnerRepresentativeService.addPartnerRepresentativeToCollectionIfMissing(
       this.partnerRepresentativesSharedCollection,
       appointment.partnerRepresentative
+    );
+    this.appointmentObjectsSharedCollection = this.appointmentObjectService.addAppointmentObjectToCollectionIfMissing(
+      this.appointmentObjectsSharedCollection,
+      appointment.object
     );
   }
 
@@ -176,6 +190,16 @@ export class AppointmentUpdateComponent implements OnInit {
       .subscribe(
         (partnerRepresentatives: IPartnerRepresentative[]) => (this.partnerRepresentativesSharedCollection = partnerRepresentatives)
       );
+
+    this.appointmentObjectService
+      .query()
+      .pipe(map((res: HttpResponse<IAppointmentObject[]>) => res.body ?? []))
+      .pipe(
+        map((appointmentObjects: IAppointmentObject[]) =>
+          this.appointmentObjectService.addAppointmentObjectToCollectionIfMissing(appointmentObjects, this.editForm.get('object')!.value)
+        )
+      )
+      .subscribe((appointmentObjects: IAppointmentObject[]) => (this.appointmentObjectsSharedCollection = appointmentObjects));
   }
 
   protected createFromForm(): IAppointment {
@@ -192,6 +216,7 @@ export class AppointmentUpdateComponent implements OnInit {
       smeRepresentative: this.editForm.get(['smeRepresentative'])!.value,
       advisor: this.editForm.get(['advisor'])!.value,
       partnerRepresentative: this.editForm.get(['partnerRepresentative'])!.value,
+      object: this.editForm.get(['object'])!.value,
     };
   }
 }

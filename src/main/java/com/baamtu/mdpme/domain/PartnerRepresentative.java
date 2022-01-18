@@ -49,7 +49,7 @@ public class PartnerRepresentative implements Serializable {
 
     @OneToMany(mappedBy = "partnerRepresentative")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "smeRepresentative", "advisor", "partnerRepresentative", "appointments" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "smeRepresentative", "advisor", "partnerRepresentative", "object" }, allowSetters = true)
     private Set<Appointment> appointmnents = new HashSet<>();
 
     @ManyToMany(mappedBy = "partnerRepresentatives")

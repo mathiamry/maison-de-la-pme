@@ -43,6 +43,7 @@
           <th scope="col"><span jhiTranslate="maisondelapmeApp.appointment.smeRepresentative">Sme Representative</span></th>
           <th scope="col"><span jhiTranslate="maisondelapmeApp.appointment.advisor">Advisor</span></th>
           <th scope="col"><span jhiTranslate="maisondelapmeApp.appointment.partnerRepresentative">Partner Representative</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.appointment.object">Object</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -75,6 +76,11 @@
               <a [routerLink]="['/partner-representative', appointment.partnerRepresentative?.id, 'view']">{{
                 appointment.partnerRepresentative?.id
               }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="appointment.object">
+              <a [routerLink]="['/appointment-object', appointment.object?.id, 'view']">{{ appointment.object?.id }}</a>
             </div>
           </td>
           <td class="text-right">

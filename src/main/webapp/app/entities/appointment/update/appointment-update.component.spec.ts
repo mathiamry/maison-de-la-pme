@@ -14,6 +14,8 @@ import { IAdvisor } from 'app/entities/advisor/advisor.model';
 import { AdvisorService } from 'app/entities/advisor/service/advisor.service';
 import { IPartnerRepresentative } from 'app/entities/partner-representative/partner-representative.model';
 import { PartnerRepresentativeService } from 'app/entities/partner-representative/service/partner-representative.service';
+import { IAppointmentObject } from 'app/entities/appointment-object/appointment-object.model';
+import { AppointmentObjectService } from 'app/entities/appointment-object/service/appointment-object.service';
 
 import { AppointmentUpdateComponent } from './appointment-update.component';
 
@@ -25,6 +27,7 @@ describe('Appointment Management Update Component', () => {
   let smeRepresentativeService: SmeRepresentativeService;
   let advisorService: AdvisorService;
   let partnerRepresentativeService: PartnerRepresentativeService;
+  let appointmentObjectService: AppointmentObjectService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -49,6 +52,7 @@ describe('Appointment Management Update Component', () => {
     smeRepresentativeService = TestBed.inject(SmeRepresentativeService);
     advisorService = TestBed.inject(AdvisorService);
     partnerRepresentativeService = TestBed.inject(PartnerRepresentativeService);
+    appointmentObjectService = TestBed.inject(AppointmentObjectService);
 
     comp = fixture.componentInstance;
   });
@@ -117,6 +121,28 @@ describe('Appointment Management Update Component', () => {
       expect(comp.partnerRepresentativesSharedCollection).toEqual(expectedCollection);
     });
 
+    it('Should call AppointmentObject query and add missing value', () => {
+      const appointment: IAppointment = { id: 456 };
+      const object: IAppointmentObject = { id: 86439 };
+      appointment.object = object;
+
+      const appointmentObjectCollection: IAppointmentObject[] = [{ id: 12387 }];
+      jest.spyOn(appointmentObjectService, 'query').mockReturnValue(of(new HttpResponse({ body: appointmentObjectCollection })));
+      const additionalAppointmentObjects = [object];
+      const expectedCollection: IAppointmentObject[] = [...additionalAppointmentObjects, ...appointmentObjectCollection];
+      jest.spyOn(appointmentObjectService, 'addAppointmentObjectToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ appointment });
+      comp.ngOnInit();
+
+      expect(appointmentObjectService.query).toHaveBeenCalled();
+      expect(appointmentObjectService.addAppointmentObjectToCollectionIfMissing).toHaveBeenCalledWith(
+        appointmentObjectCollection,
+        ...additionalAppointmentObjects
+      );
+      expect(comp.appointmentObjectsSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should update editForm', () => {
       const appointment: IAppointment = { id: 456 };
       const smeRepresentative: ISmeRepresentative = { id: 77036 };
@@ -125,6 +151,8 @@ describe('Appointment Management Update Component', () => {
       appointment.advisor = advisor;
       const partnerRepresentative: IPartnerRepresentative = { id: 10367 };
       appointment.partnerRepresentative = partnerRepresentative;
+      const object: IAppointmentObject = { id: 44219 };
+      appointment.object = object;
 
       activatedRoute.data = of({ appointment });
       comp.ngOnInit();
@@ -133,6 +161,7 @@ describe('Appointment Management Update Component', () => {
       expect(comp.smeRepresentativesSharedCollection).toContain(smeRepresentative);
       expect(comp.advisorsSharedCollection).toContain(advisor);
       expect(comp.partnerRepresentativesSharedCollection).toContain(partnerRepresentative);
+      expect(comp.appointmentObjectsSharedCollection).toContain(object);
     });
   });
 
@@ -221,6 +250,14 @@ describe('Appointment Management Update Component', () => {
       it('Should return tracked PartnerRepresentative primary key', () => {
         const entity = { id: 123 };
         const trackResult = comp.trackPartnerRepresentativeById(0, entity);
+        expect(trackResult).toEqual(entity.id);
+      });
+    });
+
+    describe('trackAppointmentObjectById', () => {
+      it('Should return tracked AppointmentObject primary key', () => {
+        const entity = { id: 123 };
+        const trackResult = comp.trackAppointmentObjectById(0, entity);
         expect(trackResult).toEqual(entity.id);
       });
     });

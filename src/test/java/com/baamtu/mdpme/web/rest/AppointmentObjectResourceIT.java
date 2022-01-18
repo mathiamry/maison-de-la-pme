@@ -6,7 +6,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.baamtu.mdpme.IntegrationTest;
-import com.baamtu.mdpme.domain.Appointment;
 import com.baamtu.mdpme.domain.AppointmentObject;
 import com.baamtu.mdpme.repository.AppointmentObjectRepository;
 import java.util.List;
@@ -58,16 +57,6 @@ class AppointmentObjectResourceIT {
      */
     public static AppointmentObject createEntity(EntityManager em) {
         AppointmentObject appointmentObject = new AppointmentObject().object(DEFAULT_OBJECT);
-        // Add required entity
-        Appointment appointment;
-        if (TestUtil.findAll(em, Appointment.class).isEmpty()) {
-            appointment = AppointmentResourceIT.createEntity(em);
-            em.persist(appointment);
-            em.flush();
-        } else {
-            appointment = TestUtil.findAll(em, Appointment.class).get(0);
-        }
-        appointmentObject.setObject(appointment);
         return appointmentObject;
     }
 
@@ -79,16 +68,6 @@ class AppointmentObjectResourceIT {
      */
     public static AppointmentObject createUpdatedEntity(EntityManager em) {
         AppointmentObject appointmentObject = new AppointmentObject().object(UPDATED_OBJECT);
-        // Add required entity
-        Appointment appointment;
-        if (TestUtil.findAll(em, Appointment.class).isEmpty()) {
-            appointment = AppointmentResourceIT.createUpdatedEntity(em);
-            em.persist(appointment);
-            em.flush();
-        } else {
-            appointment = TestUtil.findAll(em, Appointment.class).get(0);
-        }
-        appointmentObject.setObject(appointment);
         return appointmentObject;
     }
 

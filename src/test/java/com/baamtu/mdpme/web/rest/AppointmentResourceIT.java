@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.baamtu.mdpme.IntegrationTest;
 import com.baamtu.mdpme.domain.Appointment;
+import com.baamtu.mdpme.domain.AppointmentObject;
 import com.baamtu.mdpme.domain.enumeration.AppointmentLocation;
 import com.baamtu.mdpme.domain.enumeration.Status;
 import com.baamtu.mdpme.repository.AppointmentRepository;
@@ -86,6 +87,16 @@ class AppointmentResourceIT {
             .status(DEFAULT_STATUS)
             .location(DEFAULT_LOCATION)
             .rate(DEFAULT_RATE);
+        // Add required entity
+        AppointmentObject appointmentObject;
+        if (TestUtil.findAll(em, AppointmentObject.class).isEmpty()) {
+            appointmentObject = AppointmentObjectResourceIT.createEntity(em);
+            em.persist(appointmentObject);
+            em.flush();
+        } else {
+            appointmentObject = TestUtil.findAll(em, AppointmentObject.class).get(0);
+        }
+        appointment.setObject(appointmentObject);
         return appointment;
     }
 
@@ -104,6 +115,16 @@ class AppointmentResourceIT {
             .status(UPDATED_STATUS)
             .location(UPDATED_LOCATION)
             .rate(UPDATED_RATE);
+        // Add required entity
+        AppointmentObject appointmentObject;
+        if (TestUtil.findAll(em, AppointmentObject.class).isEmpty()) {
+            appointmentObject = AppointmentObjectResourceIT.createUpdatedEntity(em);
+            em.persist(appointmentObject);
+            em.flush();
+        } else {
+            appointmentObject = TestUtil.findAll(em, AppointmentObject.class).get(0);
+        }
+        appointment.setObject(appointmentObject);
         return appointment;
     }
 

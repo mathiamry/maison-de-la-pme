@@ -34,7 +34,6 @@
         <tr>
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
           <th scope="col"><span jhiTranslate="maisondelapmeApp.appointmentObject.object">Object</span></th>
-          <th scope="col"><span jhiTranslate="maisondelapmeApp.appointmentObject.object">Object</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -44,11 +43,6 @@
             <a [routerLink]="['/appointment-object', appointmentObject.id, 'view']">{{ appointmentObject.id }}</a>
           </td>
           <td>{{ appointmentObject.object }}</td>
-          <td>
-            <div *ngIf="appointmentObject.object">
-              <a [routerLink]="['/appointment', appointmentObject.object?.id, 'view']">{{ appointmentObject.object?.id }}</a>
-            </div>
-          </td>
           <td class="text-right">
             <div class="btn-group">
               <button

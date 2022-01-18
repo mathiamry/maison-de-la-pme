@@ -18,7 +18,7 @@ export interface IAppointment {
   smeRepresentative?: ISmeRepresentative | null;
   advisor?: IAdvisor | null;
   partnerRepresentative?: IPartnerRepresentative | null;
-  appointments?: IAppointmentObject[] | null;
+  object?: IAppointmentObject;
 }
 
 export class Appointment implements IAppointment {
@@ -34,7 +34,7 @@ export class Appointment implements IAppointment {
     public smeRepresentative?: ISmeRepresentative | null,
     public advisor?: IAdvisor | null,
     public partnerRepresentative?: IPartnerRepresentative | null,
-    public appointments?: IAppointmentObject[] | null
+    public object?: IAppointmentObject
   ) {}
 }
 
