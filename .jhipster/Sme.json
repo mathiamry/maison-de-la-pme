@@ -1,5 +1,9 @@
 {
-  "name": "Sme",
+  "applications": "*",
+  "changelogDate": "20211012102625",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "sme",
   "fields": [
     {
       "fieldName": "name",
@@ -63,73 +67,69 @@
       "fieldType": "Boolean"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Sme",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "activityArea",
       "otherEntityRelationshipName": "smes",
-      "relationshipValidateRules": "required",
-      "relationshipName": "activityArea"
+      "relationshipName": "activityArea",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "need",
       "otherEntityRelationshipName": "smes",
-      "relationshipName": "need"
+      "relationshipName": "need",
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "sMEHouse",
       "otherEntityRelationshipName": "smes",
-      "relationshipValidateRules": "required",
-      "relationshipName": "smeHouse"
+      "relationshipName": "smeHouse",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "turnover",
       "otherEntityRelationshipName": "smes",
-      "relationshipName": "turnover"
+      "relationshipName": "turnover",
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "experience",
       "otherEntityRelationshipName": "smes",
-      "relationshipName": "experience"
+      "relationshipName": "experience",
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "size",
       "otherEntityRelationshipName": "smes",
-      "relationshipName": "size"
+      "relationshipName": "size",
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "smeRepresentative",
       "otherEntityRelationshipName": "sme",
-      "relationshipName": "representatives"
+      "relationshipName": "representatives",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "file",
       "otherEntityRelationshipName": "sme",
-      "relationshipName": "files"
+      "relationshipName": "files",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "many-to-many",
       "otherEntityName": "bank",
       "otherEntityRelationshipName": "sme",
+      "ownerSide": false,
       "relationshipName": "banks",
-      "ownerSide": false
+      "relationshipType": "many-to-many"
     }
   ],
-  "entityTableName": "sme",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102625"
+  "service": "no"
 }

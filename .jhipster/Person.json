@@ -1,5 +1,9 @@
 {
-  "name": "Person",
+  "applications": "*",
+  "changelogDate": "20211012102639",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "person",
   "fields": [
     {
       "fieldName": "firstName",
@@ -22,22 +26,18 @@
       "fieldType": "String"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Person",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "language",
       "otherEntityRelationshipName": "persons",
-      "relationshipName": "language"
+      "relationshipName": "language",
+      "relationshipType": "many-to-one"
     }
   ],
-  "entityTableName": "person",
-  "dto": "mapstruct",
-  "pagination": "no",
-  "service": "serviceClass",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102639"
+  "service": "serviceClass"
 }

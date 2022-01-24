@@ -1,5 +1,9 @@
 {
-  "name": "Advisor",
+  "applications": "*",
+  "changelogDate": "20211012102632",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "advisor",
   "fields": [
     {
       "fieldName": "jobTitle",
@@ -10,59 +14,55 @@
       "fieldType": "String"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Advisor",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "advisor",
-      "relationshipValidateRules": "required",
+      "ownerSide": true,
       "relationshipName": "internalUser",
-      "ownerSide": true
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "person",
       "otherEntityRelationshipName": "advisor",
-      "relationshipValidateRules": "required",
+      "ownerSide": true,
       "relationshipName": "person",
-      "ownerSide": true
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "sMEHouse",
       "otherEntityRelationshipName": "advisors",
-      "relationshipValidateRules": "required",
-      "relationshipName": "smeHouse"
+      "relationshipName": "smeHouse",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "appointment",
       "otherEntityRelationshipName": "advisor",
-      "relationshipName": "appointmnents"
+      "relationshipName": "appointmnents",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "many-to-many",
       "otherEntityName": "availabilityTimeslot",
       "otherEntityRelationshipName": "advisor",
+      "ownerSide": false,
       "relationshipName": "availabilityTimeslot",
-      "ownerSide": false
+      "relationshipType": "many-to-many"
     },
     {
-      "relationshipType": "many-to-many",
       "otherEntityName": "unavailabilityPeriod",
       "otherEntityRelationshipName": "advisor",
+      "ownerSide": false,
       "relationshipName": "unavailabilityPeriod",
-      "ownerSide": false
+      "relationshipType": "many-to-many"
     }
   ],
-  "entityTableName": "advisor",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102632"
+  "service": "no"
 }

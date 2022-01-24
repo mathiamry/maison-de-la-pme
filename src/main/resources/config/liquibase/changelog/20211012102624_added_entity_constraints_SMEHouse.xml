@@ -19,5 +19,17 @@
                                  constraintName="fk_sme_house__administrator_id"
                                  referencedColumnNames="id"
                                  referencedTableName="administrator"/>
+
+        <addForeignKeyConstraint baseColumnNames="sme_house_id"
+                                 baseTableName="rel_sme_house__frequently_asked_questions"
+                                 constraintName="fk_rel_sme_house__frequently_asked_questions__sme_house_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sme_house"/>
+
+        <addForeignKeyConstraint baseColumnNames="frequently_asked_questions_id"
+                                 baseTableName="rel_sme_house__frequently_asked_questions"
+                                 constraintName="fk_rel_sme_house__frequently_as__frequently_asked_questio_1b_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="frequently_asked_question"/>
     </changeSet>
 </databaseChangeLog>

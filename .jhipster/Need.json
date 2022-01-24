@@ -1,5 +1,9 @@
 {
-  "name": "Need",
+  "applications": "*",
+  "changelogDate": "20211012102623",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "need",
   "fields": [
     {
       "fieldName": "name",
@@ -7,22 +11,18 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Need",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "sme",
       "otherEntityRelationshipName": "need",
-      "relationshipName": "smes"
+      "relationshipName": "smes",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "need",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102623"
+  "service": "no"
 }

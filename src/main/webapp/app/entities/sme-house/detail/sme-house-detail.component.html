@@ -46,6 +46,13 @@
             <a [routerLink]="['/administrator', sMEHouse.administrator?.id, 'view']">{{ sMEHouse.administrator?.id }}</a>
           </div>
         </dd>
+        <dt><span jhiTranslate="maisondelapmeApp.sMEHouse.frequentlyAskedQuestions">Frequently Asked Questions</span></dt>
+        <dd>
+          <span *ngFor="let frequentlyAskedQuestions of sMEHouse.frequentlyAskedQuestions; let last = last">
+            <a [routerLink]="['/frequently-asked-question', frequentlyAskedQuestions?.id, 'view']">{{ frequentlyAskedQuestions.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

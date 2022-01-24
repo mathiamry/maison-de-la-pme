@@ -1,5 +1,9 @@
 {
-  "name": "Tender",
+  "applications": "*",
+  "changelogDate": "20211012102637",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "tender",
   "fields": [
     {
       "fieldName": "title",
@@ -31,35 +35,31 @@
       "fieldType": "Boolean"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Tender",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "tender",
-      "relationshipValidateRules": "required",
-      "relationshipName": "author"
+      "relationshipName": "author",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "file",
       "otherEntityRelationshipName": "tender",
-      "relationshipName": "files"
+      "relationshipName": "files",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "notification",
       "otherEntityRelationshipName": "tender",
-      "relationshipName": "notification"
+      "relationshipName": "notification",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "tender",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102637"
+  "service": "no"
 }

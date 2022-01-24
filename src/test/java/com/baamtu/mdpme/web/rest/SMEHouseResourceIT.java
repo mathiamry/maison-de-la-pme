@@ -2,6 +2,7 @@ package com.baamtu.mdpme.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -10,14 +11,20 @@ import com.baamtu.mdpme.domain.Administrator;
 import com.baamtu.mdpme.domain.Country;
 import com.baamtu.mdpme.domain.SMEHouse;
 import com.baamtu.mdpme.repository.SMEHouseRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,6 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link SMEHouseResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class SMEHouseResourceIT {
@@ -54,6 +62,9 @@ class SMEHouseResourceIT {
 
     @Autowired
     private SMEHouseRepository sMEHouseRepository;
+
+    @Mock
+    private SMEHouseRepository sMEHouseRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -246,6 +257,24 @@ class SMEHouseResourceIT {
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
             .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE)));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllSMEHousesWithEagerRelationshipsIsEnabled() throws Exception {
+        when(sMEHouseRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restSMEHouseMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(sMEHouseRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllSMEHousesWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(sMEHouseRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restSMEHouseMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(sMEHouseRepositoryMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test

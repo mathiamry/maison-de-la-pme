@@ -1,5 +1,9 @@
 {
-  "name": "News",
+  "applications": "*",
+  "changelogDate": "20211012102634",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "news",
   "fields": [
     {
       "fieldName": "title",
@@ -15,29 +19,25 @@
       "fieldType": "Instant"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "News",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "news",
-      "relationshipValidateRules": "required",
-      "relationshipName": "author"
+      "relationshipName": "author",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "notification",
       "otherEntityRelationshipName": "news",
-      "relationshipName": "notification"
+      "relationshipName": "notification",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "news",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102634"
+  "service": "no"
 }

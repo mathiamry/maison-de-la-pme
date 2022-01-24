@@ -154,12 +154,13 @@ public class SMEHouseResource {
     /**
      * {@code GET  /sme-houses} : get all the sMEHouses.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of sMEHouses in body.
      */
     @GetMapping("/sme-houses")
-    public List<SMEHouse> getAllSMEHouses() {
+    public List<SMEHouse> getAllSMEHouses(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all SMEHouses");
-        return sMEHouseRepository.findAll();
+        return sMEHouseRepository.findAllWithEagerRelationships();
     }
 
     /**
@@ -171,7 +172,7 @@ public class SMEHouseResource {
     @GetMapping("/sme-houses/{id}")
     public ResponseEntity<SMEHouse> getSMEHouse(@PathVariable Long id) {
         log.debug("REST request to get SMEHouse : {}", id);
-        Optional<SMEHouse> sMEHouse = sMEHouseRepository.findById(id);
+        Optional<SMEHouse> sMEHouse = sMEHouseRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(sMEHouse);
     }
 

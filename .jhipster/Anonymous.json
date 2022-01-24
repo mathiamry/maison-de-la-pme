@@ -1,5 +1,9 @@
 {
-  "name": "Anonymous",
+  "applications": "*",
+  "changelogDate": "20211012102629",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "anonymous",
   "fields": [
     {
       "fieldName": "visitDate",
@@ -7,30 +11,26 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Anonymous",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "person",
       "otherEntityRelationshipName": "anonymous",
-      "relationshipValidateRules": "required",
+      "ownerSide": true,
       "relationshipName": "person",
-      "ownerSide": true
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "appointment",
       "otherEntityRelationshipName": "anonymous",
-      "relationshipName": "appointments"
+      "relationshipName": "appointments",
+      "relationshipType": "many-to-one"
     }
   ],
-  "entityTableName": "anonymous",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102629"
+  "service": "no"
 }

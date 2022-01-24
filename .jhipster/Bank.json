@@ -1,5 +1,9 @@
 {
-  "name": "Bank",
+  "applications": "*",
+  "changelogDate": "20211012102620",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "bank",
   "fields": [
     {
       "fieldName": "name",
@@ -11,23 +15,19 @@
       "fieldType": "String"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Bank",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-many",
       "otherEntityName": "sme",
       "otherEntityRelationshipName": "banks",
+      "ownerSide": true,
       "relationshipName": "sme",
-      "ownerSide": true
+      "relationshipType": "many-to-many"
     }
   ],
-  "entityTableName": "bank",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102620"
+  "service": "no"
 }

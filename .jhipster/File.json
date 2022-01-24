@@ -1,5 +1,9 @@
 {
-  "name": "File",
+  "applications": "*",
+  "changelogDate": "20211012102638",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "file",
   "fields": [
     {
       "fieldName": "name",
@@ -11,28 +15,24 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "File",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "tender",
       "otherEntityRelationshipName": "files",
-      "relationshipName": "tender"
+      "relationshipName": "tender",
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "sme",
       "otherEntityRelationshipName": "files",
-      "relationshipName": "sme"
+      "relationshipName": "sme",
+      "relationshipType": "many-to-one"
     }
   ],
-  "entityTableName": "file",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102638"
+  "service": "no"
 }

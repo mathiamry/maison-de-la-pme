@@ -1,5 +1,9 @@
 {
-  "name": "Country",
+  "applications": "*",
+  "changelogDate": "20211012102621",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "country",
   "fields": [
     {
       "fieldName": "name",
@@ -7,28 +11,24 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Country",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "language",
       "otherEntityRelationshipName": "countries",
-      "relationshipName": "language"
+      "relationshipName": "language",
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "sMEHouse",
       "otherEntityRelationshipName": "country",
-      "relationshipName": "smeHouses"
+      "relationshipName": "smeHouses",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "country",
-  "dto": "mapstruct",
-  "pagination": "no",
-  "service": "serviceClass",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102621"
+  "service": "serviceClass"
 }

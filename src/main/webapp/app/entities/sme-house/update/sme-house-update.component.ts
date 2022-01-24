@@ -11,6 +11,8 @@ import { ICountry } from 'app/entities/country/country.model';
 import { CountryService } from 'app/entities/country/service/country.service';
 import { IAdministrator } from 'app/entities/administrator/administrator.model';
 import { AdministratorService } from 'app/entities/administrator/service/administrator.service';
+import { IFrequentlyAskedQuestion } from 'app/entities/frequently-asked-question/frequently-asked-question.model';
+import { FrequentlyAskedQuestionService } from 'app/entities/frequently-asked-question/service/frequently-asked-question.service';
 
 @Component({
   selector: 'jhi-sme-house-update',
@@ -21,6 +23,7 @@ export class SMEHouseUpdateComponent implements OnInit {
 
   countriesSharedCollection: ICountry[] = [];
   administratorsSharedCollection: IAdministrator[] = [];
+  frequentlyAskedQuestionsSharedCollection: IFrequentlyAskedQuestion[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -31,12 +34,14 @@ export class SMEHouseUpdateComponent implements OnInit {
     phone: [null, [Validators.required]],
     country: [null, Validators.required],
     administrator: [null, Validators.required],
+    frequentlyAskedQuestions: [],
   });
 
   constructor(
     protected sMEHouseService: SMEHouseService,
     protected countryService: CountryService,
     protected administratorService: AdministratorService,
+    protected frequentlyAskedQuestionService: FrequentlyAskedQuestionService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -71,6 +76,24 @@ export class SMEHouseUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  trackFrequentlyAskedQuestionById(index: number, item: IFrequentlyAskedQuestion): number {
+    return item.id!;
+  }
+
+  getSelectedFrequentlyAskedQuestion(
+    option: IFrequentlyAskedQuestion,
+    selectedVals?: IFrequentlyAskedQuestion[]
+  ): IFrequentlyAskedQuestion {
+    if (selectedVals) {
+      for (const selectedVal of selectedVals) {
+        if (option.id === selectedVal.id) {
+          return selectedVal;
+        }
+      }
+    }
+    return option;
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ISMEHouse>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),
@@ -100,12 +123,17 @@ export class SMEHouseUpdateComponent implements OnInit {
       phone: sMEHouse.phone,
       country: sMEHouse.country,
       administrator: sMEHouse.administrator,
+      frequentlyAskedQuestions: sMEHouse.frequentlyAskedQuestions,
     });
 
     this.countriesSharedCollection = this.countryService.addCountryToCollectionIfMissing(this.countriesSharedCollection, sMEHouse.country);
     this.administratorsSharedCollection = this.administratorService.addAdministratorToCollectionIfMissing(
       this.administratorsSharedCollection,
       sMEHouse.administrator
+    );
+    this.frequentlyAskedQuestionsSharedCollection = this.frequentlyAskedQuestionService.addFrequentlyAskedQuestionToCollectionIfMissing(
+      this.frequentlyAskedQuestionsSharedCollection,
+      ...(sMEHouse.frequentlyAskedQuestions ?? [])
     );
   }
 
@@ -127,6 +155,21 @@ export class SMEHouseUpdateComponent implements OnInit {
         )
       )
       .subscribe((administrators: IAdministrator[]) => (this.administratorsSharedCollection = administrators));
+
+    this.frequentlyAskedQuestionService
+      .query()
+      .pipe(map((res: HttpResponse<IFrequentlyAskedQuestion[]>) => res.body ?? []))
+      .pipe(
+        map((frequentlyAskedQuestions: IFrequentlyAskedQuestion[]) =>
+          this.frequentlyAskedQuestionService.addFrequentlyAskedQuestionToCollectionIfMissing(
+            frequentlyAskedQuestions,
+            ...(this.editForm.get('frequentlyAskedQuestions')!.value ?? [])
+          )
+        )
+      )
+      .subscribe(
+        (frequentlyAskedQuestions: IFrequentlyAskedQuestion[]) => (this.frequentlyAskedQuestionsSharedCollection = frequentlyAskedQuestions)
+      );
   }
 
   protected createFromForm(): ISMEHouse {
@@ -140,6 +183,7 @@ export class SMEHouseUpdateComponent implements OnInit {
       phone: this.editForm.get(['phone'])!.value,
       country: this.editForm.get(['country'])!.value,
       administrator: this.editForm.get(['administrator'])!.value,
+      frequentlyAskedQuestions: this.editForm.get(['frequentlyAskedQuestions'])!.value,
     };
   }
 }

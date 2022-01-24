@@ -1,4 +1,5 @@
 import { IUser } from 'app/entities/user/user.model';
+import { ISMEHouse } from 'app/entities/sme-house/sme-house.model';
 
 export interface IFrequentlyAskedQuestion {
   id?: number;
@@ -7,6 +8,7 @@ export interface IFrequentlyAskedQuestion {
   order?: number | null;
   isPublished?: boolean | null;
   author?: IUser;
+  smeHouses?: ISMEHouse[] | null;
 }
 
 export class FrequentlyAskedQuestion implements IFrequentlyAskedQuestion {
@@ -16,7 +18,8 @@ export class FrequentlyAskedQuestion implements IFrequentlyAskedQuestion {
     public answer?: string,
     public order?: number | null,
     public isPublished?: boolean | null,
-    public author?: IUser
+    public author?: IUser,
+    public smeHouses?: ISMEHouse[] | null
   ) {
     this.isPublished = this.isPublished ?? false;
   }

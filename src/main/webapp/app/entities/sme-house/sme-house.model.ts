@@ -1,5 +1,6 @@
 import { ICountry } from 'app/entities/country/country.model';
 import { IAdministrator } from 'app/entities/administrator/administrator.model';
+import { IFrequentlyAskedQuestion } from 'app/entities/frequently-asked-question/frequently-asked-question.model';
 import { IAdvisor } from 'app/entities/advisor/advisor.model';
 import { IPartner } from 'app/entities/partner/partner.model';
 import { ISme } from 'app/entities/sme/sme.model';
@@ -13,6 +14,7 @@ export interface ISMEHouse {
   phone?: string;
   country?: ICountry;
   administrator?: IAdministrator;
+  frequentlyAskedQuestions?: IFrequentlyAskedQuestion[] | null;
   advisors?: IAdvisor[] | null;
   partners?: IPartner[] | null;
   smes?: ISme[] | null;
@@ -28,6 +30,7 @@ export class SMEHouse implements ISMEHouse {
     public phone?: string,
     public country?: ICountry,
     public administrator?: IAdministrator,
+    public frequentlyAskedQuestions?: IFrequentlyAskedQuestion[] | null,
     public advisors?: IAdvisor[] | null,
     public partners?: IPartner[] | null,
     public smes?: ISme[] | null

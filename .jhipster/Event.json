@@ -1,5 +1,9 @@
 {
-  "name": "Event",
+  "applications": "*",
+  "changelogDate": "20211012102635",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "event",
   "fields": [
     {
       "fieldName": "title",
@@ -29,36 +33,32 @@
       "fieldType": "Boolean"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Event",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "event",
+      "relationshipName": "author",
       "relationshipType": "many-to-one",
-      "otherEntityName": "user",
-      "otherEntityRelationshipName": "event",
-      "relationshipValidateRules": "required",
-      "relationshipName": "author"
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "many-to-many",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "event",
+      "ownerSide": true,
       "relationshipName": "participants",
-      "ownerSide": true
+      "relationshipType": "many-to-many"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "notification",
       "otherEntityRelationshipName": "event",
-      "relationshipName": "notification"
+      "relationshipName": "notification",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "event",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102635"
+  "service": "no"
 }

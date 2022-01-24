@@ -1,5 +1,9 @@
 {
-  "name": "Appointment",
+  "applications": "*",
+  "changelogDate": "20211012102633",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "appointment",
   "fields": [
     {
       "fieldName": "title",
@@ -23,55 +27,51 @@
     {
       "fieldName": "status",
       "fieldType": "Status",
-      "fieldValues": "PENDING,VALIDATED,DONE,CANCEL",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required"],
+      "fieldValues": "PENDING,VALIDATED,DONE,CANCEL"
     },
     {
       "fieldName": "location",
       "fieldType": "AppointmentLocation",
-      "fieldValues": "ONSITE,ONLINE",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required"],
+      "fieldValues": "ONSITE,ONLINE"
     },
     {
       "fieldName": "rate",
       "fieldType": "Integer"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Appointment",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "smeRepresentative",
       "otherEntityRelationshipName": "appointments",
-      "relationshipName": "smeRepresentative"
+      "relationshipName": "smeRepresentative",
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "advisor",
       "otherEntityRelationshipName": "appointmnents",
-      "relationshipName": "advisor"
+      "relationshipName": "advisor",
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "partnerRepresentative",
       "otherEntityRelationshipName": "appointmnents",
-      "relationshipName": "partnerRepresentative"
+      "relationshipName": "partnerRepresentative",
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "appointmentObject",
       "otherEntityRelationshipName": "appointments",
-      "relationshipValidateRules": "required",
-      "relationshipName": "object"
+      "relationshipName": "object",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     }
   ],
-  "entityTableName": "appointment",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102633"
+  "service": "no"
 }
