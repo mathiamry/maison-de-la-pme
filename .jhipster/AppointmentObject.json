@@ -1,5 +1,9 @@
 {
-  "name": "AppointmentObject",
+  "applications": "*",
+  "changelogDate": "20220118001859",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "appointment_object",
   "fields": [
     {
       "fieldName": "object",
@@ -7,22 +11,18 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "AppointmentObject",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "appointment",
       "otherEntityRelationshipName": "object",
-      "relationshipName": "appointments"
+      "relationshipName": "appointments",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "appointment_object",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220118001859"
+  "service": "no"
 }

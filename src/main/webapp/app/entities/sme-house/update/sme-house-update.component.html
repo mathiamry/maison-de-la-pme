@@ -127,6 +127,30 @@
             This field is required.
           </small>
         </div>
+
+        <div class="form-group">
+          <label jhiTranslate="maisondelapmeApp.sMEHouse.frequentlyAskedQuestions" for="field_frequentlyAskedQuestions"
+            >Frequently Asked Questions</label
+          >
+          <select
+            class="form-control"
+            id="field_frequentlyAskedQuestions"
+            data-cy="frequentlyAskedQuestions"
+            multiple
+            name="frequentlyAskedQuestions"
+            formControlName="frequentlyAskedQuestions"
+          >
+            <option
+              [ngValue]="getSelectedFrequentlyAskedQuestion(frequentlyAskedQuestionOption, editForm.get('frequentlyAskedQuestions')!.value)"
+              *ngFor="
+                let frequentlyAskedQuestionOption of frequentlyAskedQuestionsSharedCollection;
+                trackBy: trackFrequentlyAskedQuestionById
+              "
+            >
+              {{ frequentlyAskedQuestionOption.id }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div>

@@ -35,7 +35,10 @@ public class Country implements Serializable {
 
     @OneToMany(mappedBy = "country")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "country", "administrator", "advisors", "partners", "smes" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = { "country", "administrator", "frequentlyAskedQuestions", "advisors", "partners", "smes" },
+        allowSetters = true
+    )
     private Set<SMEHouse> smeHouses = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

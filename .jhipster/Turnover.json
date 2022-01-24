@@ -1,5 +1,9 @@
 {
-  "name": "Turnover",
+  "applications": "*",
+  "changelogDate": "20211012102613",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "turnover",
   "fields": [
     {
       "fieldName": "min",
@@ -14,22 +18,18 @@
       "fieldType": "String"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Turnover",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "sme",
       "otherEntityRelationshipName": "turnover",
-      "relationshipName": "smes"
+      "relationshipName": "smes",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "turnover",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102613"
+  "service": "no"
 }

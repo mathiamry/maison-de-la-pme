@@ -1,5 +1,9 @@
 {
-  "name": "Administrator",
+  "applications": "*",
+  "changelogDate": "20211012102636",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "administrator",
   "fields": [
     {
       "fieldName": "jobTitle",
@@ -10,38 +14,34 @@
       "fieldType": "String"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Administrator",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "administrator",
-      "relationshipValidateRules": "required",
+      "ownerSide": true,
       "relationshipName": "internalUser",
-      "ownerSide": true
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "person",
       "otherEntityRelationshipName": "administrator",
-      "relationshipValidateRules": "required",
+      "ownerSide": true,
       "relationshipName": "person",
-      "ownerSide": true
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "sMEHouse",
       "otherEntityRelationshipName": "administrator",
-      "relationshipName": "houseSmes"
+      "relationshipName": "houseSmes",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "administrator",
-  "dto": "mapstruct",
-  "pagination": "no",
-  "service": "serviceClass",
-  "jpaMetamodelFiltering": true,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102636"
+  "service": "serviceClass"
 }

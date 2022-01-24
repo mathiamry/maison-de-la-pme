@@ -54,6 +54,16 @@ public class SMEHouse implements Serializable {
     @JsonIgnoreProperties(value = { "internalUser", "person", "houseSmes" }, allowSetters = true)
     private Administrator administrator;
 
+    @ManyToMany
+    @JoinTable(
+        name = "rel_sme_house__frequently_asked_questions",
+        joinColumns = @JoinColumn(name = "sme_house_id"),
+        inverseJoinColumns = @JoinColumn(name = "frequently_asked_questions_id")
+    )
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "author", "smeHouses" }, allowSetters = true)
+    private Set<FrequentlyAskedQuestion> frequentlyAskedQuestions = new HashSet<>();
+
     @OneToMany(mappedBy = "smeHouse")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
@@ -178,6 +188,31 @@ public class SMEHouse implements Serializable {
 
     public SMEHouse administrator(Administrator administrator) {
         this.setAdministrator(administrator);
+        return this;
+    }
+
+    public Set<FrequentlyAskedQuestion> getFrequentlyAskedQuestions() {
+        return this.frequentlyAskedQuestions;
+    }
+
+    public void setFrequentlyAskedQuestions(Set<FrequentlyAskedQuestion> frequentlyAskedQuestions) {
+        this.frequentlyAskedQuestions = frequentlyAskedQuestions;
+    }
+
+    public SMEHouse frequentlyAskedQuestions(Set<FrequentlyAskedQuestion> frequentlyAskedQuestions) {
+        this.setFrequentlyAskedQuestions(frequentlyAskedQuestions);
+        return this;
+    }
+
+    public SMEHouse addFrequentlyAskedQuestions(FrequentlyAskedQuestion frequentlyAskedQuestion) {
+        this.frequentlyAskedQuestions.add(frequentlyAskedQuestion);
+        frequentlyAskedQuestion.getSmeHouses().add(this);
+        return this;
+    }
+
+    public SMEHouse removeFrequentlyAskedQuestions(FrequentlyAskedQuestion frequentlyAskedQuestion) {
+        this.frequentlyAskedQuestions.remove(frequentlyAskedQuestion);
+        frequentlyAskedQuestion.getSmeHouses().remove(this);
         return this;
     }
 

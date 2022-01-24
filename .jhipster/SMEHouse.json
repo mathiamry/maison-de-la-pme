@@ -1,5 +1,9 @@
 {
-  "name": "SMEHouse",
+  "applications": "*",
+  "changelogDate": "20211012102624",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "sme_house",
   "fields": [
     {
       "fieldName": "name",
@@ -26,48 +30,51 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "SMEHouse",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "country",
       "otherEntityRelationshipName": "smeHouses",
-      "relationshipValidateRules": "required",
-      "relationshipName": "country"
+      "relationshipName": "country",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "administrator",
       "otherEntityRelationshipName": "houseSmes",
-      "relationshipValidateRules": "required",
-      "relationshipName": "administrator"
+      "relationshipName": "administrator",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "one-to-many",
+      "otherEntityName": "frequentlyAskedQuestion",
+      "otherEntityRelationshipName": "smeHouses",
+      "ownerSide": true,
+      "relationshipName": "frequentlyAskedQuestions",
+      "relationshipType": "many-to-many"
+    },
+    {
       "otherEntityName": "advisor",
       "otherEntityRelationshipName": "smeHouse",
-      "relationshipName": "advisors"
+      "relationshipName": "advisors",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "partner",
       "otherEntityRelationshipName": "smeHouse",
-      "relationshipName": "partners"
+      "relationshipName": "partners",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "sme",
       "otherEntityRelationshipName": "smeHouse",
-      "relationshipName": "smes"
+      "relationshipName": "smes",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "sme_house",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102624"
+  "service": "no"
 }

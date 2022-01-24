@@ -246,6 +246,7 @@ relationship ManyToMany {
     AvailabilityTimeslot to Advisor
     AvailabilityTimeslot to PartnerRepresentative
 	Bank{sme} to Sme{banks}
+    SMEHouse{frequentlyAskedQuestions} to FrequentlyAskedQuestion{smeHouses}
     UnavailabilityPeriod to Advisor
     UnavailabilityPeriod to PartnerRepresentative
 }

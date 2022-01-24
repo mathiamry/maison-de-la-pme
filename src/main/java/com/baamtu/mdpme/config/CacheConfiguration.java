@@ -111,6 +111,8 @@ public class CacheConfiguration {
             createCache(cm, com.baamtu.mdpme.domain.Appointment.class.getName() + ".appointments");
             createCache(cm, com.baamtu.mdpme.domain.AppointmentObject.class.getName());
             createCache(cm, com.baamtu.mdpme.domain.AppointmentObject.class.getName() + ".appointments");
+            createCache(cm, com.baamtu.mdpme.domain.FrequentlyAskedQuestion.class.getName() + ".smeHouses");
+            createCache(cm, com.baamtu.mdpme.domain.SMEHouse.class.getName() + ".frequentlyAskedQuestions");
             // jhipster-needle-ehcache-add-entry
         };
     }

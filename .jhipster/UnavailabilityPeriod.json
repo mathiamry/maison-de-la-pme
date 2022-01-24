@@ -1,5 +1,9 @@
 {
-  "name": "UnavailabilityPeriod",
+  "applications": "*",
+  "changelogDate": "20211012102627",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "unavailability_period",
   "fields": [
     {
       "fieldName": "startTime",
@@ -10,30 +14,26 @@
       "fieldType": "Instant"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "UnavailabilityPeriod",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-many",
       "otherEntityName": "advisor",
       "otherEntityRelationshipName": "unavailabilityPeriod",
+      "ownerSide": true,
       "relationshipName": "advisor",
-      "ownerSide": true
+      "relationshipType": "many-to-many"
     },
     {
-      "relationshipType": "many-to-many",
       "otherEntityName": "partnerRepresentative",
       "otherEntityRelationshipName": "unavailabilityPeriod",
+      "ownerSide": true,
       "relationshipName": "partnerRepresentative",
-      "ownerSide": true
+      "relationshipType": "many-to-many"
     }
   ],
-  "entityTableName": "unavailability_period",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102627"
+  "service": "no"
 }

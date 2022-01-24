@@ -1,6 +1,9 @@
 package com.baamtu.mdpme.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -41,6 +44,14 @@ public class FrequentlyAskedQuestion implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     private User author;
+
+    @ManyToMany(mappedBy = "frequentlyAskedQuestions")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(
+        value = { "country", "administrator", "frequentlyAskedQuestions", "advisors", "partners", "smes" },
+        allowSetters = true
+    )
+    private Set<SMEHouse> smeHouses = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -119,6 +130,37 @@ public class FrequentlyAskedQuestion implements Serializable {
 
     public FrequentlyAskedQuestion author(User user) {
         this.setAuthor(user);
+        return this;
+    }
+
+    public Set<SMEHouse> getSmeHouses() {
+        return this.smeHouses;
+    }
+
+    public void setSmeHouses(Set<SMEHouse> sMEHouses) {
+        if (this.smeHouses != null) {
+            this.smeHouses.forEach(i -> i.removeFrequentlyAskedQuestions(this));
+        }
+        if (sMEHouses != null) {
+            sMEHouses.forEach(i -> i.addFrequentlyAskedQuestions(this));
+        }
+        this.smeHouses = sMEHouses;
+    }
+
+    public FrequentlyAskedQuestion smeHouses(Set<SMEHouse> sMEHouses) {
+        this.setSmeHouses(sMEHouses);
+        return this;
+    }
+
+    public FrequentlyAskedQuestion addSmeHouses(SMEHouse sMEHouse) {
+        this.smeHouses.add(sMEHouse);
+        sMEHouse.getFrequentlyAskedQuestions().add(this);
+        return this;
+    }
+
+    public FrequentlyAskedQuestion removeSmeHouses(SMEHouse sMEHouse) {
+        this.smeHouses.remove(sMEHouse);
+        sMEHouse.getFrequentlyAskedQuestions().remove(this);
         return this;
     }
 

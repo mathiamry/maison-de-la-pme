@@ -1,5 +1,9 @@
 {
-  "name": "Experience",
+  "applications": "*",
+  "changelogDate": "20211012102619",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "experience",
   "fields": [
     {
       "fieldName": "min",
@@ -14,22 +18,18 @@
       "fieldType": "String"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Experience",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "sme",
       "otherEntityRelationshipName": "experience",
-      "relationshipName": "smes"
+      "relationshipName": "smes",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "experience",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102619"
+  "service": "no"
 }

@@ -22,7 +22,8 @@
       "answer": "Answer",
       "order": "Order",
       "isPublished": "Is Published",
-      "author": "Author"
+      "author": "Author",
+      "smeHouses": "Sme Houses"
     }
   }
 }

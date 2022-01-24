@@ -44,7 +44,10 @@ public class Administrator implements Serializable {
 
     @OneToMany(mappedBy = "administrator")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "country", "administrator", "advisors", "partners", "smes" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = { "country", "administrator", "frequentlyAskedQuestions", "advisors", "partners", "smes" },
+        allowSetters = true
+    )
     private Set<SMEHouse> houseSmes = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

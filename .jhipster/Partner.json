@@ -1,5 +1,9 @@
 {
-  "name": "Partner",
+  "applications": "*",
+  "changelogDate": "20211012102630",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "partner",
   "fields": [
     {
       "fieldName": "name",
@@ -34,29 +38,25 @@
       "fieldType": "String"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Partner",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "sMEHouse",
       "otherEntityRelationshipName": "partners",
-      "relationshipValidateRules": "required",
-      "relationshipName": "smeHouse"
+      "relationshipName": "smeHouse",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "partnerRepresentative",
       "otherEntityRelationshipName": "partner",
-      "relationshipName": "representings"
+      "relationshipName": "representings",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "partner",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102630"
+  "service": "no"
 }

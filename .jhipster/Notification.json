@@ -1,5 +1,9 @@
 {
-  "name": "Notification",
+  "applications": "*",
+  "changelogDate": "20211012102616",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "notification",
   "fields": [
     {
       "fieldName": "title",
@@ -19,34 +23,30 @@
       "fieldType": "Instant"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Notification",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "event",
       "otherEntityRelationshipName": "notification",
-      "relationshipName": "event"
+      "relationshipName": "event",
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "news",
       "otherEntityRelationshipName": "notification",
-      "relationshipName": "news"
+      "relationshipName": "news",
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "tender",
       "otherEntityRelationshipName": "notification",
-      "relationshipName": "tender"
+      "relationshipName": "tender",
+      "relationshipType": "many-to-one"
     }
   ],
-  "entityTableName": "notification",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102616"
+  "service": "no"
 }

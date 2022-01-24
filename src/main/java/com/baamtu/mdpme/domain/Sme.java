@@ -83,7 +83,10 @@ public class Sme implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "country", "administrator", "advisors", "partners", "smes" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = { "country", "administrator", "frequentlyAskedQuestions", "advisors", "partners", "smes" },
+        allowSetters = true
+    )
     private SMEHouse smeHouse;
 
     @ManyToOne

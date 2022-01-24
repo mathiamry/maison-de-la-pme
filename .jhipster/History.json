@@ -1,5 +1,9 @@
 {
-  "name": "History",
+  "applications": "*",
+  "changelogDate": "20211012102617",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "history",
   "fields": [
     {
       "fieldName": "origin",
@@ -15,23 +19,19 @@
       "fieldType": "Instant"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "History",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "history",
-      "relationshipValidateRules": "required",
-      "relationshipName": "author"
+      "relationshipName": "author",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     }
   ],
-  "entityTableName": "history",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102617"
+  "service": "no"
 }

@@ -1,5 +1,9 @@
 {
-  "name": "FrequentlyAskedQuestion",
+  "applications": "*",
+  "changelogDate": "20211012102615",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "frequently_asked_question",
   "fields": [
     {
       "fieldName": "question",
@@ -21,23 +25,26 @@
       "fieldType": "Boolean"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "FrequentlyAskedQuestion",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "frequentlyAskedQuestion",
-      "relationshipValidateRules": "required",
-      "relationshipName": "author"
+      "relationshipName": "author",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "sMEHouse",
+      "otherEntityRelationshipName": "frequentlyAskedQuestions",
+      "ownerSide": false,
+      "relationshipName": "smeHouses",
+      "relationshipType": "many-to-many"
     }
   ],
-  "entityTableName": "frequently_asked_question",
-  "dto": "no",
-  "pagination": "infinite-scroll",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102615"
+  "service": "no"
 }

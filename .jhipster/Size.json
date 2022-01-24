@@ -1,5 +1,9 @@
 {
-  "name": "Size",
+  "applications": "*",
+  "changelogDate": "20211012102618",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "size",
   "fields": [
     {
       "fieldName": "min",
@@ -14,22 +18,18 @@
       "fieldType": "String"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Size",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "sme",
       "otherEntityRelationshipName": "size",
-      "relationshipName": "smes"
+      "relationshipName": "smes",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "size",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102618"
+  "service": "no"
 }

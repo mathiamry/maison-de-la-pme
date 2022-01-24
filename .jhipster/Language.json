@@ -1,5 +1,9 @@
 {
-  "name": "Language",
+  "applications": "*",
+  "changelogDate": "20211012102614",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "language",
   "fields": [
     {
       "fieldName": "name",
@@ -12,28 +16,24 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Language",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "country",
       "otherEntityRelationshipName": "language",
-      "relationshipName": "countries"
+      "relationshipName": "countries",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "person",
       "otherEntityRelationshipName": "language",
-      "relationshipName": "persons"
+      "relationshipName": "persons",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "language",
-  "dto": "mapstruct",
-  "pagination": "no",
-  "service": "serviceClass",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102614"
+  "service": "serviceClass"
 }

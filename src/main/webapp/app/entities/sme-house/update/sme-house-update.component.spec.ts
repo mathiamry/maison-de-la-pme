@@ -12,6 +12,8 @@ import { ICountry } from 'app/entities/country/country.model';
 import { CountryService } from 'app/entities/country/service/country.service';
 import { IAdministrator } from 'app/entities/administrator/administrator.model';
 import { AdministratorService } from 'app/entities/administrator/service/administrator.service';
+import { IFrequentlyAskedQuestion } from 'app/entities/frequently-asked-question/frequently-asked-question.model';
+import { FrequentlyAskedQuestionService } from 'app/entities/frequently-asked-question/service/frequently-asked-question.service';
 
 import { SMEHouseUpdateComponent } from './sme-house-update.component';
 
@@ -22,6 +24,7 @@ describe('SMEHouse Management Update Component', () => {
   let sMEHouseService: SMEHouseService;
   let countryService: CountryService;
   let administratorService: AdministratorService;
+  let frequentlyAskedQuestionService: FrequentlyAskedQuestionService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -45,6 +48,7 @@ describe('SMEHouse Management Update Component', () => {
     sMEHouseService = TestBed.inject(SMEHouseService);
     countryService = TestBed.inject(CountryService);
     administratorService = TestBed.inject(AdministratorService);
+    frequentlyAskedQuestionService = TestBed.inject(FrequentlyAskedQuestionService);
 
     comp = fixture.componentInstance;
   });
@@ -91,12 +95,38 @@ describe('SMEHouse Management Update Component', () => {
       expect(comp.administratorsSharedCollection).toEqual(expectedCollection);
     });
 
+    it('Should call FrequentlyAskedQuestion query and add missing value', () => {
+      const sMEHouse: ISMEHouse = { id: 456 };
+      const frequentlyAskedQuestions: IFrequentlyAskedQuestion[] = [{ id: 13257 }];
+      sMEHouse.frequentlyAskedQuestions = frequentlyAskedQuestions;
+
+      const frequentlyAskedQuestionCollection: IFrequentlyAskedQuestion[] = [{ id: 87297 }];
+      jest
+        .spyOn(frequentlyAskedQuestionService, 'query')
+        .mockReturnValue(of(new HttpResponse({ body: frequentlyAskedQuestionCollection })));
+      const additionalFrequentlyAskedQuestions = [...frequentlyAskedQuestions];
+      const expectedCollection: IFrequentlyAskedQuestion[] = [...additionalFrequentlyAskedQuestions, ...frequentlyAskedQuestionCollection];
+      jest.spyOn(frequentlyAskedQuestionService, 'addFrequentlyAskedQuestionToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ sMEHouse });
+      comp.ngOnInit();
+
+      expect(frequentlyAskedQuestionService.query).toHaveBeenCalled();
+      expect(frequentlyAskedQuestionService.addFrequentlyAskedQuestionToCollectionIfMissing).toHaveBeenCalledWith(
+        frequentlyAskedQuestionCollection,
+        ...additionalFrequentlyAskedQuestions
+      );
+      expect(comp.frequentlyAskedQuestionsSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should update editForm', () => {
       const sMEHouse: ISMEHouse = { id: 456 };
       const country: ICountry = { id: 67428 };
       sMEHouse.country = country;
       const administrator: IAdministrator = { id: 83972 };
       sMEHouse.administrator = administrator;
+      const frequentlyAskedQuestions: IFrequentlyAskedQuestion = { id: 25861 };
+      sMEHouse.frequentlyAskedQuestions = [frequentlyAskedQuestions];
 
       activatedRoute.data = of({ sMEHouse });
       comp.ngOnInit();
@@ -104,6 +134,7 @@ describe('SMEHouse Management Update Component', () => {
       expect(comp.editForm.value).toEqual(expect.objectContaining(sMEHouse));
       expect(comp.countriesSharedCollection).toContain(country);
       expect(comp.administratorsSharedCollection).toContain(administrator);
+      expect(comp.frequentlyAskedQuestionsSharedCollection).toContain(frequentlyAskedQuestions);
     });
   });
 
@@ -185,6 +216,42 @@ describe('SMEHouse Management Update Component', () => {
         const entity = { id: 123 };
         const trackResult = comp.trackAdministratorById(0, entity);
         expect(trackResult).toEqual(entity.id);
+      });
+    });
+
+    describe('trackFrequentlyAskedQuestionById', () => {
+      it('Should return tracked FrequentlyAskedQuestion primary key', () => {
+        const entity = { id: 123 };
+        const trackResult = comp.trackFrequentlyAskedQuestionById(0, entity);
+        expect(trackResult).toEqual(entity.id);
+      });
+    });
+  });
+
+  describe('Getting selected relationships', () => {
+    describe('getSelectedFrequentlyAskedQuestion', () => {
+      it('Should return option if no FrequentlyAskedQuestion is selected', () => {
+        const option = { id: 123 };
+        const result = comp.getSelectedFrequentlyAskedQuestion(option);
+        expect(result === option).toEqual(true);
+      });
+
+      it('Should return selected FrequentlyAskedQuestion for according option', () => {
+        const option = { id: 123 };
+        const selected = { id: 123 };
+        const selected2 = { id: 456 };
+        const result = comp.getSelectedFrequentlyAskedQuestion(option, [selected2, selected]);
+        expect(result === selected).toEqual(true);
+        expect(result === selected2).toEqual(false);
+        expect(result === option).toEqual(false);
+      });
+
+      it('Should return option if this FrequentlyAskedQuestion is not selected', () => {
+        const option = { id: 123 };
+        const selected = { id: 456 };
+        const result = comp.getSelectedFrequentlyAskedQuestion(option, [selected]);
+        expect(result === option).toEqual(true);
+        expect(result === selected).toEqual(false);
       });
     });
   });

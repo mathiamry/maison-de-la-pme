@@ -1,5 +1,9 @@
 {
-  "name": "ActivityArea",
+  "applications": "*",
+  "changelogDate": "20211012102622",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "activity_area",
   "fields": [
     {
       "fieldName": "name",
@@ -7,22 +11,18 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ActivityArea",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "sme",
       "otherEntityRelationshipName": "activityArea",
-      "relationshipName": "smes"
+      "relationshipName": "smes",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "activity_area",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102622"
+  "service": "no"
 }

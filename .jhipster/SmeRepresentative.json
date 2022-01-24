@@ -1,5 +1,9 @@
 {
-  "name": "SmeRepresentative",
+  "applications": "*",
+  "changelogDate": "20211012102626",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "sme_representative",
   "fields": [
     {
       "fieldName": "jobTitle",
@@ -14,44 +18,40 @@
       "fieldType": "Boolean"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "SmeRepresentative",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "smeRepresentative",
+      "ownerSide": true,
       "relationshipName": "internalUser",
-      "ownerSide": true
+      "relationshipType": "one-to-one"
     },
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "person",
       "otherEntityRelationshipName": "smeRepresentative",
-      "relationshipValidateRules": "required",
+      "ownerSide": true,
       "relationshipName": "person",
-      "ownerSide": true
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "sme",
       "otherEntityRelationshipName": "representatives",
-      "relationshipValidateRules": "required",
-      "relationshipName": "sme"
+      "relationshipName": "sme",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "appointment",
       "otherEntityRelationshipName": "smeRepresentative",
-      "relationshipName": "appointments"
+      "relationshipName": "appointments",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "sme_representative",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211012102626"
+  "service": "no"
 }

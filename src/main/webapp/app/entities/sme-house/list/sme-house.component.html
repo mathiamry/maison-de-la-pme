@@ -40,6 +40,7 @@
           <th scope="col"><span jhiTranslate="maisondelapmeApp.sMEHouse.phone">Phone</span></th>
           <th scope="col"><span jhiTranslate="maisondelapmeApp.sMEHouse.country">Country</span></th>
           <th scope="col"><span jhiTranslate="maisondelapmeApp.sMEHouse.administrator">Administrator</span></th>
+          <th scope="col"><span jhiTranslate="maisondelapmeApp.sMEHouse.frequentlyAskedQuestions">Frequently Asked Questions</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -62,6 +63,14 @@
             <div *ngIf="sMEHouse.administrator">
               <a [routerLink]="['/administrator', sMEHouse.administrator?.id, 'view']">{{ sMEHouse.administrator?.id }}</a>
             </div>
+          </td>
+          <td>
+            <span *ngFor="let frequentlyAskedQuestions of sMEHouse.frequentlyAskedQuestions; let last = last">
+              <a class="form-control-static" [routerLink]="['/frequently-asked-question', frequentlyAskedQuestions.id, 'view']">{{
+                frequentlyAskedQuestions.id
+              }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
           </td>
           <td class="text-right">
             <div class="btn-group">
